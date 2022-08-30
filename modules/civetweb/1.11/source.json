@@ -1,0 +1,9 @@
+{
+    "integrity": "sha256-de7d5e7a2d9551d325898c71e41d437d5f7b51e754b242af897f7be96e713a42",
+    "strip_prefix": "civetweb-1.11",
+    "url": "https://github.com/civetweb/civetweb/archive/v1.11.tar.gz",
+    "patch_strip": 0,
+    "patches": {
+        "add_build_file.patch": "sha256-dnwlTSkBLcsJ1GjaGSfxhTgxj0XQrm4gXyPIYh9sORE="
+    }
+}

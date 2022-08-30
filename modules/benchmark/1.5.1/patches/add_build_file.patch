@@ -1,0 +1,27 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,24 @@
++licenses(["notice"])
++
++cc_library(
++    name = "benchmark",
++    includes = [
++        ".",
++    ],
++    linkopts = [
++        "-L/opt/apollo/sysroot/lib",
++        "-lbenchmark",
++        "-pthread",
++    ],
++    visibility = ["//visibility:public"],
++)
++
++cc_library(
++    name = "benchmark_main",
++    linkopts = [
++        "-L/opt/apollo/sysroot/lib",
++        "-lbenchmark_main",
++    ],
++    visibility = ["//visibility:public"],
++    deps = [":benchmark"],
++)

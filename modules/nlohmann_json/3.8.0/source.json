@@ -1,0 +1,9 @@
+{
+    "integrity": "sha256-7d0edf65f2ac7390af5e5a0b323b31202a6c11d744a74b588dc30f5a8c9865ba",
+    "strip_prefix": "json-3.8.0",
+    "url": "https://github.com/nlohmann/json/archive/v3.8.0.tar.gz",
+    "patch_strip": 0,
+    "patches": {
+        "add_build_file.patch": "sha256-dnwlTSkBLcsJ1GjaGSfxhTgxj0XQrm4gXyPIYh9sORE="
+    }
+}

@@ -1,0 +1,47 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,44 @@
++licenses(["notice"])
++
++cc_library(
++    name = "pcapplusplus_common",
++    srcs = ["libCommon++.a"],
++    hdrs = glob(["header/**"]),
++)
++
++cc_library(
++    name = "pcapplusplus_packet",
++    srcs = ["libPacket++.a"],
++    hdrs = glob(["header/**"]),
++    deps = [
++        ":pcapplusplus_common",
++    ],
++)
++
++cc_library(
++    name = "pcapplusplus_pcap",
++    srcs = ["libPcap++.a"],
++    hdrs = glob(["header/**"]),
++    deps = [
++        ":pcapplusplus_common",
++        ":pcapplusplus_packet",
++    ],
++)
++
++cc_library(
++    name = "pcapplusplus",
++    srcs = glob(["header/**"]),
++    hdrs = glob(["header/**"]),
++    include_prefix = "pcapplusplus",
++    includes = ["header"],
++    linkopts = [
++        "-lpcap",
++    ],
++    strip_include_prefix = "header",
++    visibility = ["//visibility:public"],
++    deps = [
++        ":pcapplusplus_common",
++        ":pcapplusplus_packet",
++        ":pcapplusplus_pcap",
++    ],
++)

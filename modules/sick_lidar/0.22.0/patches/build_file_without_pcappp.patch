@@ -1,0 +1,113 @@
+diff --git a/sick_lidar_driver.bzl b/sick_lidar_driver.bzl
+index 81d1513..e6a4a1f 100644
+--- a/sick_lidar_driver.bzl
++++ b/sick_lidar_driver.bzl
+@@ -1,59 +1,53 @@
+-def sick_lidar_driver_library(with_pcappp):
+-    native.cc_library(
+-        name = "utils",
+-        srcs = native.glob(["utils/src/**", "utils/include/utils/**"]),
+-        hdrs = native.glob(["utils/include/utils/*.h"]),
+-        includes = ["utils/include/utils"],
+-        include_prefix = "utils",
+-        strip_include_prefix = "utils/include/utils",
+-    )
++cc_library(
++    name = "utils",
++    srcs = native.glob(["utils/src/**", "utils/include/utils/**"]),
++    hdrs = native.glob(["utils/include/utils/*.h"]),
++    includes = ["utils/include/utils"],
++    include_prefix = "utils",
++    strip_include_prefix = "utils/include/utils",
++)
+ 
+-    native.cc_library(
+-        name = "cola",
+-        srcs = native.glob(["cola/src/**", "cola/include/cola/**"]),
+-        hdrs = native.glob(["cola/include/cola/*.h"]),
+-        strip_include_prefix = "cola/include/cola",
+-        includes = ["cola/include/cola"],
+-        include_prefix = "cola",
+-        deps = [
+-            "@com_github_google_glog//:glog",
+-        ],
+-    )
+-
+-    tcp_library_deps = [
++cc_library(
++    name = "cola",
++    srcs = native.glob(["cola/src/**", "cola/include/cola/**"]),
++    hdrs = native.glob(["cola/include/cola/*.h"]),
++    strip_include_prefix = "cola/include/cola",
++    includes = ["cola/include/cola"],
++    include_prefix = "cola",
++    deps = [
+         "@com_github_google_glog//:glog",
+-        ":utils",
+-    ]
+-    if with_pcappp:
+-        library_exclusions = []
+-        tcp_library_defines = ["BUILD_WITH_PCAPPP"]
+-        tcp_library_deps.append("@pcapplusplus")
+-    else:
+-        tcp_library_defines = []
+-        library_exclusions = ["**/*snoop*"]
++    ],
++)
+ 
+-    native.cc_library(
+-        name = "tcp",
+-        srcs = native.glob(["tcp/src/**", "tcp/include/tcp/**"], exclude = library_exclusions),
+-        hdrs = native.glob(["tcp/include/tcp/*.h"], exclude = library_exclusions),
+-        strip_include_prefix = "tcp/include/tcp",
+-        includes = ["tcp/include/tcp"],
+-        include_prefix = "tcp",
+-        defines = tcp_library_defines,
+-        deps = tcp_library_deps,
+-    )
++library_exclusions = ["**/*snoop*"]
++tcp_library_deps = [
++    "@com_github_google_glog//:glog",
++    ":utils",
++]
++tcp_library_defines = []
+ 
+-    native.cc_library(
+-        name = "sick_scan",
+-        visibility = ["//visibility:public"],
+-        srcs = native.glob(["sick_scan/src/**", "sick_scan/include/sick_scan/**"], exclude = library_exclusions),
+-        hdrs = native.glob(["sick_scan/include/sick_scan/*.h"], exclude = library_exclusions),
+-        strip_include_prefix = "sick_scan/include/sick_scan",
+-        includes = ["sick_scan/include/sick_scan"],
+-        include_prefix = "sick_scan",
+-        deps = [
+-            ":utils",
+-            ":cola",
+-            ":tcp",
+-        ],
+-    )
++cc_library(
++    name = "tcp",
++    srcs = native.glob(["tcp/src/**", "tcp/include/tcp/**"], exclude = library_exclusions),
++    hdrs = native.glob(["tcp/include/tcp/*.h"], exclude = library_exclusions),
++    strip_include_prefix = "tcp/include/tcp",
++    includes = ["tcp/include/tcp"],
++    include_prefix = "tcp",
++    defines = tcp_library_defines,
++    deps = tcp_library_deps,
++)
++
++cc_library(
++    name = "sick_scan",
++    visibility = ["//visibility:public"],
++    srcs = native.glob(["sick_scan/src/**", "sick_scan/include/sick_scan/**"], exclude = library_exclusions),
++    hdrs = native.glob(["sick_scan/include/sick_scan/*.h"], exclude = library_exclusions),
++    strip_include_prefix = "sick_scan/include/sick_scan",
++    includes = ["sick_scan/include/sick_scan"],
++    include_prefix = "sick_scan",
++    deps = [
++        ":utils",
++        ":cola",
++        ":tcp",
++    ],
++)

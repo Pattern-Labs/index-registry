@@ -1,0 +1,25 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,22 @@
++py_binary(
++    name = "cpplint_binary",
++    srcs = ["cpplint.py"],
++    imports = ["cpplint"],
++    main = "cpplint.py",
++    visibility = [],
++)
++
++alias(
++    name = "cpplint",
++    actual = ":cpplint_binary",
++)
++
++py_test(
++    name = "cpplint_unittest",
++    size = "small",
++    srcs = ["cpplint_unittest.py"],
++    data = ["cpplint_test_header.h"],
++    deps = [
++        ":cpplint_py",
++    ],
++)
