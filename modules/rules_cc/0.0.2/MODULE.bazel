@@ -1,6 +1,6 @@
 module(
     name = "rules_cc",
-    version = "0.0.1",
+    version = "0.0.2",
     compatibility_level = 1,
     toolchains_to_register = ["@local_config_cc_toolchains//:all"],
 )
