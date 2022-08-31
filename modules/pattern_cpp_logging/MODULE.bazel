@@ -1,7 +1,0 @@
-module(
-    name = "pattern_cpp_logging",
-    version = "0.22.0",
-)
-
-logging_lib = use_extension("//:logging.bzl", "logging_lib")
-use_repo(logging_lib, "pattern_cpp_logging")

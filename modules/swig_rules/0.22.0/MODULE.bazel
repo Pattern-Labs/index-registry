@@ -1,7 +1,0 @@
-module(
-    name = "swig_rules",
-    version = "0.22.0",
-)
-
-rules_extension = use_extension("//:py_wrap_rule.bzl", "rules_extension")
-use_repo(rules_extension, "swig_rules_extension")
