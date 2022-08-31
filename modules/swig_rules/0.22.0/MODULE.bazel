@@ -1,6 +1,6 @@
 module(
     name = "swig_rules",
-    version = "0.20.0",
+    version = "0.22.0",
 )
 
 rules_extension = use_extension("//:py_wrap_rule.bzl", "rules_extension")
