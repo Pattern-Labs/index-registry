@@ -1,5 +1,5 @@
 {
-    // "integrity": "sha256-10c161733a06053f79120f389d2d28208c927eb65759799fb8d7142666b61b9f",
+    "integrity": "sha256-06b82446254c9a150335d1ab9ed9c3f5f988d38b6e88b4bc0c52ffc28c122a33",
     "strip_prefix": "pattern_python_tools-0.22.0-testing",
     "url": "https://github.com/Pattern-Labs/pattern_python_tools/archive/refs/tags/0.22.0-testing.tar.gz"
 }
