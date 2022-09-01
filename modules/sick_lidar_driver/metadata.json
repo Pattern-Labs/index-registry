@@ -1,9 +1,6 @@
 {
     "homepage": "https://github.com/Pattern-Labs/sick_lidar_driver/",
-    "maintainers": [],
     "versions": [
-        "0.22.0-pcappp",
-        "0.22.0"
-    ],
-    "yanked_versions": {}
+        "0.22.0-bzlmod_testing"
+    ]
 }
