@@ -1,9 +1,9 @@
 {
-    "integrity": "sha256-10c161733a06053f79120f389d2d28208c927eb65759799fb8d7142666b61b9f",
+    "integrity": "sha256-xhoHuTcCoEJzzVQHQ8fBL3a7aDsY2dA0maev2ych9uU=",
     "strip_prefix": "sick_lidar_driver-0.22.0",
-    "url": "https://github.com/Pattern-Labs/sick_lidar_driver/archive/v0.22.0.tar.gz",
-    "patch_strip": 0,
+    "url": "https://github.com/Pattern-Labs/sick_lidar_driver/archive/refs/tags/0.22.0.tar.gz",
+    "patch_strip": 1,
     "patches": {
-        "build_file_with_pcappp.patch": "sha256-dnwlTSkBLcsJ1GjaGSfxhTgxj0XQrm4gXyPIYh9sORE="
+        "build_file_without_pcappp.patch": "sha256-R4GPKJYuiUPUzAOg5GzR96UX6lYKVVcBNbiD7WP352s="
     }
 }
