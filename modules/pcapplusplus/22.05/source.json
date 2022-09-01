@@ -1,9 +1,9 @@
 {
-    "integrity": "sha256-c87863e1a508d0f670282916d8a80e99d8a0788c2e6e7fd221f0f07b7444872c",
+    "integrity": "sha256-yHhj4aUI0PZwKCkW2KgOmdigeIwubn/SIfDwe3REhyw=",
     "strip_prefix": "pcapplusplus-22.05-ubuntu-18.04-gcc-7",
     "url": "https://github.com/seladb/PcapPlusPlus/releases/download/v22.05/pcapplusplus-22.05-ubuntu-18.04-gcc-7.tar.gz",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-dnwlTSkBLcsJ1GjaGSfxhTgxj0XQrm4gXyPIYh9sORE="
+        "add_build_file.patch": "sha256-LdS9Gq2jUWetVHxWXul2hXPx2w0ruKBcU/DoSbw2xes="
     }
 }
