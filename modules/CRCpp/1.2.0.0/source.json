@@ -1,0 +1,9 @@
+{
+    "integrity": "sha256-OC05m5OSB9gVN6h07EsFq8f1l3K+WEJaDdBIcR1D2xQ=",
+    "strip_prefix": "CRCpp-release-1.2.0.0",
+    "url": "https://github.com/d-bahr/CRCpp/archive/refs/tags/release-1.2.0.0.tar.gz",
+    "patch_strip": 0,
+    "patches": {
+        "add_build_file.patch": "sha256-YD11cVPilYIWWrDHAWgVdP/hTXRiJWyGCvB9Im36blE="
+    }
+}
