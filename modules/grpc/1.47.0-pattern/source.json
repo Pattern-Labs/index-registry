@@ -2,7 +2,7 @@
     "integrity": "sha256-7fJfTbbIQYU7einWGwmAtRbcMaG2zcOZvPJMFEakokk=",
     "patch_strip": 1,
     "patches": {
-        "adopt_bzlmod.patch": "sha256-TJp1TdMBXKzb8zot7NU/GHJD/vJA+8/lHpawObn+99o="
+        "adopt_bzlmod.patch": "sha256-WzVvZ/33XSLvlJ4pL9BJcFvK8idvP81+guHy4XPReLI="
     },
     "strip_prefix": "grpc-1.47.0",
     "url": "https://github.com/grpc/grpc/archive/refs/tags/v1.47.0.zip"

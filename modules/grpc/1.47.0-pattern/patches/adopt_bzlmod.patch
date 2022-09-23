@@ -35,17 +35,6 @@ index 0000000000..125e66a59b
 +grpc_extra_deps_ext = use_extension("//bazel:grpc_extra_deps.bzl", "grpc_extra_deps_ext")
 +
 +use_repo(grpc_extra_deps_ext, "com_google_googleapis_imports")
-diff --git a/WORKSPACE b/WORKSPACE
-index 782abc63b4..14f997d4b1 100644
---- a/WORKSPACE
-+++ b/WORKSPACE
-@@ -86,5 +86,5 @@ load("@io_bazel_rules_python//python:pip.bzl", "pip_install")
- 
- pip_install(
-     name = "grpc_python_dependencies",
--    requirements = "@com_github_grpc_grpc//:requirements.bazel.txt",
-+    requirements = "//:requirements.bazel.txt",
- )
 diff --git a/bazel/cc_grpc_library.bzl b/bazel/cc_grpc_library.bzl
 index 9c31f0c1e2..dc456ad2d8 100644
 --- a/bazel/cc_grpc_library.bzl
