@@ -35,6 +35,17 @@ index 0000000000..125e66a59b
 +grpc_extra_deps_ext = use_extension("//bazel:grpc_extra_deps.bzl", "grpc_extra_deps_ext")
 +
 +use_repo(grpc_extra_deps_ext, "com_google_googleapis_imports")
+diff --git a/WORKSPACE b/WORKSPACE
+index 782abc63b4..14f997d4b1 100644
+--- a/WORKSPACE
++++ b/WORKSPACE
+@@ -86,5 +86,5 @@ load("@io_bazel_rules_python//python:pip.bzl", "pip_install")
+ 
+ pip_install(
+     name = "grpc_python_dependencies",
+-    requirements = "@com_github_grpc_grpc//:requirements.bazel.txt",
++    requirements = "//:requirements.bazel.txt",
+ )
 diff --git a/bazel/cc_grpc_library.bzl b/bazel/cc_grpc_library.bzl
 index 9c31f0c1e2..dc456ad2d8 100644
 --- a/bazel/cc_grpc_library.bzl
@@ -149,7 +160,7 @@ index b7c51bb73b..d5fab4cced 100644
  def expand_tests_for_each_poller_and_engine(name, srcs, deps, tags, args, exclude_pollers, uses_event_engine):
      """Common logic used to parameterize tests for every poller and EventEngine.
 diff --git a/bazel/grpc_deps.bzl b/bazel/grpc_deps.bzl
-index bae066d739..59dab0b4a9 100644
+index bae066d739..796547996d 100644
 --- a/bazel/grpc_deps.bzl
 +++ b/bazel/grpc_deps.bzl
 @@ -14,10 +14,10 @@
@@ -188,6 +199,15 @@ index bae066d739..59dab0b4a9 100644
      if "boringssl" not in native.existing_rules():
          http_archive(
              name = "boringssl",
+@@ -211,7 +212,7 @@ def grpc_deps():
+     if "zlib" not in native.existing_rules():
+         http_archive(
+             name = "zlib",
+-            build_file = "@com_github_grpc_grpc//third_party:zlib.BUILD",
++            build_file = "//third_party:zlib.BUILD",
+             sha256 = "ef47b0fbe646d69a2fc5ba012cb278de8e8946a8e9649f83a807cc05559f0eff",
+             strip_prefix = "zlib-21767c654d31d2dccdde4330529775c6c5fd5389",
+             urls = [
 @@ -220,19 +221,6 @@ def grpc_deps():
              ],
          )
@@ -208,6 +228,15 @@ index bae066d739..59dab0b4a9 100644
      if "com_google_googletest" not in native.existing_rules():
          http_archive(
              name = "com_google_googletest",
+@@ -282,7 +270,7 @@ def grpc_deps():
+     if "com_github_cares_cares" not in native.existing_rules():
+         http_archive(
+             name = "com_github_cares_cares",
+-            build_file = "@com_github_grpc_grpc//third_party:cares/cares.BUILD",
++            build_file = "//third_party:cares/cares.BUILD",
+             sha256 = "ec76c5e79db59762776bece58b69507d095856c37b81fd35bfb0958e74b61d93",
+             strip_prefix = "c-ares-6654436a307a5a686b008c1d4c93b0085da6e6d8",
+             urls = [
 @@ -368,16 +356,6 @@ def grpc_deps():
              ],
          )
@@ -225,6 +254,15 @@ index bae066d739..59dab0b4a9 100644
      if "build_bazel_rules_apple" not in native.existing_rules():
          http_archive(
              name = "build_bazel_rules_apple",
+@@ -401,7 +379,7 @@ def grpc_deps():
+     if "com_github_libuv_libuv" not in native.existing_rules():
+         http_archive(
+             name = "com_github_libuv_libuv",
+-            build_file = "@com_github_grpc_grpc//third_party:libuv.BUILD",
++            build_file = "//third_party:libuv.BUILD",
+             sha256 = "5ca4e9091f3231d8ad8801862dc4e851c23af89c69141d27723157776f7291e7",
+             strip_prefix = "libuv-02a9e1be252b623ee032a3137c0b0c94afbe6809",
+             urls = [
 @@ -440,6 +418,8 @@ def grpc_deps():
                  "https://storage.googleapis.com/grpc-bazel-mirror/github.com/census-instrumentation/opencensus-proto/archive/v0.3.0.tar.gz",
                  "https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0.tar.gz",
@@ -234,6 +272,15 @@ index bae066d739..59dab0b4a9 100644
          )
  
      if "com_envoyproxy_protoc_gen_validate" not in native.existing_rules():
+@@ -450,7 +430,7 @@ def grpc_deps():
+             urls = [
+                 "https://github.com/envoyproxy/protoc-gen-validate/archive/4694024279bdac52b77e22dc87808bd0fd732b69.tar.gz",
+             ],
+-            patches = ["@com_github_grpc_grpc//third_party:protoc-gen-validate.patch"],
++            patches = ["//third_party:protoc-gen-validate.patch"],
+             patch_args = ["-p1"],
+         )
+ 
 @@ -465,6 +445,11 @@ def grpc_deps():
              ],
          )
@@ -246,8 +293,60 @@ index bae066d739..59dab0b4a9 100644
      grpc_python_deps()
  
  # TODO: move some dependencies from "grpc_deps" here?
+@@ -493,7 +478,7 @@ def grpc_test_only_deps():
+                 "https://storage.googleapis.com/grpc-bazel-mirror/github.com/twisted/twisted/archive/twisted-17.5.0.zip",
+                 "https://github.com/twisted/twisted/archive/twisted-17.5.0.zip",
+             ],
+-            build_file = "@com_github_grpc_grpc//third_party:twisted.BUILD",
++            build_file = "//third_party:twisted.BUILD",
+         )
+ 
+     if "com_github_yaml_pyyaml" not in native.existing_rules():
+@@ -505,7 +490,7 @@ def grpc_test_only_deps():
+                 "https://storage.googleapis.com/grpc-bazel-mirror/github.com/yaml/pyyaml/archive/3.12.zip",
+                 "https://github.com/yaml/pyyaml/archive/3.12.zip",
+             ],
+-            build_file = "@com_github_grpc_grpc//third_party:yaml.BUILD",
++            build_file = "//third_party:yaml.BUILD",
+         )
+ 
+     if "com_github_twisted_incremental" not in native.existing_rules():
+@@ -517,7 +502,7 @@ def grpc_test_only_deps():
+                 "https://storage.googleapis.com/grpc-bazel-mirror/github.com/twisted/incremental/archive/incremental-17.5.0.zip",
+                 "https://github.com/twisted/incremental/archive/incremental-17.5.0.zip",
+             ],
+-            build_file = "@com_github_grpc_grpc//third_party:incremental.BUILD",
++            build_file = "//third_party:incremental.BUILD",
+         )
+ 
+     if "com_github_zopefoundation_zope_interface" not in native.existing_rules():
+@@ -529,7 +514,7 @@ def grpc_test_only_deps():
+                 "https://storage.googleapis.com/grpc-bazel-mirror/github.com/zopefoundation/zope.interface/archive/4.4.3.zip",
+                 "https://github.com/zopefoundation/zope.interface/archive/4.4.3.zip",
+             ],
+-            build_file = "@com_github_grpc_grpc//third_party:zope_interface.BUILD",
++            build_file = "//third_party:zope_interface.BUILD",
+         )
+ 
+     if "com_github_twisted_constantly" not in native.existing_rules():
+@@ -541,7 +526,7 @@ def grpc_test_only_deps():
+                 "https://storage.googleapis.com/grpc-bazel-mirror/github.com/twisted/constantly/archive/15.1.0.zip",
+                 "https://github.com/twisted/constantly/archive/15.1.0.zip",
+             ],
+-            build_file = "@com_github_grpc_grpc//third_party:constantly.BUILD",
++            build_file = "//third_party:constantly.BUILD",
+         )
+ 
+     if "com_google_libprotobuf_mutator" not in native.existing_rules():
+@@ -553,5 +538,5 @@ def grpc_test_only_deps():
+                 "https://storage.googleapis.com/grpc-bazel-mirror/github.com/google/libprotobuf-mutator/archive/ffd86a32874e5c08a143019aad1aaf0907294c9f.tar.gz",
+             ],
+             strip_prefix = "libprotobuf-mutator-ffd86a32874e5c08a143019aad1aaf0907294c9f",
+-            build_file = "@com_github_grpc_grpc//third_party:libprotobuf_mutator.BUILD",
++            build_file = "//third_party:libprotobuf_mutator.BUILD",
+         )
 diff --git a/bazel/grpc_extra_deps.bzl b/bazel/grpc_extra_deps.bzl
-index 4d8afa3131..b4ab0d5f5b 100644
+index 4d8afa3131..da7c5c94b8 100644
 --- a/bazel/grpc_extra_deps.bzl
 +++ b/bazel/grpc_extra_deps.bzl
 @@ -13,9 +13,9 @@
@@ -263,6 +362,21 @@ index 4d8afa3131..b4ab0d5f5b 100644
  load("@com_envoyproxy_protoc_gen_validate//:dependencies.bzl", "go_third_party")
  load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_language")
  load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+@@ -32,12 +32,12 @@ def grpc_extra_deps(ignore_version_differences = False):
+     the extra dependencies. For example, they can do the following in their
+     WORKSPACE
+     ```
+-    load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps", "grpc_test_only_deps")
++    load("//bazel:grpc_deps.bzl", "grpc_deps", "grpc_test_only_deps")
+     grpc_deps()
+ 
+     grpc_test_only_deps()
+ 
+-    load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
++    load("//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
+ 
+     grpc_extra_deps()
+     ```
 @@ -54,16 +54,19 @@ def grpc_extra_deps(ignore_version_differences = False):
  
      go_rules_dependencies()
