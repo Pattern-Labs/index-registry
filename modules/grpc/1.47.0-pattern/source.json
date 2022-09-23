@@ -1,6 +1,6 @@
 {
     "integrity": "sha256-7fJfTbbIQYU7einWGwmAtRbcMaG2zcOZvPJMFEakokk=",
-    "patch_strip": 1,
+    "patch_strip": 0,
     "patches": {
         "adopt_bzlmod.patch": "sha256-TJp1TdMBXKzb8zot7NU/GHJD/vJA+8/lHpawObn+99o="
     },
