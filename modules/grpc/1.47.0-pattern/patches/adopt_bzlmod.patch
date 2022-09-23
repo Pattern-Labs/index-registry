@@ -56,8 +56,21 @@ index 9c31f0c1e2..dc456ad2d8 100644
 +                   ["//:grpc++_codegen_proto"],
              **kwargs
          )
+diff --git a/bazel/generate_cc.bzl b/bazel/generate_cc.bzl
+index bd1d545799..e554539db2 100644
+--- a/bazel/generate_cc.bzl
++++ b/bazel/generate_cc.bzl
+@@ -187,7 +187,7 @@ _generate_cc = rule(
+             mandatory = False,
+         ),
+         "_protoc": attr.label(
+-            default = Label("//external:protocol_compiler"),
++            default = "@com_google_protobuf//:protoc",
+             executable = True,
+             cfg = "host",
+         ),
 diff --git a/bazel/generate_objc.bzl b/bazel/generate_objc.bzl
-index b0e9211480..2d3c39adeb 100644
+index b0e9211480..ceefd6d5a0 100644
 --- a/bazel/generate_objc.bzl
 +++ b/bazel/generate_objc.bzl
 @@ -163,7 +163,7 @@ generate_objc = rule(
@@ -69,6 +82,15 @@ index b0e9211480..2d3c39adeb 100644
              executable = True,
              providers = ["files_to_run"],
              cfg = "host",
+@@ -180,7 +180,7 @@ generate_objc = rule(
+             default = "@com_google_protobuf//:well_known_protos",
+         ),
+         "_protoc": attr.label(
+-            default = Label("//external:protocol_compiler"),
++            default = "@com_google_protobuf//:protoc",
+             executable = True,
+             cfg = "host",
+         ),
 diff --git a/bazel/grpc_build_system.bzl b/bazel/grpc_build_system.bzl
 index b7c51bb73b..d5fab4cced 100644
 --- a/bazel/grpc_build_system.bzl
@@ -341,6 +363,37 @@ index dbe07b1811..74c58ebfd3 100644
              "@com_google_protobuf//:protobuf_objc",
          ],
          **kwargs
+diff --git a/bazel/python_rules.bzl b/bazel/python_rules.bzl
+index a39159aba1..ea5bcbfd11 100644
+--- a/bazel/python_rules.bzl
++++ b/bazel/python_rules.bzl
+@@ -104,7 +104,7 @@ _gen_py_aspect = aspect(
+     fragments = ["py"],
+     attrs = {
+         "_protoc": attr.label(
+-            default = Label("//external:protocol_compiler"),
++            default = "@com_google_protobuf//:protoc",
+             providers = ["files_to_run"],
+             executable = True,
+             cfg = "host",
+@@ -160,7 +160,7 @@ py_proto_library = rule(
+             aspects = [_gen_py_aspect],
+         ),
+         "_protoc": attr.label(
+-            default = Label("//external:protocol_compiler"),
++            default = "@com_google_protobuf//:protoc",
+             providers = ["files_to_run"],
+             executable = True,
+             cfg = "host",
+@@ -248,7 +248,7 @@ _generate_pb2_grpc_src = rule(
+             executable = True,
+             providers = ["files_to_run"],
+             cfg = "host",
+-            default = Label("//external:protocol_compiler"),
++            default = "@com_google_protobuf//:protoc",
+         ),
+         "_grpc_library": attr.label(
+             default = Label("//src/python/grpcio/grpc:grpcio"),
 diff --git a/third_party/BUILD b/third_party/BUILD
 index 72a4730d89..82cef3871c 100644
 --- a/third_party/BUILD
