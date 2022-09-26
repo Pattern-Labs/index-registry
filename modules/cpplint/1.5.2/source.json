@@ -1,9 +1,9 @@
 {
-    "integrity": "sha256-5ace9cb77ddfa61bb0135b21d8a3fe62970266588ba41b8a644cd271d3c0676e",
+    "integrity": "sha256-Ws6ct33fphuwE1sh2KP+YpcCZliLpBuKZEzScdPAZ24=",
     "strip_prefix": "cpplint-1.5.2",
     "url": "https://github.com/cpplint/cpplint/archive/1.5.2.tar.gz",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-dnwlTSkBLcsJ1GjaGSfxhTgxj0XQrm4gXyPIYh9sORE="
+        "add_build_file.patch": "sha256-mk0feetJ2ApCgvRpTuGhCjD1w+/NEW2OuubqE1BCAUk="
     }
 }
