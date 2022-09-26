@@ -1,6 +1,6 @@
 --- /dev/null
 +++ BUILD.bazel
-@@ -0,0 +1,52 @@
+@@ -0,0 +1,53 @@
 +licenses(["notice"])
 +
 +cc_library(
@@ -52,4 +52,5 @@
 +        "src",
 +        "tests/test_support",
 +    ],
++    visibility = ["//visibility:public"]
 +)
