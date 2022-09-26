@@ -1,9 +1,9 @@
 {
-    "integrity": "sha256-23082937d1663a53b90cb5b61df4bcc312f6dee7018da78ba00dd6bd669dfef2",
+    "integrity": "sha256-IwgpN9FmOlO5DLW2HfS8wxL23ucBjaeLoA3WvWad/vI=",
     "strip_prefix": "benchmark-1.5.1",
     "url": "https://github.com/google/benchmark/archive/v1.5.1.tar.gz",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-dnwlTSkBLcsJ1GjaGSfxhTgxj0XQrm4gXyPIYh9sORE="
+        "add_build_file.patch": "sha256-DpSKhBUd/gTDfOgYZboLEPZ20bgzGuiPmYlmssO4/XA="
     }
 }

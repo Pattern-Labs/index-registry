@@ -1,9 +1,9 @@
 {
-    "integrity": "sha256-10c161733a06053f79120f389d2d28208c927eb65759799fb8d7142666b61b9f",
+    "integrity": "sha256-EMFhczoGBT95Eg84nS0oIIySfrZXWXmfuNcUJma2G58=",
     "strip_prefix": "ad-rss-lib-1.1.0",
     "url": "https://github.com/intel/ad-rss-lib/archive/v1.1.0.tar.gz",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-dnwlTSkBLcsJ1GjaGSfxhTgxj0XQrm4gXyPIYh9sORE="
+        "add_build_file.patch": "sha256-1Xy1Sn1LG3NXnnzaYWT+DerYAXbjQDeE/zEleS/F7Gw="
     }
 }
