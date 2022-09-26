@@ -1,6 +1,6 @@
 --- /dev/null
 +++ BUILD.bazel
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,23 @@
 +py_binary(
 +    name = "cpplint_binary",
 +    srcs = ["cpplint.py"],
@@ -12,6 +12,7 @@
 +alias(
 +    name = "cpplint",
 +    actual = ":cpplint_binary",
++    visibility = ["//visibility:public"]
 +)
 +
 +py_test(

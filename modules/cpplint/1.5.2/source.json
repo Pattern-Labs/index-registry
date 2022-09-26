@@ -4,6 +4,6 @@
     "url": "https://github.com/cpplint/cpplint/archive/1.5.2.tar.gz",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-mk0feetJ2ApCgvRpTuGhCjD1w+/NEW2OuubqE1BCAUk="
+        "add_build_file.patch": "sha256-9grIUgtYg9xURE4BXg8h8w3zq1i7dpnKCDLPwuYvRmQ="
     }
 }
