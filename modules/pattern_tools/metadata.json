@@ -2,7 +2,8 @@
     "homepage": "https://github.com/Pattern-Labs/pattern_python_tools/",
     "maintainers": [],
     "versions": [
-        "0.23.0"
+        "0.23.0",
+        "0.26.0"
     ],
     "yanked_versions": {}
 }
