@@ -1,0 +1,30 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,27 @@
++licenses(["notice"])  # BSD
++
++base_source_files = glob([
++    "src/*.cpp",
++    "src/*.hpp",
++    "src/fluent/*.hpp",
++])
++
++header_files = glob(["src/fluent/*.hpp"])
++
++cc_library(
++    name = "libfluent",
++    srcs = base_source_files,
++    hdrs = header_files,
++    copts = [
++        "-std=c++0x",
++        "-fPIC",
++    ],
++    includes = ["./src"],
++    linkopts = [
++        "-dynamic",
++        "-pthread",
++    ],
++    visibility = ["//visibility:public"],
++    deps = ["@msgpack"],
++    alwayslink = True,
++)

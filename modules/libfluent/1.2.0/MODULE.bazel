@@ -1,0 +1,7 @@
+module(
+    name = "libfluent",
+    version = "1.2.0",
+    compatibility_level = 1,
+)
+bazel_dep(name = "rules_cc", version = "0.0.2")
+bazel_dep(name = "msgpack", version = "4.1.2")
