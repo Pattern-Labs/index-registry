@@ -1,6 +1,6 @@
 --- /dev/null
 +++ BUILD.bazel
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,26 @@
 +licenses(["notice"])  # BSD
 +
 +base_source_files = glob([
@@ -16,13 +16,12 @@
 +    srcs = base_source_files,
 +    hdrs = header_files,
 +    copts = [
-+        "-std=c++0x",
 +        "-fPIC",
-+    ],
-+    includes = ["./src"],
-+    linkopts = [
-+        "-dynamic",
 +        "-pthread",
++    ],
++    includes = [
++        "src/",
++        "src/fluent/",
 +    ],
 +    visibility = ["//visibility:public"],
 +    deps = ["@msgpack"],

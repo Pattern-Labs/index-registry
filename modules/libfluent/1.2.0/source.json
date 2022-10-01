@@ -2,7 +2,7 @@
     "integrity": "sha256-a2j6FaDn7bIDoRKjCJ6CxNHMcLSnSTAoZ+eFd5iSxlE=",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-NXObRS+znqPKvFioi0OEriu8yzbxH68aTni0sGLRXbo="
+        "add_build_file.patch": "sha256-Hfg9osZuIoNwE/KA/GFv/5p08zvBGzw3fOwYfo1f5xk="
     },
     "strip_prefix": "libfluent-1.2.0",
     "url": "https://github.com/m-mizutani/libfluent/archive/refs/tags/v1.2.0.tar.gz"
