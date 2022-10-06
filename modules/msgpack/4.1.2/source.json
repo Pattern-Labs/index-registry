@@ -2,7 +2,7 @@
     "integrity": "sha256-dGCtQ1UsnZtWp18g4fT+3xj/8cSHFdbPqR13mybKN5U=",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-JtWmwBVSQU2i8P2voXLj4cdeG2rTy5CqOiqjjRH/JzY="
+        "add_build_file.patch": "sha256-Rk4vGn9+jVUfIVGyqbKDfVNZSFB1vO5PdBrtmvcyxrI="
     },
     "strip_prefix": "msgpack-c-cpp-4.1.2",
     "url": "https://github.com/msgpack/msgpack-c/archive/refs/tags/cpp-4.1.2.tar.gz"

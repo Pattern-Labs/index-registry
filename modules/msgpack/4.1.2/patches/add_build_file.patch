@@ -13,7 +13,7 @@
 +    name = "msgpack",
 +    cache_entries = {
 +        "CMAKE_CXX_FLAGS": "-fPIC",
-+        "MSGPACK_CXX17": "ON",
++        "MSGPACK_CXX14": "ON",
 +        "MSGPACK_BUILD_EXAMPLES": "OFF",
 +        "MSGPACK_BUILD_TESTS": "OFF",
 +        "MSGPACK_USE_BOOST": "OFF",
