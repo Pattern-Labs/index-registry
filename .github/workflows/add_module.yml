@@ -38,10 +38,10 @@ jobs:
       - name: Checkout target repo to get its MODULE.bazel.
         uses: actions/checkout@v3
         with:
-          repository: Pattern-Labs/${{ env.repo_name }}
-          ref: ${{ github.event.inputs.version }}
-          token: ${{ secrets.REPO_ACCESS_PAT }}
-          path: 'target_repo/'
+          repository: "Pattern-Labs/${{ env.repo_name }}"
+          ref: "${{ github.event.inputs.version }}"
+          token: "${{ secrets.REPO_ACCESS_PAT }}"
+          path: "target_repo/"
       - name: Fetch MODULE.bazel from repo and print result.
         run: |
           curl -n \
