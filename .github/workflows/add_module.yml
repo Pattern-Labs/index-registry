@@ -1,0 +1,70 @@
+on:
+  workflow_dispatch:
+    inputs:
+      module_name:
+        description: 'Name of module to update.'
+        required: true
+        default: 'pattern_tools'
+        type: choice
+        options:
+        - pattern_tools
+        - sick_lidar_driver
+        - guardrail
+      version:
+        description: 'Version to add. Expected to match a tag in the repo.'
+        required: true
+        type: string
+        default: '0.0.0'
+
+jobs:
+  update-module:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set repo_name
+        id: set-repo-name
+        run: |
+          if [ ${{ github.event.inputs.module_name }} == 'pattern_tools' ]; then
+            echo "repo_name=pattern_python_tools" >> $GITHUB_ENV
+          else
+            echo "repo_name=${{ github.event.inputs.module_name }}" >> $GITHUB_ENV
+          fi
+      - name: Inputs
+        run: |
+          echo "module_name: ${{ github.event.inputs.module_name }}"
+          echo "repo_name: ${{ env.repo_name }}"
+          echo "version: ${{ github.event.inputs.version }}"
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Fetch MODULE.bazel from repo.
+        run: |
+          curl -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' \
+          -O \
+          -L 'https://raw.githubusercontent.com/Pattern-Labs/${{ env.repo_name }}/${{ github.event.inputs.version }}/MODULE.bazel'
+      - name: Build json input for script.
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "script_input.json"
+          json: '{"build_file": null,
+                  "build_targets": ["//..."],
+                  "compatibility_level": "1",
+                  "deps": [],
+                  "module_dot_bazel": "MODULE.bazel",
+                  "name": "${{ github.event.inputs.module_name }}",
+                  "patch_strip": 0,
+                  "patches": [],
+                  "presubmit_yml": null,
+                  "strip_prefix": "${{ env.repo_name }}-${{ github.event.inputs.version }}",
+                  "test_module_build_targets": [],
+                  "test_module_path": null,
+                  "test_module_test_targets": [],
+                  "url": "https://github.com/Pattern-Labs/${{ env.repo_name }}/archive/refs/tags/${{ github.event.inputs.version }}.tar.gz",
+                  "version": "${{ github.event.inputs.version }}"
+                  }'
+      - name: Setup .netrc
+        uses: extractions/netrc@v1
+        with:
+          machine: github.com
+          username: patterngit
+          password: ${{ secrets.REPO_ACCESS_PAT }}
+      - name: Run Script; Adds Module
+        run: tools/add_module.py --input=script_input.json
