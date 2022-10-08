@@ -43,8 +43,7 @@ jobs:
           password: ${{ secrets.REPO_ACCESS_PAT }}
       - name: Fetch MODULE.bazel from repo.
         run: |
-          curl -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' \
-          -O \
+          curl -n -O \
           -L 'https://raw.githubusercontent.com/Pattern-Labs/${{ env.repo_name }}/${{ github.event.inputs.version }}/MODULE.bazel'
       - name: Build json input for script.
         uses: jsdaniell/create-json@1.1.2
