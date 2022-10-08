@@ -25,7 +25,7 @@ import hashlib
 import json
 import pathlib
 import shutil
-import urllib.request
+import requests
 import yaml
 
 GREEN = "\x1b[32m"
@@ -37,8 +37,8 @@ def log(msg):
 
 
 def download(url):
-    with urllib.request.urlopen(url) as response:
-        return response.read()
+    with requests.get(url) as response:
+        return response.content
 
 
 def read(path):
