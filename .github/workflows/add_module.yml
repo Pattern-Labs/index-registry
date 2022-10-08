@@ -74,5 +74,5 @@ jobs:
           author_name: github.actor
           message: 'Adds ${{ github.event.inputs.module_name }}@${{ github.event.inputs.version }}.'
           add: '["modules/${{ github.event.inputs.module_name }}/metadata.json", 
-                "modules/${{ github.event.inputs.module_name }}/${{ github.event.inputs.version/MODULE.bazel }}",
-                "modules/${{ github.event.inputs.module_name }}/${{ github.event.inputs.version/source.json }}"]'
+                "modules/${{ github.event.inputs.module_name }}/${{ github.event.inputs.version }}/MODULE.bazel",
+                "modules/${{ github.event.inputs.module_name }}/${{ github.event.inputs.version }}/source.json"]'
