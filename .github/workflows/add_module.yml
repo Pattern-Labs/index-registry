@@ -35,12 +35,17 @@ jobs:
           echo "version: ${{ github.event.inputs.version }}"
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Setup .netrc for githubusercontent.com
-        uses: extractions/netrc@v1
+      - name: Checkout target repo to get its MODULE.bazel.
+        uses: actions/checkout@v3
         with:
-          machine: githubusercontent.com
-          username: patterngit
-          password: ${{ secrets.REPO_ACCESS_PAT }}          
+          repository: Pattern-Labs/${{ env.repo_name }}
+          ref: ${{ github.event.inputs.version }}
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+          path: 'target_repo/'
+      - name: Fetch MODULE.bazel from repo and print result.
+        run: |
+          curl -n \
+          -L 'https://raw.githubusercontent.com/Pattern-Labs/${{ env.repo_name }}/${{ github.event.inputs.version }}/MODULE.bazel'       
       - name: Fetch MODULE.bazel from repo.
         run: |
           curl -n -O \
