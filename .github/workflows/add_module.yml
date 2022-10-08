@@ -38,6 +38,9 @@ jobs:
       - name: Setup .netrc
         uses: extractions/netrc@v1
         with:
+          machine: githubusercontent.com
+          username: patterngit
+          password: ${{ secrets.REPO_ACCESS_PAT }}
           machine: github.com
           username: patterngit
           password: ${{ secrets.REPO_ACCESS_PAT }}
