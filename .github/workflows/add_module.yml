@@ -35,15 +35,12 @@ jobs:
           echo "version: ${{ github.event.inputs.version }}"
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Setup .netrc
+      - name: Setup .netrc for githubusercontent.com
         uses: extractions/netrc@v1
         with:
           machine: githubusercontent.com
           username: patterngit
-          password: ${{ secrets.REPO_ACCESS_PAT }}
-          machine: github.com
-          username: patterngit
-          password: ${{ secrets.REPO_ACCESS_PAT }}
+          password: ${{ secrets.REPO_ACCESS_PAT }}          
       - name: Fetch MODULE.bazel from repo.
         run: |
           curl -n -O \
@@ -68,6 +65,12 @@ jobs:
                   "url": "https://github.com/Pattern-Labs/${{ env.repo_name }}/archive/refs/tags/${{ github.event.inputs.version }}.tar.gz",
                   "version": "${{ github.event.inputs.version }}"
                   }'
+      - name: Setup .netrc for github.com
+        uses: extractions/netrc@v1
+        with:
+          machine: github.com
+          username: patterngit
+          password: ${{ secrets.REPO_ACCESS_PAT }}                  
       - name: Run Script; Adds Module
         run: tools/add_module.py --input=script_input.json
       - name: Commit Changes
