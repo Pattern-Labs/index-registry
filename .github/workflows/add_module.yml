@@ -44,7 +44,7 @@ jobs:
       - name: Fetch MODULE.bazel from target repo.
         run: |
           curl \
-            -n \
+            -H 'Authorization: token ${{ secrets.REPO_ACCESS_PAT }}' \
             -H 'Accept: application/vnd.github.v3.raw' \
             -o MODULE.bazel \
             -L https://api.github.com/repos/pattern-labs/${{ env.repo_name }}/contents/MODULE.bazel?ref=${{ github.event.inputs.version }}
