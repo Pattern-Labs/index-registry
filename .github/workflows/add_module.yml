@@ -42,6 +42,12 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_PAT }}          
           ref: ${{ github.event.inputs.version }}
           path: target_repo/
+      - name: Setup .netrc for github.com
+        uses: extractions/netrc@v1
+        with:
+          machine: github.com
+          username: patterngit
+          password: ${{ secrets.REPO_ACCESS_PAT }}
       - name: Fetch MODULE.bazel from repo and print result.
         run: |
           curl -n \
@@ -70,12 +76,6 @@ jobs:
                   "url": "https://github.com/Pattern-Labs/${{ env.repo_name }}/archive/refs/tags/${{ github.event.inputs.version }}.tar.gz",
                   "version": "${{ github.event.inputs.version }}"
                   }'
-      - name: Setup .netrc for github.com
-        uses: extractions/netrc@v1
-        with:
-          machine: github.com
-          username: patterngit
-          password: ${{ secrets.REPO_ACCESS_PAT }}                  
       - name: Run Script; Adds Module
         run: tools/add_module.py --input=script_input.json
       - name: Commit Changes
