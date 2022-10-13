@@ -17,3 +17,17 @@ If you want to use a local version of a bzlmod dependency for development or tes
 ```
 local_path_override(module_name = "guardrail", path = "/path/to/guardrail")
 ```
+
+## Using a Local Copy of the Index Registry
+Find this line in the `.bazelrc` file of the repo you're working on:
+```
+common --registry="https://raw.githubusercontent.com/Pattern-Labs/index-registry/main/"
+```
+and replace it with this:
+```
+common --registry="file:///home/jklingner/code/index-registry/"
+```
+Using the absolute path of your locally modified index registry instead of `/home/jklingner/code/index-registry/`.
+
+## Adding a new Library to the Index Registry
+Some types of libraries are easier to add than others. If a library has its code on github, and that code can be built into a project with the addition of a `BUILD` file in that repo's root, it's pretty easy! Easier still if the library already has a `BUILD` file. See [the tutorial](docs/adding_a_library.md) for a worked example.
