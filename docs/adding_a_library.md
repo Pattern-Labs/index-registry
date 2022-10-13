@@ -11,7 +11,7 @@ Run `tools/add_module.py` script. This will prompt you with a series of question
 5. Archive's strip_prefix value? `FreeRTOSv202112.00` (Usually the name of the archive file without extension.)
 6. Do you want to add patch files? `N` (Patch files can be used, if needed, to make arbitrary modifications to the downloaded files.)
 7. Do you want to add a BUILD file? `y`
-8. Please enter the path of the BUILD file to be added: `FreeRTOS.BUILD` (This is implemented as another patch file, which just copies the BUILD file into the downloaded code's root directory.
+8. Please enter the path of the BUILD file to be added: `FreeRTOS.BUILD` (This is implemented as another patch file, which just copies the BUILD file into the downloaded code's root directory. See [below](#the-build-file) for the file used in this example.)
 9. Do you want to specify a MODULE.bazel file? `N` (This would be used to get the (bzlmod) dependencies of the new library.)
 10. Do you want to specify dependencies for thsi module? `y`
 11. Enter dependencies: `rules_cc@0.0.2` (Not sure if this is actually needed for FreeRTOS.)
