@@ -1,0 +1,57 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,54 @@
++package(default_visibility = ["//visibility:public"])
++
++cc_library(
++    name = "freertos_lib",
++    srcs = glob([
++        "FreeRTOS/Source/*.c",
++        "FreeRTOS/Source/portable/*.c",
++        "FreeRTOS/portable/*.S",
++    ]),
++    hdrs = glob([
++        "FreeRTOS/Source/include/*.h",
++    ]),
++    strip_include_prefix = "FreeRTOS/Source/include/",
++    deps = [
++        "freertos_portable",
++        "@//:freertos_config",
++    ],
++    alwayslink = True,
++)
++
++cc_library(
++    name = "freertos_portable",
++    hdrs = glob([
++        "FreeRTOS/Source/portable/*.h",
++    ]),
++    strip_include_prefix = "FreeRTOS/Source/portable/",
++)
++
++cc_library(
++    name = "freertos_plus_tcp_lib",
++    srcs = glob([
++        "FreeRTOS-Plus/Source/FreeRTOS-Plus-TCP/*.c",
++        "FreeRTOS-Plus/Source/FreeRTOS-Plus-TCP/portable/**.c",
++        "FreeRTOS-Plus/Source/FreeRTOS-Plus-TCP/portable/**.s",
++    ]),
++    hdrs = glob([
++        "FreeRTOS-Plus/Source/FreeRTOS-Plus-TCP/include/**.h",
++    ]),
++    strip_include_prefix = "FreeRTOS-Plus/Source/FreeRTOS-Plus-TCP/include/",
++    deps = [
++        "@freertos//:freertos_lib",
++        "freertos_plus_tcp_portable",
++        "@//:freertos_config",
++    ],
++    alwayslink = True,
++)
++
++cc_library(
++    name = "freertos_plus_tcp_portable",
++    hdrs = glob([
++        "FreeRTOS-Plus/Source/FreeRTOS-Plus-TCP/portable/**.h",
++    ]),
++    strip_include_prefix = "FreeRTOS-Plus/Source/FreeRTOS-Plus-TCP/portable/",
++)
