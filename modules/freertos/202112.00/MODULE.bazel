@@ -1,0 +1,5 @@
+module(
+    name = "freertos",
+    version = "202112.00",
+    compatibility_level = 1,
+)
