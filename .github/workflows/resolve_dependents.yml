@@ -1,0 +1,33 @@
+on:
+  workflow_call:
+    inputs:
+      module_name:
+        description: 'Name of module that got a release.'
+        required: true
+        type: string
+      version:
+        description: 'Version to add. Expected to match a tag in the repo.'
+        required: true
+        type: string
+
+jobs:
+  determine-dependents:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Get Dependents
+        run: |
+          dependents=./.github/workflows/tools/determine_dependents.sh
+          echo "dependents=${dependents}" >> $GITHUB_ENV
+  resolve-dependents:
+    needs: determine-dependents
+    strategy:
+      matrix:
+        dependent: ${{ github.env.dependents }}
+    uses: pattern-labs/index-registry/.github/workflows/add-dependency.yml@main
+    with:
+      depednent: ${{ matrix.dependent }}
+      dependency_version: ${{ inputs.version }}
+      dependency_name: ${{ inputs.module_name }}
+    secrets: inherit

@@ -1,0 +1,46 @@
+on:
+  workflow_call:
+    inputs:
+      dependent:
+        description: '<name>/<tag> of the module that has the dependency.'
+        required: true
+        type: string
+      dependency_name:
+        description: 'Name of module that got a release.'
+        required: true
+        type: string
+      dependent_version:
+        description: 'Version of dependent to edit.'
+        required: true
+        type: string
+
+jobs:
+  resolve-dependents:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Parse Dependent Name and Version
+        run: |
+          IFS=/ read -a values <<< ${{ inputs.dependent }}
+          echo "dependent_name=${value[0]}" >> $GITHUB_ENV
+          echo "dependent_version=${value[1]}" >> $GITHUB_ENV
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: pattern-labs/${{ env.dependent_name }}
+          ref: ${{ inputs.dependent_version }}
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+
+      - name: Determine Next Version for Dependent
+        run: dependent_updated_version=$(.github/workflows/tools/iter_tag.sh ${{ env.dependent_version }})
+
+      - name: Add the dependency
+        run: ./.github/workflows/tools/set_dependency.sh ${{ input.dependency_name }} ${{ input.dependency_version }}
+
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: github.actor
+          message: 'Adds ${{ github.event.inputs.module_name }}@${{ github.event.inputs.version }}.'
+          add: 'MODULE.bazel'
+          tag: '${{ dependent_updated_version }} --force'
