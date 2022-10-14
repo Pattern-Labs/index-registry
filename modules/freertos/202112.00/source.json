@@ -1,9 +1,10 @@
 {
-    "integrity": "sha256-663a54fe80740617ada0602ed4b499f73ca4f3c22fdfed2d07ed7e93a8855cad",
-    "strip_prefix": "FreeRTOSv202112.00",
-    "url": "https://github.com/FreeRTOS/FreeRTOS/releases/download/202112.00/FreeRTOSv202112.00.zip",
-    "patch_strip": 0,
+    "integrity": "sha256-ZjpU/oB0BhetoGAu1LSZ9zyk88Iv3+0tB+1+k6iFXK0=",
+    "patch_strip": 1,
     "patches": {
-        "add_build_file.patch": "sha256-6d0ae48ca80f7ff1dfca8a2386110d4b0f031a971a44fef755174b2a11bc761f"
-    }
+        "add_build_file.patch": "sha256-hrqY/A9DzoE3H5R0QlUIqYS2dfjxsBcrq9lTLA6iiWI=",
+        "add_config.patch": "sha256-sLUIhU2YW0u+aRW/TcDo/WLPEtjOvNtRPbtbu50FlWk="
+    },
+    "strip_prefix": "FreeRTOSv202112.00",
+    "url": "https://github.com/FreeRTOS/FreeRTOS/releases/download/202112.00/FreeRTOSv202112.00.zip"
 }
