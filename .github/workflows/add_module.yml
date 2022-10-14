@@ -1,20 +1,14 @@
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       module_name:
         description: 'Name of module to update.'
         required: true
-        default: 'pattern_tools'
-        type: choice
-        options:
-        - pattern_tools
-        - sick_lidar_driver
-        - guardrail
+        type: string
       version:
         description: 'Version to add. Expected to match a tag in the repo.'
         required: true
         type: string
-        default: '0.0.0'
 
 jobs:
   update-module:
@@ -23,16 +17,16 @@ jobs:
       - name: Set repo_name
         id: set-repo-name
         run: |
-          if [ ${{ github.event.inputs.module_name }} == 'pattern_tools' ]; then
+          if [ ${{ inputs.module_name }} == 'pattern_tools' ]; then
             echo "repo_name=pattern_python_tools" >> $GITHUB_ENV
           else
-            echo "repo_name=${{ github.event.inputs.module_name }}" >> $GITHUB_ENV
+            echo "repo_name=${{ inputs.module_name }}" >> $GITHUB_ENV
           fi
       - name: Inputs
         run: |
-          echo "module_name: ${{ github.event.inputs.module_name }}"
+          echo "module_name: ${{ inputs.module_name }}"
           echo "repo_name: ${{ env.repo_name }}"
-          echo "version: ${{ github.event.inputs.version }}"
+          echo "version: ${{ inputs.version }}"
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Setup .netrc
@@ -47,7 +41,7 @@ jobs:
             -H 'Authorization: token ${{ secrets.REPO_ACCESS_PAT }}' \
             -H 'Accept: application/vnd.github.v3.raw' \
             -o MODULE.bazel \
-            -L https://api.github.com/repos/pattern-labs/${{ env.repo_name }}/contents/MODULE.bazel?ref=${{ github.event.inputs.version }}
+            -L https://api.github.com/repos/pattern-labs/${{ env.repo_name }}/contents/MODULE.bazel?ref=${{ inputs.version }}
       - name: Build json input for script.
         uses: jsdaniell/create-json@1.1.2
         with:
@@ -57,24 +51,29 @@ jobs:
                   "compatibility_level": "1",
                   "deps": [],
                   "module_dot_bazel": "MODULE.bazel",
-                  "name": "${{ github.event.inputs.module_name }}",
+                  "name": "${{ inputs.module_name }}",
                   "patch_strip": 0,
                   "patches": [],
                   "presubmit_yml": null,
-                  "strip_prefix": "${{ env.repo_name }}-${{ github.event.inputs.version }}",
+                  "strip_prefix": "${{ env.repo_name }}-${{ inputs.version }}",
                   "test_module_build_targets": [],
                   "test_module_path": null,
                   "test_module_test_targets": [],
-                  "url": "https://github.com/Pattern-Labs/${{ env.repo_name }}/archive/refs/tags/${{ github.event.inputs.version }}.tar.gz",
-                  "version": "${{ github.event.inputs.version }}"
+                  "url": "https://github.com/Pattern-Labs/${{ env.repo_name }}/archive/refs/tags/${{ inputs.version }}.tar.gz",
+                  "version": "${{ inputs.version }}"
                   }'
       - name: Run Script; Adds Module
         run: tools/add_module.py --input=script_input.json
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
           author_name: github.actor
-          message: 'Adds ${{ github.event.inputs.module_name }}@${{ github.event.inputs.version }}.'
-          add: '["modules/${{ github.event.inputs.module_name }}/metadata.json", 
-                "modules/${{ github.event.inputs.module_name }}/${{ github.event.inputs.version }}/MODULE.bazel",
-                "modules/${{ github.event.inputs.module_name }}/${{ github.event.inputs.version }}/source.json"]'
+          push: origin ${{ steps.branch-name.outputs.current_branch }} --set-upstream --force
+          message: 'Adds ${{ inputs.module_name }}@${{ inputs.version }}.'
+          add: '["modules/${{ inputs.module_name }}/metadata.json", 
+                "modules/${{ inputs.module_name }}/${{ inputs.version }}/MODULE.bazel",
+                "modules/${{ inputs.module_name }}/${{ inputs.version }}/source.json"]'
+          
