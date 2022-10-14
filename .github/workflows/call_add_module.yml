@@ -1,0 +1,27 @@
+on:
+  workflow_dispatch:
+    inputs:
+      module_name:
+        description: 'Name of module to update.'
+        required: true
+        default: 'pattern_tools'
+        type: choice
+        options:
+        - pattern_tools
+        - sick_lidar_driver
+        - guardrail
+      version:
+        description: 'Version to add. Expected to match a tag in the repo.'
+        required: true
+        type: string
+        default: '0.0.0'
+    repository_dispatch:
+      types: [new_release]
+
+jobs:
+  call-add-module:
+    uses: pattern-labs/index-registry/.github/workflows/add_module.yml@main
+    with:
+      module_name: ${{ github.event.inputs.module_name }}
+      version: ${{ github.event.inputs.version }}
+    secrets: inherit
