@@ -33,4 +33,4 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           author_name: github.actor
-          message: 'Adds MODULE.bazel@${{ inputs.version }}.'
+          message: 'Updates  MODULE.bazel to ${{ inputs.version }}.'
