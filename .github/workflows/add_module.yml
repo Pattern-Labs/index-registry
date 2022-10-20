@@ -79,10 +79,11 @@ jobs:
                 "modules/${{ github.event.inputs.module_name }}/${{ github.event.inputs.version }}/MODULE.bazel",
                 "modules/${{ github.event.inputs.module_name }}/${{ github.event.inputs.version }}/source.json"]'
 
-  resolve-dependencies:
-    needs: update-module
-    uses: pattern-labs/index-registry/.github/workflows/reslve_dependents.yml@main
-    with:
-      module_name: ${{ inputs.module_name }}
-      version: ${{ inputs.version }}
-    secrets: inherit
+  # TODO (thomasgira) Implement the best way to handle updating dependencies when a module is updated.
+  #resolve-dependencies:
+  #  needs: update-module
+  #  uses: pattern-labs/index-registry/.github/workflows/reslve_dependents.yml@main
+  #  with:
+  #    module_name: ${{ inputs.module_name }}
+  #    version: ${{ inputs.version }}
+  #  secrets: inherit
