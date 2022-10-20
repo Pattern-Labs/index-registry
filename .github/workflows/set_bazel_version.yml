@@ -23,14 +23,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          repository: pattern-labs/${{ github.event.inputs.repo }}
+          repository: pattern-labs/${{ inputs.repo }}
           
 
       - name: Set the bazel version
-        run: ./.github/workflows/tools/set_bazel_version.sh -t ${{ github.event.inputs.version }}
+        run: ./.github/workflows/tools/set_bazel_version.sh -t ${{ inputs.version }}
 
       - name: Commit and Tag Changes
         uses: EndBug/add-and-commit@v9
         with:
           author_name: github.actor
-          message: 'Adds MODULE.bazel@${{ github.event.inputs.version }}.'
+          message: 'Adds MODULE.bazel@${{ inputs.version }}.'
