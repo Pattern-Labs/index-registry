@@ -1,0 +1,36 @@
+name: Set Bazel Version
+
+on:
+  workflow_call:
+    inputs:
+        version:
+          description: 'Version to add.'
+          required: true
+          type: string
+        repo:
+          description: 'Repo to update.'
+          required: true
+          type: string
+
+jobs:
+  iter-build:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: pattern-labs/${{ github.event.inputs.repo }}
+          
+
+      - name: Set the bazel version
+        run: ./.github/workflows/tools/set_bazel_version.sh -t ${{ github.event.inputs.version }}
+
+      - name: Commit and Tag Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: github.actor
+          message: 'Adds MODULE.bazel@${{ github.event.inputs.version }}.'
