@@ -17,8 +17,7 @@ on:
         default: '0.0.0'
     repository_dispatch:
       types: [new_release]
-concurrency: 
-  group: ${{ github.ref }}
+
 jobs:
   call-add-module:
     uses: pattern-labs/index-registry/.github/workflows/add_module.yml@main

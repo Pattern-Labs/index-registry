@@ -9,8 +9,7 @@ on:
         description: 'Version to add. Expected to match a tag in the repo.'
         required: true
         type: string
-concurrency: 
-  group: ${{ github.ref }}
+
 jobs:
   update-module:
     runs-on: ubuntu-latest
