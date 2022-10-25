@@ -1,5 +1,5 @@
 {
-    "integrity": "sha256-2Y+3a6zjdDxTtmXZH9QV/xXaLaoSJafWz5w+XGmBNJw=",
+    "integrity": "sha256-VMENM74QhIs2Dpp9uBkf/mU96nAg+6iKCBMnwgQEifU=",
     "strip_prefix": "guardrail-0.30.2",
     "url": "https://github.com/Pattern-Labs/guardrail/archive/refs/tags/0.30.2.tar.gz"
 }
