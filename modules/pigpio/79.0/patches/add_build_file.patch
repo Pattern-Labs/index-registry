@@ -1,0 +1,22 @@
+--- /dev/null
++++ a/BUILD.bazel
+@@ -0,0 +1,19 @@
++package(default_visibility = ["//visibility:public"])
++
++cc_library(
++    name = "pigpio",
++    srcs = [
++        "pigpio.c",
++        "command.c",
++        "custom.c",
++    ],
++    hdrs = [
++        "pigpio.h",
++        "command.h",
++    ],
++    include_prefix = "pigpio/",
++    linkopts = [
++        "-lpthread",
++        "-lrt",
++        ],
++)
