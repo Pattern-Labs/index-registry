@@ -10,6 +10,7 @@ on:
         - pattern_tools
         - sick_lidar_driver
         - guardrail
+        - libfluent
       version:
         description: 'Version to add. Expected to match a tag in the repo.'
         required: true
