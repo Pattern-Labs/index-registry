@@ -2,7 +2,8 @@
     "homepage": "https://github.com/Pattern-Labs/libfluent/",
     "maintainers": [],
     "versions": [
-        "2.1.1"
+        "2.1.1",
+        "2.2.0"
     ],
     "yanked_versions": {}
 }
