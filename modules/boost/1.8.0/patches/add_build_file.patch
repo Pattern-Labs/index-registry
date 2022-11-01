@@ -1,6 +1,6 @@
 --- /dev/null
 +++ BUILD.bazel
-@@ -0,0 +1,52 @@
+@@ -0,0 +1,53 @@
 +load("@rules_foreign_cc//foreign_cc:defs.bzl", "boost_build")
 +
 +
@@ -40,6 +40,7 @@
 +        "--with-chrono",
 +        "--with-container",
 +        "--with-date_time",
++        "--with-icu",
 +        "--with-filesystem",
 +        "--with-math",
 +        "--with-mpi",
