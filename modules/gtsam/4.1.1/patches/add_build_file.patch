@@ -25,5 +25,5 @@
 +        "libgtsam_unstable.so",
 +    ],
 +    visibility = ["//visibility:public"],
-+    deps = ["@boost:boost_for_gtsam"],
++    deps = ["@boost//:boost_for_gtsam"],
 +)
