@@ -1,6 +1,6 @@
 --- /dev/null
 +++ BUILD.bazel
-@@ -0,0 +1,53 @@
+@@ -0,0 +1,58 @@
 +load("@rules_foreign_cc//foreign_cc:defs.bzl", "boost_build")
 +
 +
@@ -12,8 +12,10 @@
 +    visibility = ["//visibility:public"],
 +)
 +
++
 +boost_build(
 +    name = "boost",
++    bootstrap_options = ["--with-icu"],
 +    lib_source = ":all_srcs",
 +    linkopts = ["-lpthread"],
 +    out_shared_libs = [
@@ -36,6 +38,7 @@
 +        "libboost_timer.so",
 +    ],
 +    user_options = [
++        "-j8",
 +        "--with-atomic",
 +        "--with-chrono",
 +        "--with-container",
@@ -51,6 +54,8 @@
 +        "--with-system",
 +        "--with-thread",
 +        "--with-timer",
-+        "-j 8",
++        "variant=release",
++        "link=shared",
++        "threading=multi",
 +    ],
 +)
