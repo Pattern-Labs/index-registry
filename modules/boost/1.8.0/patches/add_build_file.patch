@@ -1,0 +1,42 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,38 @@
++load("@rules_foreign_cc//foreign_cc:defs.bzl", "boost_build")
++
++package(default_visibility = ["//visibility:public"])
++
++filegroup(
++    name = "all_srcs",
++    srcs = glob(["**"]),
++    visibility = ["//visibility:public"],
++)
++
++boost_build(
++    name = "boost_for_gtsam",
++    lib_source = ":all_srcs",
++    linkopts = ["-lpthread"],
++    out_shared_libs = [
++        "libboost_serialization.so",
++        "libboost_system.so",
++        "libboost_filesystem.so",
++        "libboost_thread.so",
++        "libboost_program_options.so",
++        "libboost_date_time.so",
++        "libboost_timer.so",
++        "libboost_chrono.so",
++        "libboost_regex.so",
++    ],
++    user_options = [
++        "--with-serialization",
++        "--with-system",
++        "--with-filesystem",
++        "--with-thread",
++        "--with-program_options",
++        "--with-date_time",
++        "--with-timer",
++        "--with-chrono",
++        "--with-regex",
++        "-j 8",
++    ],
++)
+
