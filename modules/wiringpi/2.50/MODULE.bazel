@@ -1,0 +1,5 @@
+module(
+    name = "wiringpi",
+    version = "2.50",
+    compatibility_level = 1,
+)

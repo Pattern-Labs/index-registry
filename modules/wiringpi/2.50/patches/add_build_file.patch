@@ -1,0 +1,29 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,26 @@
++cc_library(
++    name = "wiringpi",
++    hdrs = [
++        "WiringPi-final_official_2.50/wiringPi/wiringPi.h",
++        "WiringPi-final_official_2.50/wiringPi/wiringPiI2C.h",
++        "WiringPi-final_official_2.50/wiringPi/softPwm.h",
++        "WiringPi-final_official_2.50/wiringPi/softTone.h",
++        ],
++    srcs = [
++        "WiringPi-final_official_2.50/wiringPi/wiringPi.c",
++        "WiringPi-final_official_2.50/wiringPi/wiringPiI2C.c",
++        "WiringPi-final_official_2.50/wiringPi/softPwm.c",
++        "WiringPi-final_official_2.50/wiringPi/softTone.c",
++        ],
++    strip_include_prefix = "WiringPi-final_official_2.50/",
++    visibility = ["//visibility:public"],
++    deps = [
++        ":version_hdr",
++    ],
++)
++
++cc_library(
++    name = "version_hdr",
++    hdrs = ["WiringPi-final_official_2.50/version.h"],
++    strip_include_prefix = "WiringPi-final_official_2.50/",
++)
