@@ -1,0 +1,34 @@
+name: Bump Minor
+
+on:
+  workflow_call:
+    inputs:
+      repo:
+        description: 'Name of repo to update.'
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  update-tag: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ inputs.repo }}
+          fetch-depth: 0
+
+      - name: Bump version
+        run: |
+          export PATTERN_VERSION_NUMBER=$(python3 .github/workflows/tools/bump_minor.py --repo ${{ inputs.repo }} --token ${{ secrets.REPO_ACCESS_PAT }})
+          echo "PATTERN_VERSION_NUMBER=${PATTERN_VERSION_NUMBER}" >> $GITHUB_ENV
+
+      - name: Tag snapshot
+        uses: tvdias/github-tagger@v0.0.1
+        with:
+          repo-token: ${{ secrets.REPO_ACCESS_PAT }}
+          tag: ${{ env.PATTERN_VERSION_NUMBER }}
