@@ -313,3 +313,15 @@ class BazelVersion:
 
     def add_or_update_dependency(self, dependency, version):
         self._bazel_deps[dependency] = version
+
+    def export_version_to_github_env(self):
+        self._add_github_env_variable("PATTERN_VERSION_NUMBER", self._version.get_tag())
+
+    def _add_github_env_variable(self, key: str, value: str):
+        env_variable_location = os.environ.get("GITHUB_ENV")
+        if env_variable_location is None:
+            raise RuntimeError(
+                "Attempted to add a github env variable while not in a runner."
+            )
+        with open(env_variable_location, "a") as file:
+            file.write(f"{key}={value}\n")

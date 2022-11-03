@@ -21,6 +21,15 @@ def main(args):
         if args["bump_minor"]:
             print("Bumping a local minor")
             module.bump_patch()
+        if args["update_dependency"] is not None:
+            dependency = args["update_dependency"][0]
+            version = args["update_dependency"][1]
+            print(f"Updatting the dependency {dependency} to version {version}")
+            module.add_or_update_dependency(dependency=dependency, version=version)
+
+        # These need to be last. Order matters.
+        if args["export_tag"]:
+            module.export_version_to_github_env()
         if args["save_local"]:
             print("Saving a local module")
             module.save_version(override=True)
@@ -32,7 +41,7 @@ if __name__ == "__main__":
         "--local",
         action="store_true",
         required=False,
-        help="In a local repo. <module_name>",
+        help="In a local repo.",
     )
     parser.add_argument(
         "--index",
@@ -52,6 +61,18 @@ if __name__ == "__main__":
         help="Bump a minor..",
     )
     parser.add_argument(
+        "--export-tag",
+        required=False,
+        action="store_true",
+        help="Export the current tag as a github enivornment variable..",
+    )
+    parser.add_argument(
+        "--update-dependency",
+        required=False,
+        nargs=2,
+        help="update a dependency",
+    )
+    parser.add_argument(
         "--save-local",
         required=False,
         action="store_true",
@@ -65,7 +86,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--add-or-update-dependency",
         required=False,
-        help="Add or update a dependency.",
+        help="Add or update a dependency. --add-or-update-dependency <dependency> <version>",
     )
 
     args = vars(parser.parse_args())

@@ -103,3 +103,6 @@ class Module:
     @property
     def name(self) -> str:
         return self._module_name
+
+    def export_version_to_github_env(self):
+        self._latest_bazel_version.export_version_to_github_env()

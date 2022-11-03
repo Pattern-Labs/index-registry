@@ -1,4 +1,4 @@
-name: Bump Patch
+name: Bump Minor
 
 on:
    workflow_call:
@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  bump-patch:
+  bump-minor:
     runs-on: ubuntu-20.04
     permissions:
       contents: read
@@ -32,7 +32,7 @@ jobs:
         run: export PATTERN_GITHUB_TOKE=${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Update BAZEL.module
-        run: python3 .github/workflows/tools/main.py --local --bump-patch --export-tag --save-local
+        run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local
 
       - name: commit tag and push
         run: |

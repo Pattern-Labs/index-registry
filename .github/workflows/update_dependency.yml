@@ -1,10 +1,18 @@
-name: Bump Patch
+name: Update Dependency
 
 on:
    workflow_call:
     inputs:
-      module_name:
-        description: 'Name of module to update.'
+      dependent:
+        description: 'Dependent being updated.'
+        required: true
+        type: string
+      dependency:
+        description: 'Dependency being updated.'
+        required: true
+        type: string
+      version:
+        description: 'Version of dependency.'
         required: true
         type: string
 
@@ -32,19 +40,17 @@ jobs:
         run: export PATTERN_GITHUB_TOKE=${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Update BAZEL.module
-        run: python3 .github/workflows/tools/main.py --local --bump-patch --export-tag --save-local
+        run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local
 
       - name: commit tag and push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add MODULE.bazel
-          git commit -m "Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}"
-          git tag ${{ env.PATTERN_VERSION_NUMBER }}
+          git commit -m "Update updating dependency ${{ inputs.dependency }} to ${{ inputs.version }}"
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.REPO_ACCESS_PAT }}
           force: true
-          tags: true
