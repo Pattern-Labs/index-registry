@@ -24,6 +24,7 @@ jobs:
         with:
           repository: "pattern-labs/guardrail"
           path: local_repo
+          token: ${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Update BAZEL.module
         run: .github/workflows/tools/main.py --local --bump-patch --save-local
