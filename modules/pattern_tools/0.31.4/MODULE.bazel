@@ -1,6 +1,6 @@
 module(
     name = "pattern_tools",
-    version = "0.31.3",
+    version = "0.31.4",
     compatibility_level = 2,
 )
 bazel_dep(name = "rules_cc", version = "0.0.2")
