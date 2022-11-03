@@ -1,0 +1,29 @@
+name: Bump Patch
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'dev-*'
+
+jobs:
+  bump-patch:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Index Registry
+        uses: actions/checkout@v3
+        with:
+          repository: "pattern-labs/index-registry"
+
+      - name: Checkout Repo being bumped
+        uses: actions/checkout@v3
+        with:
+          repository: "pattern-labs/guardrail"
+          path: local_repo
+
+      - name: Update BAZEL.module
+        run: .github/workflows/tools/main.py --local --bump-patch --save-local

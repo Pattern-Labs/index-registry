@@ -1,6 +1,7 @@
 # Base imports
-import os
 from collections import defaultdict
+from typing import List
+import os
 
 # Relative imports
 from bazel_version import BazelVersion
@@ -13,14 +14,24 @@ class Module:
     from a Module.bazel file and is able to edit the file.
     """
 
-    def __init__(self, module_name: str):
-        # Get the cwd.
-        self._cwd = os.getcwd()
-        """String representing the cwd of the registry."""
+    def __init__(self, module_name: str = None, local: bool = False):
+        self._local = local
+        if local:
+            # Get the cwd.
+            self._cwd = os.getcwd()
+            """String representing the cwd of the repo."""
 
-        # Set the module path.
-        self._module_path = self._cwd + "/modules/" + module_name
-        """String representing the path to the module folder."""
+            # Set the module path.
+            self._module_path = self._cwd + "/local_repo"
+            """String representing the path to the module folder."""
+        else:
+            # Get the cwd.
+            self._cwd = os.getcwd()
+            """String representing the cwd of the registry."""
+
+            # Set the module path.
+            self._module_path = self._cwd + "/modules/" + module_name
+            """String representing the path to the module folder."""
 
         # Set module_name.
         self._module_name = module_name
@@ -43,25 +54,28 @@ class Module:
         """
         A function to read an initialize the versions of a module
         """
-        # Get a list of all the versions.
-        version_list = os.listdir(self._module_path)
+        if self._local:
+            self._latest_bazel_version = BazelVersion(self._module_name, local=True)
+        else:
+            # Get a list of all the versions.
+            version_list = os.listdir(self._module_path)
 
-        # Add each module to the modules dict.
-        for version_name in version_list:
-            # Check if its a valid version.
-            version_path = self._module_path + "/" + version_name
-            if os.path.isdir(version_path):
-                self._bazel_versions[version_name] = BazelVersion(
-                    self._module_name, version_name
-                )
+            # Add each module to the modules dict.
+            for version_name in version_list:
+                # Check if its a valid version.
+                version_path = self._module_path + "/" + version_name
+                if os.path.isdir(version_path):
+                    self._bazel_versions[version_name] = BazelVersion(
+                        self._module_name, version_name
+                    )
 
-        # Determine the latest bazel version.
-        bazel_versions = list(self._bazel_versions.values())
-        latest_version = Version()
-        for bazel_version in bazel_versions:
-            if bazel_version.get_version() > latest_version:
-                latest_version = bazel_version.get_version()
-                self._latest_bazel_version = bazel_version
+            # Determine the latest bazel version.
+            bazel_versions = list(self._bazel_versions.values())
+            latest_version = Version()
+            for bazel_version in bazel_versions:
+                if bazel_version.get_version() > latest_version:
+                    latest_version = bazel_version.get_version()
+                    self._latest_bazel_version = bazel_version
 
     def bump_patch(self):
         self._latest_bazel_version.bump_patch()
@@ -72,5 +86,20 @@ class Module:
     def bump_major(self):
         self._latest_bazel_version.bump_major()
 
-    def save_version(self):
-        self._latest_bazel_version.save_version()
+    def save_version(self, override=False):
+        self._latest_bazel_version.save_version(override=override)
+
+    def add_or_update_dependency(self, dependency, version):
+        self._latest_bazel_version.add_or_update_dependency(dependency, version)
+
+    @property
+    def latest_bazel_version(self) -> BazelVersion:
+        return self._latest_bazel_version
+
+    @property
+    def dependencies(self) -> List[str]:
+        return self._latest_bazel_version.dependencies
+
+    @property
+    def name(self) -> str:
+        return self._module_name
