@@ -38,4 +38,5 @@ which I will proceed to outline in the following implementation methods.
               * You dont have to put modules like apollo and prototype controller in the repo
           
           cons:
+          
               * Requires a bunch of checking out of repos with unkown tags which means that things could get out of sync.
