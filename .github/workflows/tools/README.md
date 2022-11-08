@@ -27,7 +27,7 @@ which I will proceed to outline in the following implementation methods.
           Cons:
                 
                 * You have to add some modules that you would not otherwise have to.
-     1. ***Handle Bazel Dependencies outside of the Index Registry:***This method would mean that some modules (ie. apollo, prototype-controler, etc.)
+     1. ***Handle Bazel Dependencies outside of the Index Registry:*** This method would mean that some modules (ie. apollo, prototype-controler, etc.)
      would not be housed in the index registry. Since not everything is handled in the index registry, I would implement this as if nothing was housed
      in the index registry. I dont want to add additional cases or specific lists of repos that need special treatment because I do not believe this 
      would scale. This would mean that you would have to checkout every pattern repo and then check if it is a bazel module and then if it is you
