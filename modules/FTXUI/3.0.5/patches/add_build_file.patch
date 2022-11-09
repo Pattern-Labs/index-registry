@@ -1,0 +1,28 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,25 @@
++load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
++
++filegroup(
++    name = "all_srcs",
++    srcs = glob(["**"]),
++    visibility = ["//visibility:public"],
++)
++
++cmake(
++    name = "FTXUI",
++    cache_entries = {
++        "CMAKE_CXX_FLAGS": "-pthread -fPIC",
++        "FTXUI_BUILD_DOCS": "OFF",
++        "FTXUI_BUILD_EXAMPLES": "OFF",
++    },
++    copts = ["-Wno-error=sign-compare"],
++    linkopts = ["-lpthread", "-lm"],
++    lib_source = ":all_srcs",
++    out_static_libs = [
++        "libftxui-component.a",
++        "libftxui-screen.a",
++        "libftxui-dom.a",
++    ],
++    visibility = ["//visibility:public"],
++)
