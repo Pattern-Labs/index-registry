@@ -2,7 +2,8 @@
 import argparse
 
 # Local imports
-from registry import Registry
+# TODO (Thomas Gira) Automation
+# from registry import Registry
 from module import Module
 
 
@@ -34,7 +35,9 @@ def main(args):
             print("Saving a local module")
             module.save_version(override=True)
     elif args["index"]:
-        index = Registry()
+        # TODO (Thomas Gira) Automation
+        # index = Registry()
+        pass
 
 
 if __name__ == "__main__":
