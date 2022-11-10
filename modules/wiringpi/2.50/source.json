@@ -2,7 +2,7 @@
     "integrity": "sha256-5WLisyNJQCtCAprQbElk+TtBFXPLB++b4ETaBSaOkLA=",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-62zS8h2JqXeziVBOoGXGb/eXxlj9dGuTJra16qUge8g="
+        "add_build_file.patch": "sha256-Q/Z7L026/saEvg6M3MZ/kVkAIKye1dyRe5YL9GdI3Sw="
     },
     "url": "https://github.com/WiringPi/WiringPi/archive/refs/tags/final_official_2.50.zip"
 }
