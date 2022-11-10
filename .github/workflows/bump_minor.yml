@@ -34,17 +34,13 @@ jobs:
       - name: Update BAZEL.module
         run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local
 
-      - name: commit tag and push
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add MODULE.bazel
-          git commit -m "Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}"
-          git tag ${{ env.PATTERN_VERSION_NUMBER }}
-
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
         with:
-          github_token: ${{ secrets.REPO_ACCESS_PAT }}
-          force: true
-          tags: true
+          author_name: github.actor
+          push: origin ${{ steps.branch-name.outputs.current_branch }} --set-upstream --force
+          message: 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}".'
+          add: "MODULE.bazel"
+          tag:  ${{ env.PATTERN_VERSION_NUMBER }}
+          tag_push: '--force'
+          
