@@ -1,0 +1,9 @@
+{
+    "integrity": "sha256-qPJTmrlcqvshsMU06N+wrupOZYaIeXu55VOXKdkljME=",
+    "patch_strip": 0,
+    "patches": {
+        "add_build_file.patch": "sha256-a/GAB41cfry86MwxMBg5t6apsYisFM9CElo0xne2KEs="
+    },
+    "strip_prefix": "FTXUI-3.0.0",
+    "url": "https://github.com/ArthurSonzogni/FTXUI/archive/refs/tags/v3.0.0.tar.gz"
+}
