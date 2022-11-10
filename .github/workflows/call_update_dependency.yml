@@ -1,0 +1,26 @@
+name: Call Update Dependency
+
+on:
+   workflow_dispatch:
+    inputs:
+      dependent:
+        description: 'Dependent being updated.'
+        required: true
+        type: string
+      dependency:
+        description: 'Dependency being updated.'
+        required: true
+        type: string
+      version:
+        description: 'Version of dependency.'
+        required: true
+        type: string
+
+jobs:
+  call-update-dependency:
+    uses: pattern-labs/index-registry/.github/workflows/update_dependency.yml@main
+    with:
+      dependent: ${{ github.event.inputs.dependent }}
+      dependency: ${{ github.event.inputs.dependency }}
+      version: ${{ github.event.inputs.version }}
+    secrets: inherit
