@@ -76,23 +76,13 @@ if __name__ == "__main__":
         "--update-dependency",
         required=False,
         nargs=2,
-        help="update a dependency",
+        help="update a dependency --update-dependency <dependency> <version>",
     )
     parser.add_argument(
         "--save-local",
         required=False,
         action="store_true",
         help="Save a single local module.",
-    )
-    parser.add_argument(
-        "--save-version-and-dependents",
-        required=False,
-        help="Save version and its dependents.",
-    )
-    parser.add_argument(
-        "--add-or-update-dependency",
-        required=False,
-        help="Add or update a dependency. --add-or-update-dependency <dependency> <version>",
     )
 
     args = vars(parser.parse_args())

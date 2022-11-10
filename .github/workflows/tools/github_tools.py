@@ -42,9 +42,11 @@ class Version:
         print(f"set {env_variable} to {os.environ[env_variable]}")
 
     def __gt__(self, other: "Version") -> bool:
-        if not isinstance(other, Version):
-            raise TypeError("Comparison is not of Version type")
-        return [self.major, self.minor, self.patch] > [other.major, other.minor, other.patch]
+        return [self.major, self.minor, self.patch] > [
+            other.major,
+            other.minor,
+            other.patch,
+        ]
 
 
 def get_tags(repo: str, owner: str = "pattern-labs", token: str = None) -> dict:
@@ -128,7 +130,7 @@ def last_weekly_release(
 def last_tag(repo: str, owner: str = "pattern-labs", token: str = None) -> Version:
     """Function to get the value of the most recent weekly release."""
     versions = list_tags(repo=repo, owner=owner, token=token)
-    largest_version = get_largest_version(versions)
+    largest_version = max(versions)
     return largest_version
 
 

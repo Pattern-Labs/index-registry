@@ -17,34 +17,27 @@ class Module:
     def __init__(self, module_name: str = None, local: bool = False):
         self._local = local
         if local:
-            # Get the cwd.
             self._cwd = os.getcwd()
             """String representing the cwd of the repo."""
 
-            # Set the module path.
             self._module_path = self._cwd + "/local_repo"
             """String representing the path to the module folder."""
         else:
-            # Get the cwd.
             self._cwd = os.getcwd()
             """String representing the cwd of the registry."""
 
-            # Set the module path.
             self._module_path = self._cwd + "/modules/" + module_name
             """String representing the path to the module folder."""
 
-        # Set module_name.
         self._module_name = module_name
         """String representing the module name of the Module."""
 
-        # Initialize the bazel versions dict.
         self._bazel_versions = defaultdict(lambda: None)
         """
         Default dict containing versions: 
             {str version_name: Version: version_class}.
         """
 
-        # Initialize the latest version.
         self._latest_bazel_version = None
         """The latest BazelVersion"""
 
@@ -55,19 +48,15 @@ class Module:
         if self._local:
             self._latest_bazel_version = BazelVersion(self._module_name, local=True)
         else:
-            # Get a list of all the versions.
             version_list = os.listdir(self._module_path)
 
-            # Add each module to the modules dict.
             for version_name in version_list:
-                # Check if its a valid version.
                 version_path = self._module_path + "/" + version_name
                 if os.path.isdir(version_path):
                     self._bazel_versions[version_name] = BazelVersion(
                         self._module_name, version_name
                     )
 
-            # Determine the latest bazel version.
             bazel_versions = list(self._bazel_versions.values())
             latest_version = Version()
             for bazel_version in bazel_versions:
