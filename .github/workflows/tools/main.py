@@ -7,8 +7,8 @@ from module import Module
 
 
 def main(args):
-    if (args["local"] is None and args["index"] is None) or (
-        args["local"] is not None and args["index"] is not None
+    if (args["local"] is False and args["index"] is False) or (
+        args["local"] is True and args["index"] is True
     ):
         print("ERROR: Declare one of local or index.")
         parser.print_help()
@@ -33,6 +33,8 @@ def main(args):
         if args["save_local"]:
             print("Saving a local module")
             module.save_version(override=True)
+    elif args["index"]:
+        index = Registry()
 
 
 if __name__ == "__main__":
@@ -45,6 +47,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--index",
+        action="store_true",
         required=False,
         help="In the index registry.",
     )

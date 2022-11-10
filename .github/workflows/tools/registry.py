@@ -1,7 +1,6 @@
 # Import necessary libraries
 # Base imports
 from collections import defaultdict
-import argparse
 import os
 
 # Relative imports
@@ -50,6 +49,7 @@ class Registry:
 
         # Resolve the depth map.
         self._resolve_depths()
+        print(self._depth)
 
     def _add_depth(self, leaf: Leaf, depth: int = 0):
         if depth > self._depth[leaf.name]:
