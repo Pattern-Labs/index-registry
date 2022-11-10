@@ -1,4 +1,4 @@
-name: Bump Minor
+name: Bump Version
 
 on:
    workflow_call:
@@ -15,7 +15,7 @@ concurrency:
   group: ${{ github.ref }}
 
 jobs:
-  bump-minor:
+  bump-version:
     runs-on: ubuntu-20.04
     permissions:
       contents: read
