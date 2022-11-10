@@ -161,8 +161,7 @@ def bump_patch(repo: str, owner: str = "pattern-labs", token: str = None) -> str
 def get_repos(owner: str = "pattern-labs", token: str = None) -> List[str]:
     """Function to get a list of repos from a given owner"""
     if token is None:
-        token = os.environ.get("PATTERN_GITHUB_TOKEN")
-    if token is not None:
+        token = os.environ["PATTERN_GITHUB_TOKEN"]
         url = f"https://api.github.com/orgs/{owner}/repos"
         headers = {
             "Authorization": f"Bearer {token}",

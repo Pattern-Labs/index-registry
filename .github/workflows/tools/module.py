@@ -51,9 +51,7 @@ class Module:
         self._init_versions()
 
     def _init_versions(self):
-        """
-        A function to read an initialize the versions of a module
-        """
+        """A function to read and initialize the versions of a module."""
         if self._local:
             self._latest_bazel_version = BazelVersion(self._module_name, local=True)
         else:

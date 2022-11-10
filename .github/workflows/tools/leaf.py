@@ -4,8 +4,7 @@ from module import Module
 class Leaf:
     def __init__(self, module: Module):
         self._module = module
-        latest_bazel_version = module.latest_bazel_version
-        self._dependencies = latest_bazel_version.dependencies
+        self._dependencies = modules.dependencies
         self._children = []
 
     def add_child(self, leaf: "Leaf"):

@@ -25,7 +25,7 @@ def main(args):
         if args["update_dependency"] is not None:
             dependency = args["update_dependency"][0]
             version = args["update_dependency"][1]
-            print(f"Updatting the dependency {dependency} to version {version}")
+            print(f"Updating the dependency {dependency} to version {version}")
             module.add_or_update_dependency(dependency=dependency, version=version)
 
         # These need to be last. Order matters.
