@@ -44,24 +44,7 @@ class Version:
     def __gt__(self, other: "Version") -> bool:
         if not isinstance(other, Version):
             raise TypeError("Comparison is not of Version type")
-
-        major_greater_than = self.major > other.major
-        minor_greater_than = self.minor > other.minor
-        patch_greater_than = self.patch > other.patch
-
-        major_equal_to = self.major == other.major
-        minor_equal_to = self.minor == other.minor
-
-        if major_greater_than:
-            return True
-
-        if major_equal_to and minor_greater_than:
-            return True
-
-        if major_equal_to and minor_equal_to and patch_greater_than:
-            return True
-
-        return False
+        return [self.major, self.minor, self.patch] > [other.major, other.minor, other.patch]
 
 
 def get_tags(repo: str, owner: str = "pattern-labs", token: str = None) -> dict:
