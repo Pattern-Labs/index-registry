@@ -1,5 +1,5 @@
 --- /dev/null
-+++ a/BUILD.bazel
++++ BUILD.bazel
 @@ -0,0 +1,37 @@
 +load("@rules_foreign_cc//foreign_cc:defs.bzl", "boost_build")
 +
