@@ -1,11 +1,14 @@
 --- /dev/null
 +++ BUILD.bazel
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,29 @@
 +load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
 +
 +filegroup(
-+    name = "all_srcs",
-+    srcs = glob(["**"]),
++    name = "all_gtsam_srcs",
++    srcs = glob(
++        ["**"],
++        exclude = ["boost_1_80_0/**"],
++    ),
 +    visibility = ["//visibility:public"],
 +)
 +
@@ -19,11 +22,11 @@
 +        "GTSAM_UNSTABLE_BUILD_PYTHON": "OFF",
 +    },
 +    copts = ["-fPIC"],
-+    lib_source = ":all_srcs",
++    lib_source = ":all_gtsam_srcs",
 +    out_shared_libs = [
 +        "libgtsam.so",
 +        "libgtsam_unstable.so",
 +    ],
 +    visibility = ["//visibility:public"],
-+    deps = ["@boost//:boost_for_gtsam"],
++    deps = ["@boost_for_gtsam"],
 +)

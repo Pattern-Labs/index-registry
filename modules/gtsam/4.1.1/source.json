@@ -2,7 +2,7 @@
     "integrity": "sha256-x7Xmza1SsUHCcnePR7r2KJdUV74+Ju2Wp7wq5oWgCvA=",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-mIJXiKmhqkq52BEVy8I9F7iVaJHrGNHdOqxnWwLYvKE="
+        "add_build_file.patch": "sha256-poLmQIvBZswAThsqB4Txs6HiDVN2fj4nq4ne/6H2N8E="
     },
     "strip_prefix": "gtsam-4.1.1",
     "url": "https://github.com/borglab/gtsam/archive/refs/tags/4.1.1.tar.gz"

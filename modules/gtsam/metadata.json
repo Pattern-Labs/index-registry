@@ -2,8 +2,7 @@
     "homepage": "https://github.com/borglab/gtsam/",
     "maintainers": [],
     "versions": [
-        "4.1.1",
-        "4.1.1-with-split-boost"
+        "4.1.1"
     ],
     "yanked_versions": {}
 }
