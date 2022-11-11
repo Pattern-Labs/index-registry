@@ -1,0 +1,22 @@
+commit a0e09ee4da03c594b63a70ab1162c8da2d09f956
+Author: John Klingner <john@klingner.cc>
+Date:   Fri Nov 11 14:26:28 2022 -0700
+
+    Removes unicode test folder.
+
+diff --git "a/boost_1_80_0/libs/wave/test/testwave/testfiles/utf8-test-\303\237\302\265\342\204\242\342\210\203/file.hpp" "b/boost_1_80_0/libs/wave/test/testwave/testfiles/utf8-test-\303\237\302\265\342\204\242\342\210\203/file.hpp"
+deleted file mode 100644
+index df704b2d0..000000000
+--- "a/boost_1_80_0/libs/wave/test/testwave/testfiles/utf8-test-\303\237\302\265\342\204\242\342\210\203/file.hpp"
++++ /dev/null
+@@ -1,10 +0,0 @@
+-/*=============================================================================
+-    Boost.Wave: A Standard compliant C++ preprocessor library
+-    http://www.boost.org/
+-
+-    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
+-    Software License, Version 1.0. (See accompanying file
+-    LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+-=============================================================================*/
+-
+-__FILE__
