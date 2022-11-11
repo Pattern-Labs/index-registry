@@ -1,45 +1,61 @@
 --- /dev/null
 +++ BUILD.bazel
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,58 @@
 +load("@rules_foreign_cc//foreign_cc:defs.bzl", "boost_build")
++
 +
 +package(default_visibility = ["//visibility:public"])
 +
 +filegroup(
-+    name = "all_boost_srcs",
++    name = "all_srcs",
 +    srcs = glob(["**"]),
++    visibility = ["//visibility:public"],
 +)
 +
++
 +boost_build(
-+    name = "boost_for_gtsam",
-+    lib_source = ":all_boost_srcs",
++    name = "boost",
 +    bootstrap_options = ["--with-icu"],
++    lib_source = ":all_srcs",
 +    linkopts = ["-lpthread"],
 +    out_shared_libs = [
++        "libboost_atomic.so",
++        "libboost_chrono.so",
++        "libboost_container.so",
++        "libboost_date_time.so",
++        "libboost_filesystem.so",
++        "libboost_math_c99.so",
++        "libboost_math_c99f.so",
++        "libboost_math_c99l.so",
++        "libboost_math_tr1.so",
++        "libboost_math_tr1f.so",
++        "libboost_program_options.so",
++        "libboost_random.so",
++        "libboost_regex.so",
 +        "libboost_serialization.so",
 +        "libboost_system.so",
-+        "libboost_filesystem.so",
 +        "libboost_thread.so",
-+        "libboost_program_options.so",
-+        "libboost_date_time.so",
 +        "libboost_timer.so",
-+        "libboost_chrono.so",
-+        "libboost_regex.so",
 +    ],
 +    user_options = [
++        "-j8",
++        "--with-atomic",
++        "--with-chrono",
++        "--with-container",
++        "--with-date_time",
++        "--with-icu",
++        "--with-filesystem",
++        "--with-math",
++        "--with-mpi",
++        "--with-program_options",
++        "--with-random",
++        "--with-regex",
 +        "--with-serialization",
 +        "--with-system",
-+        "--with-filesystem",
 +        "--with-thread",
-+        "--with-program_options",
-+        "--with-date_time",
 +        "--with-timer",
-+        "--with-icu",
-+        "--with-chrono",
-+        "--with-regex",
 +        "variant=release",
 +        "link=shared",
 +        "threading=multi",
-+        "-j 8",
 +    ],
 +)
