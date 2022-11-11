@@ -2,7 +2,7 @@
     "integrity": "sha256-SyE2+YvdH1hX8cPeqawgGO/+ZShs8lFTS2riDMReGEc=",
     "patch_strip": 0,
     "patches": {
-        "add_build_file.patch": "sha256-EwxKfTg5l9EZKh0Z7iafHjGwopCyUrBiIe8Ls06ChEo="
+        "add_build_file.patch": "sha256-wASmH50UuUYQOuN+5hJPYAw4GXgjtCL8EUJgFgklous="
     },
     "strip_prefix": "boost_1_80_0",
     "url": "https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz"
