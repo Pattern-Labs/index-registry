@@ -3,7 +3,7 @@
     "patch_strip": 1,
     "patches": {
         "add_build_file.patch": "sha256-C0km+MRchTc2npmT+J70t/fZstfkz62aq0ZWOeuIA6I=",
-        "gtsam_add_boost.patch": "sha256-VZ2slyUhtb5Wlbphr9IKeUog6t3Np2YaQrTtXxzDzws="
+        "gtsam_add_boost.patch": "sha256-VRR1vScxgHoa52PRbIU1wn0e+l9dcQIM75KfIEfwOyY="
     },
     "strip_prefix": "gtsam-4.1.1",
     "url": "https://github.com/borglab/gtsam/archive/refs/tags/4.1.1.tar.gz"

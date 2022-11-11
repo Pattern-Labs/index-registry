@@ -3,8 +3,7 @@
     "maintainers": [],
     "versions": [
         "4.1.1",
-        "4.1.1-boost",
-        "4.1.1-with-boost"
+        "4.1.1-boost"
     ],
     "yanked_versions": {}
 }
