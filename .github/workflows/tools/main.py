@@ -8,12 +8,6 @@ from module import Module
 
 
 def main(args):
-    if (args["local"] is False and args["index"] is False) or (
-        args["local"] is True and args["index"] is True
-    ):
-        print("ERROR: Declare one of local or index.")
-        parser.print_help()
-        return
     if args["local"]:
         module = Module(local=True)
         if args["bump_patch"]:
@@ -42,16 +36,15 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Manage the index registry.")
-    parser.add_argument(
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument(
         "--local",
         action="store_true",
-        required=False,
         help="In a local repo.",
     )
-    parser.add_argument(
+    action.add_argument(
         "--index",
         action="store_true",
-        required=False,
         help="In the index registry.",
     )
     parser.add_argument(
