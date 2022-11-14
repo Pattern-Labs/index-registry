@@ -1,0 +1,58 @@
+name: Update Dependency
+
+on:
+   workflow_call:
+    inputs:
+      dependent:
+        description: 'Dependent being updated.'
+        required: true
+        type: string
+      dependency:
+        description: 'Dependency being updated.'
+        required: true
+        type: string
+      version:
+        description: 'Version of dependency.'
+        required: true
+        type: string
+concurrency: 
+  group: ${{ github.ref }}
+
+jobs:
+  bump-patch:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Index Registry
+        uses: actions/checkout@v3
+        with:
+          repository: "pattern-labs/index-registry"
+
+      - name: Checkout Repo being bumped
+        uses: actions/checkout@v3
+        with:
+          repository: "pattern-labs/${{ inputs.version }}"
+          path: local_repo
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+
+      - name: Set Repo PAT
+        run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
+
+      - name: Update BAZEL.module
+        run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local
+
+      - name: commit tag and push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add MODULE.bazel
+          git commit -m "Update updating dependency ${{ inputs.dependency }} to ${{ inputs.version }}"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.REPO_ACCESS_PAT }}
+          force: true
