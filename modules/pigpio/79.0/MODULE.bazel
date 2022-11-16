@@ -1,0 +1,5 @@
+module(
+    name = "pigpio",
+    version = "79.0",
+    compatibility_level = 1,
+)

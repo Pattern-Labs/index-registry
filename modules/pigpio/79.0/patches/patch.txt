@@ -1,0 +1,25 @@
+--- pigpio-master/custom.c	1969-12-31 17:00:00.000000000 -0700
++++ pigpio-master-modified/custom.c	2022-11-16 12:25:17.065637184 -0700
+@@ -0,0 +1,12 @@
++#include "pigpio.h"
++
++int gpioCustom1(unsigned arg1, unsigned arg2, char *argx, unsigned count)
++{
++    return 0;
++}
++
++int gpioCustom2(unsigned arg1, char *argx, unsigned count,
++                char *retBuf, unsigned retMax)
++{
++    return 0;
++}
+
+--- pigpio-master/pigpio.c	2021-03-02 11:46:53.000000000 -0700
++++ pigpio-master-modified/pigpio.c	2022-11-16 13:17:46.596448990 -0700
+@@ -14031,6 +14031,3 @@
+ 
+ 
+ /* include any user customisations */
+-
+-#include "custom.cext"
+-

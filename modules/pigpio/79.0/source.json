@@ -1,0 +1,10 @@
+{
+    "integrity": "sha256-yrxBpyYQLWt0YjyMJ25lwdEQ2+p7b4Pem9pJCm6JtJk=",
+    "patch_strip": 1,
+    "patches": {
+        "add_build_file.patch": "sha256-4ohlqpnWiHYxXPWjhiCyy0B+zOw7rSA1iBnEI5v6Y7s=",
+        "patch.txt": "sha256-zvH2B33ZjKI8Toc9GlOxB67pegoCFFuEFVn//vDir6c="
+    },
+    "strip_prefix": "pigpio-master/",
+    "url": "https://github.com/joan2937/pigpio/archive/master.zip"
+}
