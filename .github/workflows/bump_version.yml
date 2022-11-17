@@ -21,7 +21,7 @@ jobs:
       contents: read
       packages: write
 
-    steps:        
+    steps:
       - name: Checkout Index Registry
         uses: actions/checkout@v3
         with:
@@ -32,24 +32,22 @@ jobs:
         with:
           repository: "pattern-labs/${{ inputs.module_name }}"
           path: local_repo
-          token: ${{ secrets.GH_FORCE_PUSH }}
-          ref: main
-          fetch-depth: 0
+          token: ${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Set Repo PAT
-        run: export PATTERN_GITHUB_TOKEN=${{ secrets.GH_FORCE_PUSH }}
+        run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Update BAZEL.module
         run: python3 .github/workflows/tools/main.py --local --bump-${{ inputs.bump_type}} --export-tag --save-local
 
-      - name: 🚀 Bazel.module
-        run: |
-          cd local_repo
-          git config --local user.name github-actions
-          git config --local user.email github-actions@github.com
-          git add BAZEL.module
-          git commit -m 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}.'
-          git push --force
-          git tag ${{ env.PATTERN_VERSION_NUMBER }}
-          git push --tags
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: './local_repo'
+          author_name: github.actor
+          push: origin ${{ steps.branch-name.outputs.current_branch }} --set-upstream --force
+          message: 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}".'
+          add: "MODULE.bazel"
+          tag:  ${{ env.PATTERN_VERSION_NUMBER }}
+          tag_push: '--force'
           
