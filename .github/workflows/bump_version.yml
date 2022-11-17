@@ -21,13 +21,7 @@ jobs:
       contents: read
       packages: write
 
-    steps:
-      - name: 🔍 GH_TOKEN
-        if: env.GH_TOKEN == ''
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
-        
+    steps:        
       - name: Checkout Index Registry
         uses: actions/checkout@v3
         with:
@@ -38,12 +32,12 @@ jobs:
         with:
           repository: "pattern-labs/${{ inputs.module_name }}"
           path: local_repo
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_FORCE_PUSH }}
           ref: main
           fetch-depth: 0
 
       - name: Set Repo PAT
-        run: export PATTERN_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        run: export PATTERN_GITHUB_TOKEN=${{ secrets.GH_FORCE_PUSH }}
 
       - name: Update BAZEL.module
         run: python3 .github/workflows/tools/main.py --local --bump-${{ inputs.bump_type}} --export-tag --save-local
