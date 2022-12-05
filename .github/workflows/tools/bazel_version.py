@@ -39,7 +39,6 @@ class BazelVersion:
             """String representing the path to the module folder."""
 
             version_name = self._snag_local_names()
-            module_name = self._module_name
 
             if version_name is None:
                 raise RuntimeError("Could not find a valid version in the bazel file.")
