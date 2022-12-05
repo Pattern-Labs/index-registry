@@ -9,7 +9,7 @@ from module import Module
 
 def main(args):
     if args["local"]:
-        module = Module(module_name=args["module_name"], local=True)
+        module = Module(module_name=args["module_name"][0], local=True)
         if args["bump_patch"]:
             print("Bumping a local patch")
             module.bump_patch()
