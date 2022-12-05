@@ -42,7 +42,7 @@ jobs:
         run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Update BAZEL.module
-        run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local  --module-name ${{ secrets.dependent }}
+        run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local  --module-name ${{ inputs.dependent }}
 
       - name: commit tag and push
         run: |
