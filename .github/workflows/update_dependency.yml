@@ -52,8 +52,3 @@ jobs:
           git add MODULE.bazel
           git commit -m "Update updating dependency ${{ inputs.dependency }} to ${{ inputs.version }}"
           git push
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.REPO_ACCESS_PAT }}
-          force: true
