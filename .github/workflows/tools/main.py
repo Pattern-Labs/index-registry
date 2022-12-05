@@ -9,7 +9,7 @@ from module import Module
 
 def main(args):
     if args["local"]:
-        module = Module(local=True)
+        module = Module(module_name=args["module_name"], local=True)
         if args["bump_patch"]:
             print("Bumping a local patch")
             module.bump_patch()
@@ -76,6 +76,12 @@ if __name__ == "__main__":
         required=False,
         action="store_true",
         help="Save a single local module.",
+    )
+    parser.add_argument(
+        "--module-name",
+        required=False,
+        nargs=1,
+        help="Set the module name for a local module.",
     )
 
     args = vars(parser.parse_args())
