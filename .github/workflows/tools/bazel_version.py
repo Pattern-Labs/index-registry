@@ -223,6 +223,7 @@ class BazelVersion:
         # Write MODULE.bazel
         with open(self._version_path + "/MODULE.bazel", "w") as file:
             file.write("module(\n")
+            print(self._module_name)
             file.write('    name = "' + self._module_name + '",\n')
             file.write('    version = "' + self._version.get_tag() + '",\n')
             file.write(
