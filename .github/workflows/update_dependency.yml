@@ -19,7 +19,7 @@ concurrency:
   group: ${{ github.ref }}
 
 jobs:
-  bump-patch:
+  update-dependency:
     runs-on: ubuntu-20.04
     permissions:
       contents: read
@@ -52,3 +52,11 @@ jobs:
           git add MODULE.bazel
           git commit -m "Update updating dependency ${{ inputs.dependency }} to ${{ inputs.version }}"
           git push
+          
+  bump-patch:
+    needs: update-dependency
+    uses: pattern-labs/index-registry/.github/workflows/bump_version.yml@main
+    with:
+      module_name: ${{ inputs.dependent }}
+      bump_type: "patch"
+    secrets: inherit
