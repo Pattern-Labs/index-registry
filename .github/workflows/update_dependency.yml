@@ -52,7 +52,7 @@ jobs:
         with:
           cwd: './local_repo'
           default_author: github_actions
-          push: https://${{ secrets.REPO_ACCESS_PAT }}@github.com/pattern-labs/${{ steps.branch-name.outputs.current_branch }}.git --set-upstream --force
+          push: https://${{ secrets.REPO_ACCESS_PAT }}@github.com/pattern-labs/${{ inputs.dependent }}.git --set-upstream --force
           message: "Update dependency ${{ inputs.dependency }} to ${{ inputs.version }}"
           add: "MODULE.bazel"
           tag:  ${{ env.PATTERN_VERSION_NUMBER }}
