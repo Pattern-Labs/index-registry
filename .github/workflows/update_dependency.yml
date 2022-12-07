@@ -48,8 +48,8 @@ jobs:
       - name: Bump Patch
         run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local --module-name ${{ inputs.dependent }}
       
-      - name: Enter repo
-        run: cd local_repo
+      - name: Set env
+        run: echo GITHUB_REPOSITORY=${{ secrets.dependent }}
         
       - name: Push to protected branch
         uses: CasperWA/push-protected@v2
