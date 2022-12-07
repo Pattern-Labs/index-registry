@@ -48,9 +48,6 @@ jobs:
       - name: Bump Patch
         run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local --module-name ${{ inputs.dependent }}
       
-      - name: Set env
-        run: export GITHUB_REPOSITORY=${{ inputs.dependent }}
-        
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
