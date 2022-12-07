@@ -51,12 +51,12 @@ jobs:
       - name: Set env
         run: export GITHUB_REPOSITORY=${{ inputs.dependent }}
         
-      - name: Push to protected branch
-        uses: CasperWA/push-protected@v2
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
         with:
-          token: ${{ secrets.REPO_ACCESS_PAT }}
-          branch: main
-          unprotect_reviews: true
-          path: local_repo
-          tags: true
-
+          cwd: ./local_repo
+          author_name: github.actor
+          message: 'Update dependency ${{ inputs.dependency }} to ${{ inputs.version }} and bazel to ${{ env.PATTERN_VERSION_NUMBER }}".'
+          add: "MODULE.bazel"
+          tag:  ${{ env.PATTERN_VERSION_NUMBER }}
+          tag_push: '--force'
