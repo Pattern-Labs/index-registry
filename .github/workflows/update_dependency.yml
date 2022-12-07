@@ -56,7 +56,7 @@ jobs:
         with:
           cwd: ./local_repo
           author_name: github.actor
-          message: 'Update dependency ${{ inputs.dependency }} to ${{ inputs.version }} and bazel to ${{ env.PATTERN_VERSION_NUMBER }}".'
+          message: 'Update dependency ${{ inputs.dependency }} to ${{ inputs.version }} and version to ${{ env.PATTERN_VERSION_NUMBER }}".'
           add: "MODULE.bazel"
           tag:  ${{ env.PATTERN_VERSION_NUMBER }}
           tag_push: '--force'
