@@ -37,6 +37,7 @@ jobs:
           repository: "pattern-labs/${{ inputs.dependent }}"
           path: local_repo
           token: ${{ secrets.REPO_ACCESS_PAT }}
+          fetch-depth: 0
  
       - name: Set Repo PAT
         run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
