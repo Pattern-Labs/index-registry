@@ -56,3 +56,4 @@ jobs:
           unprotect_reviews: true
           path: local_repo
           tags: true
+          force: true
