@@ -49,7 +49,7 @@ jobs:
         run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local --module-name ${{ inputs.dependent }}
       
       - name: Set env
-        run: echo GITHUB_REPOSITORY=${{ inputs.dependent }}
+        run: export GITHUB_REPOSITORY=${{ inputs.dependent }}
         
       - name: Push to protected branch
         uses: CasperWA/push-protected@v2
