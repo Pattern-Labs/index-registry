@@ -43,10 +43,10 @@ jobs:
         run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Update Dependency
-        run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local --module_name ${{ inputs.dependent }}
+        run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local --module-name ${{ inputs.dependent }}
 
       - name: Bump Patch
-        run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local --module_name ${{ inputs.dependent }}
+        run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local --module-name ${{ inputs.dependent }}
       
       - name: Enter repo
         run: cd local_repo
