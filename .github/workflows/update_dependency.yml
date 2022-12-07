@@ -41,14 +41,19 @@ jobs:
       - name: Set Repo PAT
         run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
 
-      - name: Update BAZEL.module
+      - name: Update Dependency
         run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local  --module-name ${{ inputs.dependent }}
+      
+      - name: Bump Patch
+        run: python3 .github/workflows/tools/main.py --local --bump-patch --export-tag --save-local
 
-      - name: commit tag and push
-        run: |
-          cd local_repo
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add MODULE.bazel
-          git commit -m "Update updating dependency ${{ inputs.dependency }} to ${{ inputs.version }}"
-          git push
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: './local_repo'
+          author_name: github.actor
+          push: origin ${{ steps.branch-name.outputs.current_branch }} --set-upstream --force
+          message: "Update dependency ${{ inputs.dependency }} to ${{ inputs.version }}"
+          add: "MODULE.bazel"
+          tag:  ${{ env.PATTERN_VERSION_NUMBER }}
+          tag_push: '--force'
