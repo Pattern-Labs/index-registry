@@ -18,7 +18,7 @@ on:
 
 jobs:
   call-update-dependency:
-    uses: pattern-labs/index-registry/.github/workflows/update_dependency.yml@fix/update_dependency
+    uses: pattern-labs/index-registry/.github/workflows/update_dependency.yml@main
     with:
       dependent: ${{ github.event.inputs.dependent }}
       dependency: ${{ github.event.inputs.dependency }}
