@@ -43,7 +43,6 @@ jobs:
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
-          cwd: local_repo
           author_name: github.actor
           push: origin ${{ steps.branch-name.outputs.current_branch }} --set-upstream --force
           message: 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}".'
