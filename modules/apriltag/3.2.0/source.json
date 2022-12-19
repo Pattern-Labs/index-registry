@@ -1,0 +1,9 @@
+{
+    "integrity": "sha256-ERqTpTFfi4wqNvqRFAMjYDKoGej1DohFVI/i190eXbU=",
+    "patch_strip": 0,
+    "patches": {
+        "add_build_file.patch": "sha256-/ZcshkNbvrqqdxyTXrA1bW1unOZjetx5C0KfabShmnc="
+    },
+    "strip_prefix": "apriltag-3.2.0",
+    "url": "https://github.com/AprilRobotics/apriltag/archive/refs/tags/v3.2.0.tar.gz"
+}
