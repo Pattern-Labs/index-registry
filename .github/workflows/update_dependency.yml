@@ -34,25 +34,26 @@ jobs:
       - name: Checkout Repo being bumped
         uses: actions/checkout@v3
         with:
-          repository: "pattern-labs/${{ inputs.version }}"
+          repository: "pattern-labs/${{ inputs.dependent }}"
           path: local_repo
           token: ${{ secrets.REPO_ACCESS_PAT }}
+          fetch-depth: 0
 
       - name: Set Repo PAT
         run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
 
-      - name: Update BAZEL.module
-        run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local
+      - name: Update Dependency
+        run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local --module-name ${{ inputs.dependent }}
 
-      - name: commit tag and push
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add MODULE.bazel
-          git commit -m "Update updating dependency ${{ inputs.dependency }} to ${{ inputs.version }}"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+      - name: Bump Patch
+        run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local --module-name ${{ inputs.dependent }}
+      
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
         with:
-          github_token: ${{ secrets.REPO_ACCESS_PAT }}
-          force: true
+          cwd: ./local_repo
+          author_name: github.actor
+          message: 'Update dependency ${{ inputs.dependency }} to ${{ inputs.version }} and version to ${{ env.PATTERN_VERSION_NUMBER }}".'
+          add: "MODULE.bazel"
+          tag:  ${{ env.PATTERN_VERSION_NUMBER }}
+          tag_push: '--force'
