@@ -1,0 +1,13 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,10 @@
++licenses(["notice"])
++
++cc_library(
++    name = "crcpp",
++    hdrs = ["inc/CRC.h"],
++    include_prefix = "CRCpp",
++    includes = ["inc"],
++    strip_include_prefix = "inc",
++    visibility = ["//visibility:public"],
++)
