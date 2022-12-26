@@ -38,13 +38,13 @@ jobs:
         run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Update BAZEL.module
-        run: python3 .github/workflows/tools/main.py --local --bump-${{ inputs.bump_type}} --export-tag --save-local
+        run: python3 .github/workflows/tools/main.py --local --bump-${{ inputs.bump_type}} --export-tag --save-local --module-name ${{ inputs.module_name }}
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
+          cwd: ./local_repo
           author_name: github.actor
-          push: origin ${{ steps.branch-name.outputs.current_branch }} --set-upstream --force
           message: 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}".'
           add: "MODULE.bazel"
           tag:  ${{ env.PATTERN_VERSION_NUMBER }}
