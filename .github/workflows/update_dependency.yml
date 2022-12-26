@@ -46,7 +46,7 @@ jobs:
         run: python3 .github/workflows/tools/main.py --local --update-dependency ${{ inputs.dependency }} ${{ inputs.version }} --save-local --module-name ${{ inputs.dependent }}
 
       - name: Bump Patch
-        run: python3 .github/workflows/tools/main.py --local --bump-minor --export-tag --save-local --module-name ${{ inputs.dependent }}
+        run: python3 .github/workflows/tools/main.py --local --bump-patch --export-tag --save-local --module-name ${{ inputs.dependent }}
       
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
