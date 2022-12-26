@@ -1,4 +1,4 @@
-name: Call Add Module
+name: Add Module
 
 on:
   workflow_call:
