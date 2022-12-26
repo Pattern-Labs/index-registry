@@ -15,7 +15,7 @@ def main(args):
             module.bump_patch()
         if args["bump_minor"]:
             print("Bumping a local minor")
-            module.bump_patch()
+            module.bump_minor()
         if args["update_dependency"] is not None:
             dependency = args["update_dependency"][0]
             version = args["update_dependency"][1]
