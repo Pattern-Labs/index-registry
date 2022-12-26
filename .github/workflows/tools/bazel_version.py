@@ -23,7 +23,7 @@ class BazelVersion:
     MODULE_VERSION_REGEX = re.compile(r'( +version = ")(.*)(",)')
     MODULE_COMPATIBILITY_REGEX = re.compile(r"( +compatibility_level = )([0-9]*)(,)")
     BAZEL_DEP_REGEX = re.compile(
-        r'bazel_dep\(name = "(\w*)", version = "([0-9]*.[0-9]*.[0-9]*)'
+        r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)'
     )
     COMMAND_REGEX = re.compile(r'(\w+) = (\w+)[(]"([^"]+)", "([^"]+)"[)]')
 
