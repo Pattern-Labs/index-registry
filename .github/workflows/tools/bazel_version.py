@@ -31,6 +31,7 @@ class BazelVersion:
         version_name: str = None,
         local: bool = False,
         remote: bool = False,
+        token: str = None,
     ):
         self._local = local
         if local:  # Looking for a repo checked out locally
@@ -106,12 +107,17 @@ class BazelVersion:
         else:  # Searching for a remote version.
             # Get and set Module.bazel file
             module_dot_bazel = curl_file(
-                repo=module_name, file="MODULE.bazel", ref=version_name
+                repo=module_name,
+                file="MODULE.bazel",
+                ref=version_name,
+                token=self._token,
             )
             self._parse_bazel_file(module_dot_bazel)
 
             # Create and set source file
-            self._source = create_source(repo=module_name, ref=version_name)
+            self._source = create_source(
+                repo=module_name, ref=version_name, token=self._token
+            )
             versions = self._metadata["versions"]
             versions.append(version_name)
             versions.sort()

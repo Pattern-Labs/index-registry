@@ -14,8 +14,9 @@ class Module:
     from a Module.bazel file and is able to edit the file.
     """
 
-    def __init__(self, module_name: str = None, local: bool = False):
+    def __init__(self, module_name: str = None, local: bool = False, token=None):
         self._local = local
+        self._token = token
         if local:
             self._cwd = os.getcwd()
             """String representing the cwd of the repo."""
@@ -111,5 +112,7 @@ class Module:
         if self._local:
             raise RuntimeError("You cannot add a version to a local module")
 
-        version = BazelVersion(module_name=self.name, version_name=tag, remote=True)
+        version = BazelVersion(
+            module_name=self.name, version_name=tag, remote=True, token=self._token
+        )
         return version

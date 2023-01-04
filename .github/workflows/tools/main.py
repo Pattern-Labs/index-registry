@@ -34,7 +34,7 @@ def main(args):
             module = args["add_module"][0]
             version = args["add_module"][1]
             print(f"Adding {module}@{version}")
-            module = Module(module_name=module)
+            module = Module(module_name=module, token=args["token"][0])
             version = module.add_version(version)
             version.save_version(override=True)
         pass
@@ -94,6 +94,13 @@ if __name__ == "__main__":
         required=False,
         nargs=2,
         help="Add a module to the index registry with given nameand tag",
+    )
+    parser.add_argument(
+        "--token",
+        required=False,
+        default=None,
+        nargs=1,
+        help="Set github token",
     )
     args = vars(parser.parse_args())
     main(args)

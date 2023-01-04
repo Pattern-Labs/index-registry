@@ -22,11 +22,8 @@ jobs:
         with:
           repository: "pattern-labs/index-registry"
 
-      - name: Set Repo PAT
-        run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
-
       - name: Run Script; Adds Module
-        run: python3 .github/workflows/tools/main.py --index --add-module ${{ inputs.module_name }} ${{ inputs.version }}
+        run: python3 .github/workflows/tools/main.py --index --add-module ${{ inputs.module_name }} ${{ inputs.version }} --token ${{ secrets.REPO_ACCESS_PAT }}
 
       - name: Get branch name
         id: branch-name
