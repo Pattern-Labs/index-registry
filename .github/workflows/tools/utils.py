@@ -1,11 +1,5 @@
-import requests
 import hashlib
 import base64
-
-
-def download(url: str) -> bytes:
-    with requests.get(url) as response:
-        return response.content
 
 
 def integrity(data: bytes) -> str:

@@ -6,7 +6,7 @@ import re
 import base64
 
 # Relative Imports
-from utils import download, integrity
+from utils import integrity
 
 
 class Version:
@@ -208,11 +208,18 @@ def create_source(repo: str, ref: str, token: str = None) -> dict:
         token = os.environ.get("PATTERN_GITHUB_TOKEN")
     if token is not None:
         url = f"https://github.com/Pattern-Labs/{repo}/archive/refs/tags/{ref}.tar.gz"
-        source = {
-            "integrity": integrity(download(url)),
-            "strip_prefix": f"{repo}-{ref}",
-            "url": f"https://github.com/Pattern-Labs/{repo}/archive/refs/tags/{ref}.tar.gz",
+        headers = {
+            "Authorization": f"token {token}",
         }
+        data = requests.get(url, headers=headers)
+        content = data.content
+        if content:
+            source = {
+                "integrity": integrity(content),
+                "strip_prefix": f"{repo}-{ref}",
+                "url": url,
+            }
 
-        return source
+            return source
+        raise RuntimeError(f"Could not find contents at {url}")
     raise RuntimeError("No token recieved")
