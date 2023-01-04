@@ -98,7 +98,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--token",
         required=False,
-        default=None,
+        default=[None],
         nargs=1,
         help="Set github token",
     )

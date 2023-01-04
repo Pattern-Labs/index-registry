@@ -120,8 +120,9 @@ class BazelVersion:
                 repo=module_name, ref=version_name, token=self._token
             )
             versions = self._metadata["versions"]
-            versions.append(version_name)
-            versions.sort()
+            if version_name not in versions:
+                versions.append(version_name)
+                versions.sort()
             self._metadata["versions"] = versions
 
     def _parse_bazel_file(self, file=None):
