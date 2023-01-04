@@ -1,7 +1,12 @@
+# Base Imports
 from typing import List
 import requests
 import os
 import re
+import base64
+
+# Relative Imports
+from utils import download, integrity
 
 
 class Version:
@@ -176,3 +181,38 @@ def get_repos(owner: str = "pattern-labs", token: str = None) -> List[str]:
 
         return repo_list
     raise RuntimeError("No github token found")
+
+
+def curl_file(repo: str, file: str, ref: str, token: str = None) -> str:
+    """Function to curl a file"""
+    if token is None:
+        token = os.environ.get("PATTERN_GITHUB_TOKEN")
+    if token is not None:
+        url = f"https://api.github.com/repos/pattern-labs/{repo}/contents/{file}?ref={ref}"
+        headers = {
+            "Authorization": f"token {token}",
+        }
+        data = requests.get(url, headers=headers).json()
+        content = data.get("content")
+        if content:
+            content_bytes = base64.b64decode(content)
+            content_string = content_bytes.decode("ascii")
+            return content_string
+        raise RuntimeError(f"Could not find contents at {url}")
+    raise RuntimeError("No token recieved")
+
+
+def create_source(repo: str, ref: str, token: str = None) -> dict:
+    """Function to create a source file"""
+    if token is None:
+        token = os.environ.get("PATTERN_GITHUB_TOKEN")
+    if token is not None:
+        url = f"https://github.com/Pattern-Labs/{repo}/archive/refs/tags/{ref}.tar.gz"
+        source = {
+            "integrity": integrity(download(url)),
+            "strip_prefix": f"{repo}-{ref}",
+            "url": f"https://github.com/Pattern-Labs/{repo}/archive/refs/tags/{ref}.tar.gz",
+        }
+
+        return source
+    raise RuntimeError("No token recieved")

@@ -5,7 +5,7 @@ import os
 
 # Relative imports
 from bazel_version import BazelVersion
-from github_tools import Version
+from github_tools import Version, curl_file
 
 
 class Module:
@@ -48,6 +48,10 @@ class Module:
         if self._local:
             self._latest_bazel_version = BazelVersion(self._module_name, local=True)
         else:
+            if not os.path.isdir(self._module_path):
+                raise RuntimeError(
+                    "Module does not currently exist in the index registry"
+                )
             version_list = os.listdir(self._module_path)
 
             for version_name in version_list:
@@ -93,3 +97,19 @@ class Module:
 
     def export_version_to_github_env(self):
         self._latest_bazel_version.export_version_to_github_env()
+
+    def add_version(self, tag: str, overwrite=False) -> BazelVersion:
+        """
+        Add a version to the Modules at a given tag.
+
+        Args:
+            tag (str): The tag to add the version to.
+
+        Returns:
+            version (BazelVersion): The version that was added.
+        """
+        if self._local:
+            raise RuntimeError("You cannot add a version to a local module")
+
+        version = BazelVersion(module_name=self.name, version_name=tag, remote=True)
+        return version

@@ -9,7 +9,7 @@ from module import Module
 
 def main(args):
     if args["local"]:
-        module = Module(local=True,module_name=args["module_name"][0])
+        module = Module(local=True, module_name=args["module_name"][0])
         if args["bump_patch"]:
             print("Bumping a local patch")
             module.bump_patch()
@@ -29,8 +29,14 @@ def main(args):
             print("Saving a local module")
             module.save_version(override=True)
     elif args["index"]:
-        # TODO (Thomas Gira) Automation
         # index = Registry()
+        if args["add_module"] is not None:
+            module = args["add_module"][0]
+            version = args["add_module"][1]
+            print(f"Adding {module}@{version}")
+            module = Module(module_name=module)
+            version = module.add_version(version)
+            version.save_version(override=True)
         pass
 
 
@@ -82,6 +88,12 @@ if __name__ == "__main__":
         required=False,
         nargs=1,
         help="Set local module name",
+    )
+    parser.add_argument(
+        "--add-module",
+        required=False,
+        nargs=2,
+        help="Add a module to the index registry with given nameand tag",
     )
     args = vars(parser.parse_args())
     main(args)

@@ -17,58 +17,14 @@ jobs:
   update-module:
     runs-on: ubuntu-latest
     steps:
-      - name: Set repo_name
-        id: set-repo-name
-        run: |
-          if [ ${{ inputs.module_name }} == 'pattern_tools' ]; then
-            echo "repo_name=pattern_python_tools" >> $GITHUB_ENV
-          else
-            echo "repo_name=${{ inputs.module_name }}" >> $GITHUB_ENV
-          fi
-      - name: Inputs
-        run: |
-          echo "module_name: ${{ inputs.module_name }}"
-          echo "repo_name: ${{ env.repo_name }}"
-          echo "version: ${{ inputs.version }}"
       - name: Checkout Index Registry
         uses: actions/checkout@v3
         with:
           repository: "pattern-labs/index-registry"
-      - name: Setup .netrc
-        uses: extractions/netrc@v1
-        with:
-          machine: github.com
-          username: patterngit
-          password: ${{ secrets.REPO_ACCESS_PAT }}
-      - name: Fetch MODULE.bazel from target repo.
-        run: |
-          curl \
-            -H 'Authorization: token ${{ secrets.REPO_ACCESS_PAT }}' \
-            -H 'Accept: application/vnd.github.v3.raw' \
-            -o MODULE.bazel \
-            -L https://api.github.com/repos/pattern-labs/${{ env.repo_name }}/contents/MODULE.bazel?ref=${{ inputs.version }}
-      - name: Build json input for script.
-        uses: jsdaniell/create-json@1.1.2
-        with:
-          name: "script_input.json"
-          json: '{"build_file": null,
-                  "build_targets": ["//..."],
-                  "compatibility_level": "1",
-                  "deps": [],
-                  "module_dot_bazel": "MODULE.bazel",
-                  "name": "${{ inputs.module_name }}",
-                  "patch_strip": 0,
-                  "patches": [],
-                  "presubmit_yml": null,
-                  "strip_prefix": "${{ env.repo_name }}-${{ inputs.version }}",
-                  "test_module_build_targets": [],
-                  "test_module_path": null,
-                  "test_module_test_targets": [],
-                  "url": "https://github.com/Pattern-Labs/${{ env.repo_name }}/archive/refs/tags/${{ inputs.version }}.tar.gz",
-                  "version": "${{ inputs.version }}"
-                  }'
+
       - name: Run Script; Adds Module
-        run: tools/add_module.py --input=script_input.json
+        run: python3 .github/workflows/tools/main.py --index --add-module ${{ inputs.module_name }} ${{ inputs.version }}
+
       - name: Get branch name
         id: branch-name
         uses: tj-actions/branch-names@v6

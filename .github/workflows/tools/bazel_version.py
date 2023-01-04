@@ -8,7 +8,7 @@ import hashlib
 import requests
 
 # Local imports
-from github_tools import Version
+from github_tools import Version, curl_file, create_source
 
 
 class BazelVersion:
@@ -22,14 +22,18 @@ class BazelVersion:
     MODULE_NAME_REGEX = re.compile(r'( +name = ")([a-z\-_]*)(",)')
     MODULE_VERSION_REGEX = re.compile(r'( +version = ")(.*)(",)')
     MODULE_COMPATIBILITY_REGEX = re.compile(r"( +compatibility_level = )([0-9]*)(,)")
-    BAZEL_DEP_REGEX = re.compile(
-        r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)'
-    )
+    BAZEL_DEP_REGEX = re.compile(r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)')
     COMMAND_REGEX = re.compile(r'(\w+) = (\w+)[(]"([^"]+)", "([^"]+)"[)]')
 
-    def __init__(self, module_name: str, version_name: str = None, local: bool = False):
+    def __init__(
+        self,
+        module_name: str,
+        version_name: str = None,
+        local: bool = False,
+        remote: bool = False,
+    ):
         self._local = local
-        if local:
+        if local:  # Looking for a repo checked out locally
             # Get the cwd.
             self._cwd = os.getcwd()
             """String representing the cwd of the repo."""
@@ -42,7 +46,7 @@ class BazelVersion:
 
             if version_name is None:
                 raise RuntimeError("Could not find a valid version in the bazel file.")
-        else:
+        else:  # Looking for a version in the index registry.
             # Get the cwd.
             self._cwd = os.getcwd()
             """String representing the cwd of the registry."""
@@ -52,6 +56,10 @@ class BazelVersion:
                 self._cwd + "/modules/" + module_name + "/" + version_name
             )
             """String representing the path to the version folder."""
+
+            # Set MetaData
+            with open(self._cwd + "/modules/" + module_name + "/metadata.json") as f:
+                self._metadata = json.load(f)
 
         # Set module name.
         self._module_name = module_name
@@ -68,7 +76,7 @@ class BazelVersion:
         """Version object representing the version of the module."""
 
         # Initialize the compatibility level.
-        self._compatibility_level = None
+        self._compatibility_level = 0
         """Int representing the compatibility level."""
 
         # Initialize the bazel_deps
@@ -83,22 +91,39 @@ class BazelVersion:
         self._source = None
         """Dict representing the source.json file"""
 
-        # Read in the MODULE.bazel file.
-        if self._parse_bazel_file() is not True:
-            raise RuntimeError(
-                f"Invalid bazel file for {self._module_name}@{self._version.get_tag()}"
+        if not remote:  # Not searching for a remote version.
+            # Read in the MODULE.bazel file.
+            if self._parse_bazel_file() is not True:
+                raise RuntimeError(
+                    f"Invalid bazel file for {self._module_name}@{self._version.get_tag()}"
+                )
+            if not local:  # In the index registry. Look for a source file.
+                # Read in the source.json file.
+                with open(
+                    self._version_path + "/source.json",
+                ) as f:
+                    self._source = json.load(f)
+        else:  # Searching for a remote version.
+            # Get and set Module.bazel file
+            module_dot_bazel = curl_file(
+                repo=module_name, file="MODULE.bazel", ref=version_name
             )
-        if not local:
-            # Read in the source.json file.
-            with open(
-                self._version_path + "/source.json",
-            ) as f:
-                self._source = json.load(f)
+            self._parse_bazel_file(module_dot_bazel)
 
-    def _parse_bazel_file(self):
+            # Create and set source file
+            self._source = create_source(repo=module_name, ref=version_name)
+            versions = self._metadata["versions"]
+            versions.append(version_name)
+            versions.sort()
+            self._metadata["versions"] = versions
+
+    def _parse_bazel_file(self, file=None):
         # Read in the MODULE.bazel file.
-        with open(self._version_path + "/MODULE.bazel") as file:
-            lines = file.readlines()
+        if file is None:
+            with open(self._version_path + "/MODULE.bazel") as file:
+                lines = file.readlines()
+        else:
+            lines = file.splitlines()
         # Setup conditionals.
         module_start = False
         module_end = False
@@ -234,13 +259,19 @@ class BazelVersion:
                     'bazel_dep(name = "' + name + '", version = "' + version + '")\n'
                 )
             for line in self._other_lines:
-                file.write(line)
+                file.write(f"{line}\n")
         if not self._local:
             # Write source.json
             with open(
                 self._version_path + "/source.json", "w", encoding="utf-8"
             ) as file:
                 json.dump(self._source, file, ensure_ascii=False, indent=4)
+
+            # Write metadata.json
+            with open(
+                self._version_path + "/../metadata.json", "w", encoding="utf-8"
+            ) as file:
+                json.dump(self._metadata, file, ensure_ascii=False, indent=4)
 
     def get_version(self) -> Version:
         return self._version
@@ -250,58 +281,14 @@ class BazelVersion:
             self._cwd + "/modules/" + self._module_name + "/" + self._version.get_tag()
         )
 
-    def _get_integrity(self) -> str:
-        url = (
-            '"'
-            + "https://github.com/Pattern-Labs/"
-            + self._module_name
-            + "/archive/refs/tags/"
-            + self._version.get_tag()
-            + ".tar.gz"
-            + "+"
-        )
-        try:
-            data = requests.get(url).content
-        except requests.exceptions.InvalidSchema:
-            raise RuntimeError(
-                f"Error: Tag {self._version.get_tag()} does not exist for {self._module_name}"
-            )
-        hash_value = hashlib.sha256(data)
-        return "sha256-" + base64.b64encode(hash_value.digest()).decode()
-
-    def _update_source(self):
-        prefix = '"' + self._module_name + "-" + self._version.get_tag()
-        url = (
-            '"'
-            + "https://github.com/Pattern-Labs/"
-            + self._module_name
-            + "/archive/refs/tags/"
-            + self._version.get_tag()
-            + ".tar.gz"
-            + "+"
-        )
-        integrity = self._get_integrity()
-        self._source["prefix"] = prefix
-        self._source["url"] = url
-        self._source["integrity"] = integrity
-
     def bump_patch(self):
         self._version.bump_patch()
-        if not self._local:
-            self._update_path()
-            self._update_source()
 
     def bump_minor(self):
         self._version.bump_minor()
-        if not self._local:
-            self._update_path()
-            self._update_source()
 
     def bump_major(self):
         self._version.bump_major()
-        if not self._local:
-            self._update_path()
-            self._update_source()
 
     @property
     def dependencies(self):
