@@ -34,6 +34,7 @@ class BazelVersion:
         token: str = None,
     ):
         self._local = local
+        self._token = token
         if local:  # Looking for a repo checked out locally
             # Get the cwd.
             self._cwd = os.getcwd()
