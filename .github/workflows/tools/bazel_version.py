@@ -282,13 +282,22 @@ class BazelVersion:
         )
 
     def bump_patch(self):
-        self._version.bump_patch()
+        if self._local:
+            self._version.bump_patch()
+            return
+        raise RuntimeError("Can only bump the version of a local module")
 
     def bump_minor(self):
-        self._version.bump_minor()
+        if self._local:
+            self._version.bump_minor()
+            return
+        raise RuntimeError("Can only bump the version of a local module")
 
     def bump_major(self):
-        self._version.bump_major()
+        if self._local:
+            self._version.bump_major()
+            return
+        raise RuntimeError("Can only bump the version of a local module")
 
     @property
     def dependencies(self):
