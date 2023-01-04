@@ -113,7 +113,10 @@ class BazelVersion:
                 ref=version_name,
                 token=self._token,
             )
-            self._parse_bazel_file(module_dot_bazel)
+            if self._parse_bazel_file(module_dot_bazel) is not True:
+                raise RuntimeError(
+                    f"Invalid bazel file for {self._module_name}@{self._version.get_tag()}"
+                )
 
             # Create and set source file
             self._source = create_source(
