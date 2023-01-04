@@ -22,7 +22,7 @@ on:
 
 jobs:
   call-add-module:
-    uses: pattern-labs/index-registry/.github/workflows/add_module.yml@enh/error-on-failure 
+    uses: pattern-labs/index-registry/.github/workflows/add_module.yml@main 
     with:
       module_name: ${{ github.event.inputs.module_name }}
       version: ${{ github.event.inputs.version }}
