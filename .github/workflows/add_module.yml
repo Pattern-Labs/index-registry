@@ -32,7 +32,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           author_name: github.actor
-          push: origin ${{ steps.branch-name.outputs.current_branch }} --set-upstream --force
+          push: origin ${{ steps.branch-name.outputs.current_branch }} --set-upstream
           message: 'Adds ${{ inputs.module_name }}@${{ inputs.version }}.'
           add: '["modules/${{ inputs.module_name }}/metadata.json", 
                 "modules/${{ inputs.module_name }}/${{ inputs.version }}/MODULE.bazel",
