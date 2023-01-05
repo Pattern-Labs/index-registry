@@ -53,8 +53,6 @@ jobs:
           name: "script_input.json"
           json: '{"build_file": null,
                   "build_targets": ["//..."],
-                  "compatibility_level": "1",
-                  "deps": [],
                   "module_dot_bazel": "MODULE.bazel",
                   "name": "${{ inputs.module_name }}",
                   "patch_strip": 0,
