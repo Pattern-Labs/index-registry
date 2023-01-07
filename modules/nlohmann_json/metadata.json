@@ -2,7 +2,8 @@
     "homepage": "https://github.com/nlohmann/json/",
     "maintainers": [],
     "versions": [
-        "3.8.0"
+        "3.8.0",
+        "3.11.2"
     ],
     "yanked_versions": {}
 }

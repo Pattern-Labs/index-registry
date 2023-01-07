@@ -1,0 +1,9 @@
+{
+    "url": "https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz",
+    "integrity": "sha256-jEsmv0tCIlLhPzMrxeOI7Aq1w0Q9JDmay2deaCeNNB8=",
+    "strip_prefix": "json",
+    "patches": {
+        "add_build_file.patch": "sha256-m5cI1ybHn5UcmhqB/ReKIye5PT8v3yLOZ9hk5VstOsE="
+    },
+    "patch_strip": 0
+}
