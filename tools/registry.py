@@ -332,6 +332,8 @@ module(
       # Setup conditionals.
       module_start = False
       module_end = False
+      correct_name = False
+      correct_version = False
       # Parse through lines.
       with open(module.module_dot_bazel) as file:
         lines = file.readlines()
@@ -364,6 +366,7 @@ module(
                     raise RegistryException(
                         f"BAZEL.module name: {module_name_match.group(2)} != module_name: {module.name}"
                     )
+                correct_name = True
                 continue
             # Look for module version definition.
             module_version_match = MODULE_VERSION_REGEX.search(line)
@@ -372,7 +375,12 @@ module(
                     raise RegistryException(
                         f"BAZEL.module version: {module_version_match.group(2)} != version_name: {module.version}"
                     )
+                correct_version = True
                 continue
+      if not ( correct_name and correct_version and module_start and module_end ):
+        raise RegistryException(
+          f"Correct Version: {correct_version}, Correct Name: {correct_name}, Module Start: {module_start}, Module End {module_end}"
+        )
       shutil.copy(module.module_dot_bazel, module_dot_bazel)
     else:
       deps = "\n".join(
