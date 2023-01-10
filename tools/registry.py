@@ -338,6 +338,7 @@ module(
       with open(module.module_dot_bazel) as file:
         lines = file.readlines()
       for line in lines:
+        print(line)
         # Looking for start of module definition.
         if module_start is False and module_end is False:
             # Look for end of module definition.
