@@ -35,6 +35,10 @@ import yaml
 GREEN = "\x1b[32m"
 RESET = "\x1b[0m"
 
+MODULE_START_REGEX = re.compile(r"module")
+MODULE_END_REGEX = re.compile(r"[)]")
+MODULE_NAME_REGEX = re.compile(r'( +name = ")([a-z\-_]*)(",)')
+MODULE_VERSION_REGEX = re.compile(r'( +version = ")(.*)(",)')
 
 def log(msg):
   print(f"{GREEN}INFO: {RESET}{msg}")
@@ -325,9 +329,50 @@ module(
     # Create MODULE.bazel
     module_dot_bazel = p.joinpath("MODULE.bazel")
     if module.module_dot_bazel:
-      # TODO(pcloudy): Sanity check the given MODULE.bazel
-      #   - module name and version should match the specified values
-      #   - no override is used
+      # Setup conditionals.
+      module_start = False
+      module_end = False
+      # Parse through lines.
+      with open(module.module_dot_bazel) as file:
+        lines = file.readlines()
+      for line in lines:
+        # Looking for start of module definition.
+        if module_start is False and module_end is False:
+            # Look for end of module definition.
+            module_start_match = MODULE_START_REGEX.search(line)
+            if module_start_match is not None:
+                module_start = True
+                continue
+
+            # Look for end of module definition.
+            module_end_match = MODULE_END_REGEX.search(line)
+            if module_end_match is not None:
+              raise RegistryException(
+                  f"Module end found before module start.")
+
+        # Adding contents of module definition.
+        if module_start is True and module_end is False:
+            # Look for end of module definition.
+            module_end_match = MODULE_END_REGEX.search(line)
+            if module_end_match is not None:
+                module_end = True
+                continue
+            # Look for module name definition.
+            module_name_match = MODULE_NAME_REGEX.search(line)
+            if module_name_match is not None:
+                if module_name_match.group(2) != module.name:
+                    raise RegistryException(
+                        f"BAZEL.module name: {module_name_match.group(2)} != module_name: {module.name}"
+                    )
+                continue
+            # Look for module version definition.
+            module_version_match = MODULE_VERSION_REGEX.search(line)
+            if module_version_match is not None:
+                if module_version_match.group(2) != module.version:
+                    raise RegistryException(
+                        f"BAZEL.module version: {module_version_match.group(2)} != version_name: {module.version}"
+                    )
+                continue
       shutil.copy(module.module_dot_bazel, module_dot_bazel)
     else:
       deps = "\n".join(
