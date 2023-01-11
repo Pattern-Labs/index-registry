@@ -37,6 +37,9 @@ class Version:
     def get_tag(self) -> str:
         return f"{self._major}.{self._minor}.{self._patch}"
 
+    def __str__(self) -> str:
+        return f"{self._major}.{self._minor}.{self._patch}"
+
     def export_to_env_variable(self, env_variable: str = "PATTERN_VERSION_TAG"):
         os.environ[env_variable] = self.get_tag()
         print(f"set {env_variable} to {os.environ[env_variable]}")
