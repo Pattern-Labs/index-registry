@@ -25,10 +25,12 @@ def main(args):
             module.add_or_update_dependency(dependency=dependency, version=version)
         if args["check_version_bump"]:
             main_module = Module(
-                local=True, module_name=args["module_name"][0], module_path="main"
+                local=True, module_name=args["module_name"][0], module_folder="main"
             )
             incomming_module = Module(
-                local=True, module_name=args["module_name"][0], module_path="incomming"
+                local=True,
+                module_name=args["module_name"][0],
+                module_folder="incomming",
             )
             main_version = main_module.latest_bazel_version.version
             incomming_version = incomming_module.latest_bazel_version.version

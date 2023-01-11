@@ -25,7 +25,13 @@ class BazelVersion:
     BAZEL_DEP_REGEX = re.compile(r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)')
     COMMAND_REGEX = re.compile(r'(\w+) = (\w+)[(]"([^"]+)", "([^"]+)"[)]')
 
-    def __init__(self, module_name: str, version_name: str = None, local: bool = False):
+    def __init__(
+        self,
+        module_name: str,
+        version_name: str = None,
+        local: bool = False,
+        module_folder: str = "local_repo",
+    ):
         self._local = local
         if local:
             # Get the cwd.
@@ -33,7 +39,9 @@ class BazelVersion:
             """String representing the cwd of the repo."""
 
             # Set the module path.
-            self._version_path = self._cwd + "/local_repo"
+            self._module_folder = module_folder
+            """String representing the folder of the module."""
+            self._version_path = self._cwd + "/" + module_folder
             """String representing the path to the module folder."""
 
             version_name = self._snag_local_names()

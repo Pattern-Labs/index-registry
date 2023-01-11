@@ -15,14 +15,15 @@ class Module:
     """
 
     def __init__(
-        self, module_name: str = None, local: bool = False, module_path="local_repo"
+        self, module_name: str = None, local: bool = False, module_folder="local_repo"
     ):
         self._local = local
         if local:
             self._cwd = os.getcwd()
             """String representing the cwd of the repo."""
-
-            self._module_path = self._cwd + "/" + module_path
+            self._module_folder = module_folder
+            """String representing the folder of the module."""
+            self._module_path = self._cwd + "/" + module_folder
             """String representing the path to the module folder."""
         else:
             self._cwd = os.getcwd()
@@ -48,7 +49,9 @@ class Module:
     def _init_versions(self):
         """A function to read and initialize the versions of a module."""
         if self._local:
-            self._latest_bazel_version = BazelVersion(self._module_name, local=True)
+            self._latest_bazel_version = BazelVersion(
+                self._module_name, local=True, module_folder=self._module_folder
+            )
         else:
             version_list = os.listdir(self._module_path)
 
