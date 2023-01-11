@@ -30,6 +30,7 @@ jobs:
           repository: pattern-labs/${{ github.event.repository.name }}
           token: ${{ secrets.REPO_ACCESS_PAT }}
           path: main
+          ref: main
 
       - name: Checkout incoming branch
         uses: actions/checkout@v3
