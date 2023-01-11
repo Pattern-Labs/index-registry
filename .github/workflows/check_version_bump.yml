@@ -11,7 +11,7 @@ jobs:
         with:
           repository: "pattern-labs/index-registry"
           token: ${{ secrets.REPO_ACCESS_PAT }}
-          ref: ${{ steps.branch-name.outputs.current_branch }}
+          ref: ${{ feat/check-version }}
 
       - name: Setup .netrc
         uses: extractions/netrc@v1
