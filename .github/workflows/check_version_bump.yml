@@ -11,7 +11,7 @@ jobs:
         with:
           repository: "pattern-labs/index-registry"
           token: ${{ secrets.REPO_ACCESS_PAT }}
-          
+
       - name: Setup .netrc
         uses: extractions/netrc@v1
         with:
@@ -26,14 +26,14 @@ jobs:
       - name: Checkout Main of Branch
         uses: actions/checkout@v3
         with:
-          repository: ${{ github.event.repository.name }}
+          repository: pattern-labs/${{ github.event.repository.name }}
           token: ${{ secrets.REPO_ACCESS_PAT }}
           path: main
 
       - name: Checkout incoming branch
         uses: actions/checkout@v3
         with:
-          repository: ${{ github.event.repository.name }}
+          repository: pattern-labs/${{ github.event.repository.name }}
           ref: ${{ steps.branch-name.outputs.current_branch }}
           token: ${{ secrets.REPO_ACCESS_PAT }}
           path: incoming
