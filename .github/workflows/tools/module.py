@@ -14,13 +14,15 @@ class Module:
     from a Module.bazel file and is able to edit the file.
     """
 
-    def __init__(self, module_name: str = None, local: bool = False):
+    def __init__(
+        self, module_name: str = None, local: bool = False, module_path="local_repo"
+    ):
         self._local = local
         if local:
             self._cwd = os.getcwd()
             """String representing the cwd of the repo."""
 
-            self._module_path = self._cwd + "/local_repo"
+            self._module_path = self._cwd + "/" + module_path
             """String representing the path to the module folder."""
         else:
             self._cwd = os.getcwd()

@@ -9,18 +9,34 @@ from module import Module
 
 def main(args):
     if args["local"]:
-        module = Module(local=True,module_name=args["module_name"][0])
         if args["bump_patch"]:
+            module = Module(local=True, module_name=args["module_name"][0])
             print("Bumping a local patch")
             module.bump_patch()
         if args["bump_minor"]:
+            module = Module(local=True, module_name=args["module_name"][0])
             print("Bumping a local minor")
             module.bump_minor()
         if args["update_dependency"] is not None:
+            module = Module(local=True, module_name=args["module_name"][0])
             dependency = args["update_dependency"][0]
             version = args["update_dependency"][1]
             print(f"Updating the dependency {dependency} to version {version}")
             module.add_or_update_dependency(dependency=dependency, version=version)
+        if args["check_version_bump"]:
+            main_module = Module(
+                local=True, module_name=args["module_name"[0]], module_path="main"
+            )
+            incomming_module = Module(
+                local=True, module_name=args["module_name"[0]], module_path="incomming"
+            )
+            main_version = main_module.latest_bazel_version.version
+            incomming_version = incomming_module.latest_bazel_version.version
+
+            if not incomming_version > main_version:
+                raise RuntimeError(
+                    f"Incoming version of {incomming_version} is not greater than main@{main_version}"
+                )
 
         # These need to be last. Order matters.
         if args["export_tag"]:
@@ -82,6 +98,12 @@ if __name__ == "__main__":
         required=False,
         nargs=1,
         help="Set local module name",
+    )
+    parser.add_argument(
+        "--check-version-bump",
+        required=False,
+        action="store_true",
+        help="Check if the incoming version is greater than the current.",
     )
     args = vars(parser.parse_args())
     main(args)

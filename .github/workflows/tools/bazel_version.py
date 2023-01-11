@@ -22,9 +22,7 @@ class BazelVersion:
     MODULE_NAME_REGEX = re.compile(r'( +name = ")([a-z\-_]*)(",)')
     MODULE_VERSION_REGEX = re.compile(r'( +version = ")(.*)(",)')
     MODULE_COMPATIBILITY_REGEX = re.compile(r"( +compatibility_level = )([0-9]*)(,)")
-    BAZEL_DEP_REGEX = re.compile(
-        r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)'
-    )
+    BAZEL_DEP_REGEX = re.compile(r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)')
     COMMAND_REGEX = re.compile(r'(\w+) = (\w+)[(]"([^"]+)", "([^"]+)"[)]')
 
     def __init__(self, module_name: str, version_name: str = None, local: bool = False):
@@ -324,3 +322,7 @@ class BazelVersion:
             )
         with open(env_variable_location, "a") as file:
             file.write(f"{key}={value}\n")
+
+    @property
+    def version(self):
+        return self._version
