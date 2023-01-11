@@ -40,7 +40,4 @@ jobs:
           path: incoming
       
       - name: Check for version Bump
-        run: |
-          ls /home/runner/work/controller/controller/controller/main
-          ls /home/runner/work/controller/controller/controller/incomming
-          python3 .github/workflows/tools/main.py --local --check-version-bump --module-name ${{ github.event.repository.name }}
+        run: python3 .github/workflows/tools/main.py --local --check-version-bump --module-name ${{ github.event.repository.name }}
