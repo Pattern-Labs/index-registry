@@ -30,7 +30,7 @@ def main(args):
             incomming_module = Module(
                 local=True,
                 module_name=args["module_name"][0],
-                module_folder="incomming",
+                module_folder="incoming",
             )
             main_version = main_module.latest_bazel_version.version
             incomming_version = incomming_module.latest_bazel_version.version
