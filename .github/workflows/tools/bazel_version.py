@@ -23,7 +23,7 @@ class BazelVersion:
     MODULE_VERSION_REGEX = re.compile(r'( +version = ")(.*)(",)')
     MODULE_COMPATIBILITY_REGEX = re.compile(r"( +compatibility_level = )([0-9]*)(,)")
     BAZEL_DEP_REGEX = re.compile(
-        r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)'
+        r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)"(?:, repo_name = ")?(\w*)'
     )
     COMMAND_REGEX = re.compile(r'(\w+) = (\w+)[(]"([^"]+)", "([^"]+)"[)]')
 
@@ -156,9 +156,11 @@ class BazelVersion:
                 # Look for bazel deps.
                 bazel_dep_match = self.BAZEL_DEP_REGEX.search(line)
                 if bazel_dep_match is not None:
-                    self._bazel_deps[bazel_dep_match.group(1)] = bazel_dep_match.group(
-                        2
-                    )
+                    self._bazel_deps[bazel_dep_match.group(1)] = {
+                        "version": bazel_dep_match.group(2),
+                        "repo_name": bazel_dep_match.group(3),
+                    }
+
                     continue
                 else:
                     self._other_lines.append(line)
@@ -229,10 +231,28 @@ class BazelVersion:
                 "    compatibility_level = " + str(self._compatibility_level) + ",\n"
             )
             file.write(")\n")
-            for name, version in self._bazel_deps.items():
-                file.write(
-                    'bazel_dep(name = "' + name + '", version = "' + version + '")\n'
-                )
+            for name, bazel_dep in self._bazel_deps.items():
+                version = bazel_dep["version"]
+                repo_name = bazel_dep["repo_name"]
+                if repo_name == "":
+                    file.write(
+                        'bazel_dep(name = "'
+                        + name
+                        + '", version = "'
+                        + version
+                        + '")\n'
+                    )
+                else:
+                    file.write(
+                        'bazel_dep(name = "'
+                        + name
+                        + '", version = "'
+                        + version
+                        + '", repo_name = "'
+                        + repo_name
+                        + '")\n'
+                    )
+
             for line in self._other_lines:
                 file.write(line)
         if not self._local:
@@ -311,7 +331,7 @@ class BazelVersion:
         return deps
 
     def add_or_update_dependency(self, dependency, version):
-        self._bazel_deps[dependency] = version
+        self._bazel_deps[dependency]["version"] = version
 
     def export_version_to_github_env(self):
         self._add_github_env_variable("PATTERN_VERSION_NUMBER", self._version.get_tag())
