@@ -1,4 +1,4 @@
-name: Check Version Bump
+name: Check Incomming Version Is Larger Than Main
 
 on:
   workflow_call:
