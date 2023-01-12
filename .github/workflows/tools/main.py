@@ -27,17 +27,17 @@ def main(args):
             main_module = Module(
                 local=True, module_name=args["module_name"][0], module_folder="main"
             )
-            incomming_module = Module(
+            incoming_module = Module(
                 local=True,
                 module_name=args["module_name"][0],
                 module_folder="incoming",
             )
             main_version = main_module.latest_bazel_version.version
-            incomming_version = incomming_module.latest_bazel_version.version
+            incoming_version = incoming_module.latest_bazel_version.version
 
-            if not incomming_version > main_version:
+            if not incoming_version > main_version:
                 raise RuntimeError(
-                    f"Incoming version of {incomming_version} is not greater than main@{main_version}"
+                    f"Incoming version of {incoming_version} is not greater than main@{main_version}"
                 )
 
         # These need to be last. Order matters.
@@ -105,7 +105,7 @@ if __name__ == "__main__":
         "--check-version-bump",
         required=False,
         action="store_true",
-        help="Check if the incoming version is greater than the current.",
+        help="Check if the incoming version is greater than the one at main. Raise exit 0 if so.",
     )
     args = vars(parser.parse_args())
     main(args)
