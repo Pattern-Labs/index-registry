@@ -1,0 +1,36 @@
+name: Tag Version @MODULE.bazel
+
+on:
+   workflow_call:
+
+jobs:
+  tag-version:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Index Registry
+        uses: actions/checkout@v3
+        with:
+          repository: "pattern-labs/index-registry"
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+      
+      - name: Checkout Main of Branch
+        uses: actions/checkout@v3
+        with:
+          path: local_repo
+
+      - name: Set Repo PAT
+        run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
+
+      - name: Update BAZEL.module
+        run: python3 .github/workflows/tools/main.py --local--export-tag --module-name ${{ inputs.module_name }}
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.55.0
+        env:
+          SOURCE: local_repo
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_PAT }}
+          CUSTOM_TAG: ${{ env.PATTERN_VERSION_NUMBER }}
