@@ -22,9 +22,7 @@ class BazelVersion:
     MODULE_NAME_REGEX = re.compile(r'( +name = ")([a-z\-_]*)(",)')
     MODULE_VERSION_REGEX = re.compile(r'( +version = ")(.*)(",)')
     MODULE_COMPATIBILITY_REGEX = re.compile(r"( +compatibility_level = )([0-9]*)(,)")
-    BAZEL_DEP_REGEX = re.compile(
-        r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)"(?:, repo_name = ")?(\w*)'
-    )
+    BAZEL_DEP_REGEX = re.compile(r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)(.*)')
     COMMAND_REGEX = re.compile(r'(\w+) = (\w+)[(]"([^"]+)", "([^"]+)"[)]')
 
     def __init__(self, module_name: str, version_name: str = None, local: bool = False):
@@ -158,7 +156,7 @@ class BazelVersion:
                 if bazel_dep_match is not None:
                     self._bazel_deps[bazel_dep_match.group(1)] = {
                         "version": bazel_dep_match.group(2),
-                        "repo_name": bazel_dep_match.group(3),
+                        "the_rest": bazel_dep_match.group(3),
                     }
 
                     continue
@@ -233,25 +231,15 @@ class BazelVersion:
             file.write(")\n")
             for name, bazel_dep in self._bazel_deps.items():
                 version = bazel_dep["version"]
-                repo_name = bazel_dep["repo_name"]
-                if repo_name == "":
-                    file.write(
-                        'bazel_dep(name = "'
-                        + name
-                        + '", version = "'
-                        + version
-                        + '")\n'
-                    )
-                else:
-                    file.write(
-                        'bazel_dep(name = "'
-                        + name
-                        + '", version = "'
-                        + version
-                        + '", repo_name = "'
-                        + repo_name
-                        + '")\n'
-                    )
+                the_rest = bazel_dep["the_rest"]
+                file.write(
+                    'bazel_dep(name = "'
+                    + name
+                    + '", version = "'
+                    + version
+                    + the_rest
+                    + "\n"
+                )
 
             for line in self._other_lines:
                 file.write(line)
