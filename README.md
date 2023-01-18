@@ -10,7 +10,13 @@ machine api.github.com
 login <username>
 password <PAT>
 ```
-With `<username>` replaced by your github username (e.g. `john-klingner`) and `<PAT>` replaced by your github Personal Access Token (PAT). Such a token can be generated according to [this guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). I think you only need repo read access for that token, but my development token has a bit more than that.
+With `<username>` replaced by your github username (e.g. `john-klingner`) and `<PAT>` replaced by your github Personal Access Token (PAT). Such a token can be generated according to [this guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). I think you only need repo read access for that token, but my development token has a bit more than that. Some folks seem to have had issues with the new github tokens, so I recommend making a permissive "classic" PAT for now.
+
+You can test your `.netrc` file by running e.g. the line below.
+```
+curl --netrc -I https://github.com/Pattern-Labs/sick_lidar_driver/archive/refs/tags/0.40.0.tar.gz
+```
+
 
 ## Working with a Local Dependency Version
 If you want to use a local version of a bzlmod dependency for development or testing purposes, add a `local_path_override` to the bottom of the `MODULE.bazel` file in the root directory. [Documentation reference](https://bazel.build/rules/lib/globals#local_path_override). If you wanted to test `prototype-controller` with some changes to `guardrail`, for example, you would add the line below to the `MODULE.bazel` file in the root `prototype-controller` directory:
