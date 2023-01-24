@@ -1,0 +1,43 @@
+name: Check Incomming Version Is Larger Than Main
+
+on:
+  workflow_call:
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Index Registry
+        uses: actions/checkout@v3
+        with:
+          repository: "pattern-labs/index-registry"
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+
+      - name: Setup .netrc
+        uses: extractions/netrc@v1
+        with:
+          machine: github.com
+          username: patterngit
+          password: ${{ secrets.REPO_ACCESS_PAT }}
+
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+      
+      - name: Checkout Main of Branch
+        uses: actions/checkout@v3
+        with:
+          repository: pattern-labs/${{ github.event.repository.name }}
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+          path: main
+          ref: main
+
+      - name: Checkout incoming branch
+        uses: actions/checkout@v3
+        with:
+          repository: pattern-labs/${{ github.event.repository.name }}
+          ref: ${{ steps.branch-name.outputs.current_branch }}
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+          path: incoming
+      
+      - name: Check for version Bump
+        run: python3 .github/workflows/tools/main.py --local --check-version-bump --module-name ${{ github.event.repository.name }}
