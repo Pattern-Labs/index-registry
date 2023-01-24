@@ -1,0 +1,5 @@
+{
+    "url": "https://github.com/Pattern-Labs/guardrail/archive/refs/tags/0.41.3.tar.gz",
+    "integrity": "sha256-1AORsCS1V5Kcr/bbcA8UsOa6wDVODjvwsbBucJRPuJI=",
+    "strip_prefix": "guardrail-0.41.3"
+}
