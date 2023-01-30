@@ -1,5 +1,5 @@
 {
-    "integrity": "sha256-d+obkLNxiqDDJCB8spQY9bztI1TC5IOpUj2Yw0YK8e0=",
+    "integrity": "sha256-rjHxmU7hphyoCkpvQnIPdY96un7oKIqnIU4tppW9EDk=",
     "strip_prefix": "yaml-cpp-yaml-cpp-0.6.3",
     "url": "https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.3.tar.gz",
     "patch_strip": 0,
