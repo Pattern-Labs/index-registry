@@ -1,5 +1,5 @@
 {
-    "integrity": "sha256-qPJTmrlcqvshsMU06N+wrupOZYaIeXu55VOXKdkljME=",
+    "integrity": "sha256-hB3Tgx7UvDmh5xtgWUdj1YJzRv5FnHdqTIU0PYZ01zw=",
     "patch_strip": 0,
     "patches": {
         "add_build_file.patch": "sha256-a/GAB41cfry86MwxMBg5t6apsYisFM9CElo0xne2KEs="
