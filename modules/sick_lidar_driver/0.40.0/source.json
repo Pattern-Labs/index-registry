@@ -1,5 +1,5 @@
 {
-    "integrity": "sha256-RcR+jx5s44VuEQte4FKtGY7+lRpFfI6Faxs4sUMiN68=",
-    "strip_prefix": "sick_lidar_driver-0.40.0",
-    "url": "https://github.com/Pattern-Labs/sick_lidar_driver/archive/refs/tags/0.40.0.tar.gz"
+    "url": "https://github.com/Pattern-Labs/sick_lidar_driver/archive/refs/tags/0.40.0.tar.gz",
+    "integrity": "sha256-h2F0V3tjKQ07CPFcVNf6PwJLtiaFv426cwUoLCrRTb0=",
+    "strip_prefix": "sick_lidar_driver-0.40.0"
 }
