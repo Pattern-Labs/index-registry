@@ -1,5 +1,5 @@
 {
-    "integrity": "sha256-F9tqYxoG+p663Adx0uEb5STGuGmM8oxwtr8PqtL0lB4=",
+    "integrity": "sha256-IwgpN9FmOlO5DLW2HfS8wxL23ucBjaeLoA3WvWad/vI=",
     "strip_prefix": "benchmark-1.5.1",
     "url": "https://github.com/google/benchmark/archive/v1.5.1.tar.gz",
     "patch_strip": 0,

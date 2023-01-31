@@ -1,5 +1,5 @@
 {
-    "integrity": "sha256-RsaqzNaAjbvlPbxJm5n8LXNrZO3KKV3tLoKrPaKRXmw=",
+    "integrity": "sha256-QggSm0kAYIm6HWcQhFpF4xxZsKtr/55XiKh/VcWr1gI=",
     "strip_prefix": "abseil-cpp-20220623.0",
     "url": "https://github.com/abseil/abseil-cpp/archive/20220623.0.tar.gz"
 }

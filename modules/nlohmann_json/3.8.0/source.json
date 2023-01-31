@@ -1,5 +1,5 @@
 {
-    "integrity": "sha256-0AkAeOPGsqe8VDNVZI2UgBYOba78ExsHlH85wG3dS7M=",
+    "integrity": "sha256-fQ7fZfKsc5CvXloLMjsxICpsEddEp0tYjcMPWoyYZbo=",
     "strip_prefix": "json-3.8.0",
     "url": "https://github.com/nlohmann/json/archive/v3.8.0.tar.gz",
     "patch_strip": 0,
