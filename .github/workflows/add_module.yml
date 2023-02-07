@@ -17,18 +17,9 @@ jobs:
   update-module:
     runs-on: ubuntu-latest
     steps:
-      - name: Set repo_name
-        id: set-repo-name
-        run: |
-          if [ ${{ inputs.module_name }} == 'pattern_tools' ]; then
-            echo "repo_name=pattern_python_tools" >> $GITHUB_ENV
-          else
-            echo "repo_name=${{ inputs.module_name }}" >> $GITHUB_ENV
-          fi
       - name: Inputs
         run: |
           echo "module_name: ${{ inputs.module_name }}"
-          echo "repo_name: ${{ env.repo_name }}"
           echo "version: ${{ inputs.version }}"
       - name: Checkout Index Registry
         uses: actions/checkout@v3
@@ -46,7 +37,7 @@ jobs:
             -H 'Authorization: token ${{ secrets.REPO_ACCESS_PAT }}' \
             -H 'Accept: application/vnd.github.v3.raw' \
             -o MODULE.bazel \
-            -L https://api.github.com/repos/pattern-labs/${{ env.repo_name }}/contents/MODULE.bazel?ref=${{ inputs.version }}
+            -L https://api.github.com/repos/pattern-labs/${{ inputs.repo_name }}/contents/MODULE.bazel?ref=${{ inputs.version }}
       - name: Build json input for script.
         uses: jsdaniell/create-json@1.1.2
         with:
@@ -58,11 +49,11 @@ jobs:
                   "patch_strip": 0,
                   "patches": [],
                   "presubmit_yml": null,
-                  "strip_prefix": "${{ env.repo_name }}-${{ inputs.version }}",
+                  "strip_prefix": "${{ inputs.repo_name }}-${{ inputs.version }}",
                   "test_module_build_targets": [],
                   "test_module_path": null,
                   "test_module_test_targets": [],
-                  "url": "https://github.com/Pattern-Labs/${{ env.repo_name }}/archive/refs/tags/${{ inputs.version }}.tar.gz",
+                  "url": "https://github.com/Pattern-Labs/${{ inputs.repo_name }}/archive/refs/tags/${{ inputs.version }}.tar.gz",
                   "version": "${{ inputs.version }}"
                   }'
       - name: Run Script; Adds Module
