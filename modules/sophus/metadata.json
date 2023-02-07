@@ -2,6 +2,7 @@
     "homepage": "https://github.com/strasdat/Sophus",
     "maintainers": [],
     "versions": [
+        "1.22.10",
         "22.10"
     ],
     "yanked_versions": {}

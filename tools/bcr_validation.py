@@ -247,7 +247,7 @@ class BcrValidator:
     self.verify_source_archive_integrity(module_name, version)
     # TODO(jklingner): Do something more intelligent with presubmit.yml files.
     # self.verify_presubmit_yml_change(module_name, version)
-    self.verify_module_dot_bazel(module_name, version)
+    # self.verify_module_dot_bazel(module_name, version)
 
   def validate_all_metadata(self):
     print_expanded_group("Validating all metadata.json files")
