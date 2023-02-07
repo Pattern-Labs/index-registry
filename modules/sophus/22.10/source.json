@@ -1,9 +1,9 @@
 {
-    "integrity": "sha256-JwcJuDaW2heUR890M1fjaoubyO7V/0udZtM/5pEBC60=",
-    "patch_strip": 0,
+    "url": "https://github.com/strasdat/Sophus/archive/refs/tags/1.22.10.tar.gz",
+    "integrity": "sha256-6x2kQOYlDF78djegYRpbiIiHXOasIr9/9rZ2m7yVgII=",
+    "strip_prefix": "Sophus-1.22.10",
     "patches": {
         "add_build_file.patch": "sha256-kCYZZvnxsL0lgDQJX6z3CzdVwbH30PzLx0TweghecPw="
     },
-    "strip_prefix": "Sophus-22.10",
-    "url": "https://github.com/strasdat/Sophus/archive/refs/tags/v22.10.tar.gz"
+    "patch_strip": 0
 }
