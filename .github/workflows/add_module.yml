@@ -37,7 +37,7 @@ jobs:
             -H 'Authorization: token ${{ secrets.REPO_ACCESS_PAT }}' \
             -H 'Accept: application/vnd.github.v3.raw' \
             -o MODULE.bazel \
-            -L https://api.github.com/repos/pattern-labs/${{ inputs.repo_name }}/contents/MODULE.bazel?ref=${{ inputs.version }}
+            -L https://api.github.com/repos/pattern-labs/${{ inputs.module_name }}/contents/MODULE.bazel?ref=${{ inputs.version }}
       - name: Build json input for script.
         uses: jsdaniell/create-json@1.1.2
         with:
@@ -49,11 +49,11 @@ jobs:
                   "patch_strip": 0,
                   "patches": [],
                   "presubmit_yml": null,
-                  "strip_prefix": "${{ inputs.repo_name }}-${{ inputs.version }}",
+                  "strip_prefix": "${{ inputs.module_name }}-${{ inputs.version }}",
                   "test_module_build_targets": [],
                   "test_module_path": null,
                   "test_module_test_targets": [],
-                  "url": "https://github.com/Pattern-Labs/${{ inputs.repo_name }}/archive/refs/tags/${{ inputs.version }}.tar.gz",
+                  "url": "https://github.com/Pattern-Labs/${{ inputs.module_name }}/archive/refs/tags/${{ inputs.version }}.tar.gz",
                   "version": "${{ inputs.version }}"
                   }'
       - name: Run Script; Adds Module
