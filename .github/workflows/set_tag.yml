@@ -14,7 +14,7 @@ jobs:
         with:
           repository: "pattern-labs/index-registry"
           token: ${{ secrets.REPO_ACCESS_PAT }}
-          ref: "feat/set-tag"
+          ref: main
 
       - name: Get branch name
         id: branch-name
