@@ -9,6 +9,7 @@ from module import Module
 
 def main(args):
     if args["local"]:
+        module = None
         if args["bump_patch"]:
             module = Module(local=True, module_name=args["module_name"][0])
             print("Bumping a local patch")
@@ -42,8 +43,12 @@ def main(args):
 
         # These need to be last. Order matters.
         if args["export_tag"]:
+            if module == None:
+                module = Module(local=True, module_name=args["module_name"][0])
             module.export_version_to_github_env()
         if args["save_local"]:
+            if module == None:
+                module = Module(local=True, module_name=args["module_name"][0])
             print("Saving a local module")
             module.save_version(override=True)
     elif args["index"]:

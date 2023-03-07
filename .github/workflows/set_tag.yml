@@ -1,0 +1,43 @@
+name: Set Correct Tag
+
+on:
+  workflow_call:
+jobs:
+  check-version:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout Index Registry
+        uses: actions/checkout@v3
+        with:
+          repository: "pattern-labs/index-registry"
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+          ref: main
+
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - name: Checkout branch
+        uses: actions/checkout@v3
+        with:
+          repository: pattern-labs/${{ github.event.repository.name }}
+          token: ${{ secrets.REPO_ACCESS_PAT }}
+          path: local_repo
+          ref: main
+
+      - name: Get Tag
+        run: python3 .github/workflows/tools/main.py --local --module-name ${{ github.event.repository.name }} --export-tag
+
+      - name: Git Login
+        uses: oleksiyrudenko/gha-git-credentials@v2-latest
+        with:
+          token: '${{ secrets.REPO_ACCESS_PAT }}'
+      
+      - name: Set Tag
+        run: |
+          cd local_repo
+          git tag ${{ env.PATTERN_VERSION_NUMBER }}
+          git push origin ${{ env.PATTERN_VERSION_NUMBER }} -v
