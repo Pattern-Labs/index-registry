@@ -14,6 +14,7 @@ jobs:
         with:
           repository: "pattern-labs/index-registry"
           token: ${{ secrets.REPO_ACCESS_PAT }}
+          ref: 37dcffd319c481246d76df7e4c6ed42c164f08b3
 
       - name: Get branch name
         id: branch-name
@@ -25,7 +26,7 @@ jobs:
           repository: pattern-labs/${{ github.event.repository.name }}
           token: ${{ secrets.REPO_ACCESS_PAT }}
           path: local_repo
-
+          ref: 37dcffd319c481246d76df7e4c6ed42c164f08b3
       - name: Get Tag
         run: python3 .github/workflows/tools/main.py --local --module-name ${{ github.event.repository.name }} --export-tag
 
