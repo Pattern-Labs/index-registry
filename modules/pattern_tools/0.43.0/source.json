@@ -1,5 +1,5 @@
 {
     "url": "https://github.com/Pattern-Labs/pattern_tools/archive/refs/tags/0.43.0.tar.gz",
-    "integrity": "sha256-7f91d15ffb0c6e5f71ea9da458ecc8fb057f9102efa1c3d2ea3215d8858f0ff8",
+    "integrity": "sha256-f5HRX/sMbl9x6p2kWOzI+wV/kQLvocPS6jIV2IWPD/g=",
     "strip_prefix": "pattern_tools-0.43.0"
 }
