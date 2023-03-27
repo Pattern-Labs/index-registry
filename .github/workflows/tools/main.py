@@ -18,6 +18,10 @@ def main(args):
             module = Module(local=True, module_name=args["module_name"][0])
             print("Bumping a local minor")
             module.bump_minor()
+        if args["bump_major"]:
+            module = Module(local=True, module_name=args["module_name"][0])
+            print("Bumping a local major")
+            module.bump_major()
         if args["update_dependency"] is not None:
             module = Module(local=True, module_name=args["module_name"][0])
             dependency = args["update_dependency"][0]
