@@ -87,6 +87,12 @@ if __name__ == "__main__":
         help="Bump a minor..",
     )
     parser.add_argument(
+        "--bump-major",
+        required=False,
+        action="store_true",
+        help="Bump a major..",
+    )
+    parser.add_argument(
         "--export-tag",
         required=False,
         action="store_true",
