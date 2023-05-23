@@ -11,6 +11,7 @@ on:
         - sick_lidar_driver
         - guardrail
         - libfluent
+        - protobufs
       version:
         description: 'Version to add. Expected to match a tag in the repo.'
         required: true
