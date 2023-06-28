@@ -1,0 +1,16 @@
+module(
+    name="rules_rust",
+    version="0.24.pattern.1",
+)
+
+bazel_dep(name="platforms", version="0.0.5")
+bazel_dep(name="rules_cc", version="0.0.1")
+bazel_dep(name="bazel_skylib", version="1.2.0")
+bazel_dep(name="protobuf", version="21.7", repo_name="com_google_protobuf")
+bazel_dep(name="apple_support", version="1.3.1")
+
+internal_deps = use_extension("//rust/private:extensions.bzl", "internal_deps")
+use_repo(
+    internal_deps,
+    "rules_rust_tinyjson",
+)

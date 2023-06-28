@@ -5,7 +5,8 @@
         "github:bazelbuild/rules_rust"
     ],
     "versions": [
-        "0.24.1"
+        "0.24.1",
+        "0.24.pattern.1"
     ],
     "yanked_versions": {}
 }
