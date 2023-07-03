@@ -156,6 +156,8 @@ class BazelVersion:
                 if module_compatibility_match is not None:
                     self._compatibility_level = module_compatibility_match.group(2)
                     continue
+                else:
+                    self._compatibility_level = 0
 
             # Add other data fields.
             if module_start is True and module_end is True:
