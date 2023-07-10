@@ -22,7 +22,9 @@ class BazelVersion:
     MODULE_NAME_REGEX = re.compile(r'( +name = ")([a-z\-_]*)(",)')
     MODULE_VERSION_REGEX = re.compile(r'( +version = ")(.*)(",)')
     MODULE_COMPATIBILITY_REGEX = re.compile(r"( +compatibility_level = )([0-9]*)(,)")
-    BAZEL_DEP_REGEX = re.compile(r'bazel_dep\(name = "(\w*)", version = "([0-9.]*)(.*)')
+    BAZEL_DEP_REGEX = re.compile(
+        r'bazel_dep\(name = "([\w-]*)", version = "([0-9.]*)(.*)'
+    )
     COMMAND_REGEX = re.compile(r'(\w+) = (\w+)[(]"([^"]+)", "([^"]+)"[)]')
 
     def __init__(
@@ -239,6 +241,7 @@ class BazelVersion:
                 "    compatibility_level = " + str(self._compatibility_level) + ",\n"
             )
             file.write(")\n")
+            file.write("\n")
             for name, bazel_dep in self._bazel_deps.items():
                 version = bazel_dep["version"]
                 the_rest = bazel_dep["the_rest"]
@@ -250,8 +253,10 @@ class BazelVersion:
                     + the_rest
                     + "\n"
                 )
-
+            file.write("\n")
             for line in self._other_lines:
+                if line == "\n":
+                    continue
                 file.write(line)
         if not self._local:
             # Write source.json
