@@ -1,0 +1,43 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,40 @@
++load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
++
++filegroup(
++    name = "all_gtsam_srcs",
++    srcs = glob(["**"]),
++    visibility = ["//visibility:public"],
++)
++
++cmake(
++    name = "gtsam",
++    cache_entries = {
++        "CMAKE_CXX_FLAGS": "-fPIC",
++        "BUILD_SHARED_LIBS": "ON",
++        "CMAKE_BUILD_TYPE": "Release",
++        "GTSAM_BUILD_UNSTABLE": "ON",
++        "GTSAM_UNSTABLE_BUILD_PYTHON": "OFF",
++        "GTSAM_USE_SYSTEM_EIGEN": "ON",
++        "GTSAM_BUILD_EXAMPLES_ALWAYS": "OFF",
++        "GTSAM_BUILD_TIMING_ALWAYS": "OFF",
++        "GTSAM_BUILD_TESTS": "OFF",
++        "GTSAM_WITH_EIGEN_MKL": "OFF",
++        "GTSAM_BUILD_PYTHON": "OFF",
++        "GTSAM_WITH_TBB": "OFF",
++        "GTSAM_ENABLE_BOOST_SERIALIZATION": "OFF",
++        "GTSAM_USE_BOOST_FEATURES": "OFF",
++    },
++    copts = [
++        "-fPIC",
++        "-std=c++17",
++    ],
++    lib_source = ":all_gtsam_srcs",
++    out_shared_libs = [
++        "libgtsam.so",
++        "libgtsam_unstable.so",
++    ],
++    visibility = ["//visibility:public"],
++    deps = [
++        "@eigen",
++    ],
++)
