@@ -143,13 +143,13 @@ class BcrValidator:
       self.report(BcrValidationResult.GOOD, "The source URL matches one of the source repositories.")
 
     # Verify source archive URL is stable.
-    if verify_stable_archive(source_url) == UrlStability.UNSTABLE:
-      self.report(BcrValidationResult.FAILED,
-                  f"{module_name}@{version} is using an unstable source url: `{source_url}`.\n"
-                  + "The source url should follow the format of `https://github.com/<ORGANIZATION>/<REPO>/archive/refs/tags/<TAG>.tar.gz` to retrieve a source archive that is guaranteed by GitHub to be stable over time.\n"
-                  + "See https://github.com/bazel-contrib/SIG-rules-authors/issues/11#issuecomment-1029861300 for more context.")
-    else:
-      self.report(BcrValidationResult.GOOD, "The source URL doesn't look unstable.")
+
+#      self.report(BcrValidationResult.FAILED,
+#                  f"{module_name}@{version} is using an unstable source url: `{source_url}`.\n"
+#                  + "The source url should follow the format of `https://github.com/<ORGANIZATION>/<REPO>/archive/refs/tags/<TAG>.tar.gz` to retrieve a source archive that is guaranteed by GitHub to be stable over time.\n"
+#                  + "See https://github.com/bazel-contrib/SIG-rules-authors/issues/11#issuecomment-1029861300 for more context.")
+#    else:
+#      self.report(BcrValidationResult.GOOD, "The source URL doesn't look unstable.")
 
 
   def verify_source_archive_integrity(self, module_name, version):

@@ -4,7 +4,8 @@
     "versions": [
         "4.1.1",
         "4.3.0-pre",
-        "4.3.0-pre2"
+        "4.3.0-pre2",
+        "4.3.0-pre3"
     ],
     "yanked_versions": {}
 }
