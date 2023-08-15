@@ -1,0 +1,9 @@
+{
+    "url": "https://github.com/borglab/gtsam/archive/8214bdc2ff6078b068ca70746715e87f8ea525bf.zip",
+    "integrity": "sha256-emZUPIr79V160deejjn7h75WStUM9yAdNjlW+GGJx9c=",
+    "strip_prefix": "gtsam-8214bdc2ff6078b068ca70746715e87f8ea525bf",
+    "patches": {
+        "add_build_file.patch": "sha256-MysJDOC9xJLVt5xP8MvSuYP2UqcU3Jm0T39u6W0q1OU="
+    },
+    "patch_strip": 0
+}
