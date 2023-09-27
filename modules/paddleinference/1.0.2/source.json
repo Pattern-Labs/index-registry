@@ -1,0 +1,9 @@
+{
+    "url": "https://apollo-system.bj.bcebos.com/archive/v8.0_bev/paddleinferencev-1.0.0.tar.gz",
+    "integrity": "sha256-15rjU9AYEDXrbHUNHp6M9QFI48hkjdH6CE5Qr2Q4Cxw=",
+    "strip_prefix": "paddleinference",
+    "patches": {
+        "add_build_file.patch": "sha256-K00+GWQkY5Iu721WtmGm1Qf06k/ihqY9Zkm+2nvT/8Q="
+    },
+    "patch_strip": 0
+}

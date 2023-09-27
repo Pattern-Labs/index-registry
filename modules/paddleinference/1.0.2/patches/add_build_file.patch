@@ -1,0 +1,45 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,42 @@
++load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
++
++licenses(["notice"])
++
++cc_library(
++    name = "paddleinference_lib",
++    hdrs = glob([
++        "paddle/include/*.h",
++        "paddle/include/**/*.h",
++        "paddle/include/**/**/*.h",
++        "third_party/install/mkldnn/include/*.h",
++        "third_party/install/mkldnn/include/oneapi/dnnl/*.h",
++        "third_party/install/mklml/include/*.h",
++        "third_party/install/protobuf/include/*.h",
++        "third_party/install/utf8proc/include/*.h",
++        "third_party/install/xxhash/include/*.h",
++    ]),
++    includes = ["include"],
++    deps = [
++        "@gflags",
++        "@glog",
++    ],
++)
++
++cc_binary(
++    name = "paddleinference",
++    srcs = [
++        "paddle/lib/libpaddle_inference.so",
++        "third_party/install/mkldnn/lib/libdnnl.so.2",
++        "third_party/install/mkldnn/lib/libmkldnn.so.0",
++        "third_party/install/mklml/lib/libiomp5.so",
++        "third_party/install/mklml/lib/libmklml_intel.so",
++    ],
++    includes = ["include"],
++    linkshared = 1,
++    visibility = ["//visibility:public"],
++    deps = [
++        ":paddleinference_lib",
++        "@gflags",
++        "@glog",
++    ],
++)
