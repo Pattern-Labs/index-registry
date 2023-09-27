@@ -1,0 +1,8 @@
+module(
+    name = "paddleinference",
+    version = "1.0.0",
+    compatibility_level = 1,
+)
+bazel_dep(name = "rules_cc", version = "0.0.6")
+bazel_dep(name = "gflags", version = "2.2.2")
+bazel_dep(name = "glog", version = "0.6.0")
