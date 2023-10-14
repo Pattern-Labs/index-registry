@@ -1,0 +1,15 @@
+module(
+    name = "guardrail",
+    version = "1.3.4",
+    compatibility_level = 2,
+)
+
+bazel_dep(name = "rules_cc", version = "0.0.6")
+bazel_dep(name = "rules_python", version = "0.22.0")
+bazel_dep(name = "googletest", version = "1.12.1")
+bazel_dep(name = "pattern_tools", version = "1.8.5")
+bazel_dep(name = "sick_lidar_driver", version = "1.4.3")
+bazel_dep(name = "nlohmann_json", version = "3.11.2")
+
+python_configure_ext = use_extension("@pattern_tools//python_config:extension.bzl", "python_configure_ext")
+use_repo(python_configure_ext, "local_config_python")
