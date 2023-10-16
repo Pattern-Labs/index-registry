@@ -45,7 +45,7 @@ jobs:
         with:
           cwd: ./local_repo
           author_name: github.actor
-          message: 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}".'
+          message: 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}.'
           add: "MODULE.bazel"
           tag:  ${{ env.PATTERN_VERSION_NUMBER }}
           tag_push: '--force'
