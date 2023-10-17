@@ -3,6 +3,7 @@
 ## add_module.py
 
 An interactive script for adding a module to the BCR.
+
 ```
 $ ./tools/add_module.py
 INFO: Getting module information from user input...
@@ -13,6 +14,7 @@ ACTION: Please enter the module name:
 ## calc_integrity.py
 
 Calculate integrity value of a local file or a file downloaded at a URL.
+
 ```
 $ ./tools/calc_integrity.py https://github.com/madler/zlib/archive/refs/tags/v1.2.13.zip
 sha256-woVpUbvzDjCGGs43ZVldhroT8s8BJ52QH2xiJYxX9P8=
@@ -24,6 +26,7 @@ sha256-woVpUbvzDjCGGs43ZVldhroT8s8BJ52QH2xiJYxX9P8=
 ## bcr_validation.py
 
 A script to validate module information in the BCR. It is used in the BCR presubmit.
+
 ```
 usage: bcr_validation.py [-h] [--registry REGISTRY] [--check CHECK] [--check_all] [--check_all_metadata] [--fix]
 
@@ -40,6 +43,7 @@ optional arguments:
 ## print_all_src_urls.py
 
 Print the list of source archive URLs of all modules in the BCR.
+
 ```
 $ ./tools/print_all_src_urls.py
 https://github.com/bazelbuild/rules_jvm_external/archive/refs/tags/4.4.2.zip
