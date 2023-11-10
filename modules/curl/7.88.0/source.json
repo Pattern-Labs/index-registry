@@ -1,0 +1,9 @@
+{
+    "integrity": "sha256-37hYKgWok+MFeDBH15H/714WfSlc+NErnrnPoJkcpak=",
+    "strip_prefix": "curl-7.88.0",
+    "url": "https://github.com/curl/curl/releases/download/curl-7_88_0/curl-7.88.0.tar.gz",
+    "patch_strip": 0,
+    "patches": {
+        "add_build_file.patch": "sha256-kXXjVcrZSH5y3L3l42i3dUqJwZ5oJQOCn5HEvvlS1X4="
+    }
+}

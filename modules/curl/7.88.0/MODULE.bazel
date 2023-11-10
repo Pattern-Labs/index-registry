@@ -1,0 +1,6 @@
+module(
+    name = "curl",
+    version = "7.88.0",
+    compatibility_level = 1,
+)
+bazel_dep(name = "rules_cc", version = "0.0.1")

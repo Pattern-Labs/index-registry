@@ -2,7 +2,8 @@
     "homepage": "https://github.com/civetweb/civetweb/",
     "maintainers": [],
     "versions": [
-        "1.11"
+        "1.11",
+        "1.16"
     ],
     "yanked_versions": {}
 }

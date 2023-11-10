@@ -1,0 +1,61 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,58 @@
++licenses(["notice"])  # MIT license
++
++
++COPTS = [
++    "-DUSE_IPV6",
++    "-DNDEBUG",
++    "-DNO_CGI",
++    "-DNO_CACHING",
++    "-DNO_FILES",
++    "-UDEBUG",
++    "-DOPENSSL_API_1_1",
++    "-DNO_SSL_DL",
++]
++
++
++cc_library(
++    name = "libcivetweb",
++    srcs = [
++        "src/civetweb.c",
++    ],
++    hdrs = [
++        "include/civetweb.h",
++    ],
++    copts = COPTS,
++    includes = [
++        "include",
++    ],
++    linkopts =["-lrt","-lpthread"],
++    textual_hdrs = [
++        "src/handle_form.inl",
++        "src/match.inl",
++        "src/md5.inl",
++        "src/response.inl",
++        "src/sort.inl",
++    ],
++    visibility = ["//visibility:public"],
++    deps = [        "@boringssl//:crypto",
++        "@boringssl//:ssl"],
++)
++
++cc_library(
++    name = "civetweb",
++    srcs = [
++        "src/CivetServer.cpp",
++    ],
++    hdrs = [
++        "include/CivetServer.h",
++    ],
++    copts = COPTS,
++    includes = [
++        "include",
++    ],
++    linkopts =["-lrt","-lpthread"],
++    visibility = ["//visibility:public"],
++    deps = [
++        ":libcivetweb",
++    ],
++)
