@@ -32,10 +32,10 @@ jobs:
         with:
           repository: "pattern-labs/${{ inputs.module_name }}"
           path: local_repo
-          token: ${{ secrets.REPO_ACCESS_PAT }}
+          token: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Set Repo PAT
-        run: export PATTERN_GITHUB_TOKEN=${{ secrets.REPO_ACCESS_PAT }}
+        run: export PATTERN_GITHUB_TOKEN=${{ secrets.ACCESS_TOKEN }}
 
       - name: Update BAZEL.module
         run: python3 .github/workflows/tools/main.py --local --bump-${{ inputs.bump_type}} --export-tag --save-local --module-name ${{ inputs.module_name }}
@@ -48,4 +48,3 @@ jobs:
           message: 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}.'
           add: "MODULE.bazel"
           tag:  ${{ env.PATTERN_VERSION_NUMBER }}
-          tag_push: '--force'
