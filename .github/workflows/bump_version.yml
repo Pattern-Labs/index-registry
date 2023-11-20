@@ -26,6 +26,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: "pattern-labs/index-registry"
+          token: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Checkout Repo being bumped
         uses: actions/checkout@v3
@@ -34,9 +35,6 @@ jobs:
           path: local_repo
           token: ${{ secrets.ACCESS_TOKEN }}
 
-      - name: Set Repo PAT
-        run: export PATTERN_GITHUB_TOKEN=${{ secrets.ACCESS_TOKEN }}
-
       - name: Update BAZEL.module
         run: python3 .github/workflows/tools/main.py --local --bump-${{ inputs.bump_type}} --export-tag --save-local --module-name ${{ inputs.module_name }}
 
@@ -44,7 +42,6 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           cwd: ./local_repo
-          author_name: github.actor
           message: 'Update bazel tag to ${{ env.PATTERN_VERSION_NUMBER }}.'
           add: "MODULE.bazel"
           tag:  ${{ env.PATTERN_VERSION_NUMBER }}
