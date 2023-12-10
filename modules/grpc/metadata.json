@@ -2,7 +2,8 @@
     "homepage": "https://github.com/grpc/grpc",
     "maintainers": [],
     "versions": [
-        "1.47.0-pattern"
+        "1.47.0-pattern",
+	"1.48.1.bcr.2-pattern"
     ],
     "yanked_versions": {}
 }
