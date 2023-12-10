@@ -3,7 +3,7 @@
     "maintainers": [],
     "versions": [
         "1.47.0-pattern",
-	"1.48.1.bcr.2-pattern"
+	    "1.48.1-pattern"
     ],
     "yanked_versions": {}
 }

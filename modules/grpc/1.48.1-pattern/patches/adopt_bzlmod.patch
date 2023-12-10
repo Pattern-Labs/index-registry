@@ -14,7 +14,7 @@ index 0000000000..9483873850
 +    name = "grpc",
 +    compatibility_level = 1,
 +    repo_name = "com_github_grpc_grpc",
-+    version = "1.48.1.bcr.2",
++    version = "1.48.1",
 +)
 +
 +bazel_dep(name = "bazel_skylib", version = "1.2.0")
@@ -25,9 +25,9 @@ index 0000000000..9483873850
 +bazel_dep(name = "re2", repo_name = "com_googlesource_code_re2", version = "2021-09-01")
 +bazel_dep(name = "rules_proto", version = "4.0.0")
 +bazel_dep(name = "upb", version = "0.0.0-20220602-e5f2601")
-+bazel_dep(name = "zlib", version = "1.2.13")
++bazel_dep(name = "zlib", version = "1.2.12")
 +bazel_dep(name = "rules_java", version = "5.1.0")
-+bazel_dep(name = "rules_go", repo_name = "io_bazel_rules_go", version = "0.39.1")
++bazel_dep(name = "rules_go", repo_name = "io_bazel_rules_go", version = "0.34.0")
 +
 +grpc_repo_deps_ext = use_extension("//bazel:grpc_deps.bzl", "grpc_repo_deps_ext")
 +
@@ -52,7 +52,7 @@ index b7c51bb73b..d5fab4cced 100644
  load("@upb//bazel:upb_proto_library.bzl", "upb_proto_library", "upb_proto_reflection_library")
 -load("@build_bazel_rules_apple//apple:ios.bzl", "ios_unit_test")
 -load("@build_bazel_rules_apple//apple/testing/default_runner:ios_test_runner.bzl", "ios_test_runner")
-
+ 
  # The set of pollers to test against if a test exercises polling
  POLLERS = ["epoll1", "poll"]
 @@ -63,14 +61,14 @@ def _get_external_deps(external_deps):
@@ -70,7 +70,7 @@ index b7c51bb73b..d5fab4cced 100644
 -            ret.append("//external:" + dep)
 +            ret.append("//third_party:" + dep)
      return ret
-
+ 
  def _update_visibility(visibility):
 @@ -237,10 +235,6 @@ def ios_cc_test(
      test_lib_ios = name + "_test_lib_ios"
@@ -96,7 +96,7 @@ index b7c51bb73b..d5fab4cced 100644
 -            runner = test_runner,
 -            deps = ios_test_deps,
 -        )
-
+ 
  def expand_tests_for_each_poller_and_engine(name, srcs, deps, tags, args, exclude_pollers, uses_event_engine):
      """Common logic used to parameterize tests for every poller and EventEngine.
 diff --git a/bazel/grpc_deps.bzl b/bazel/grpc_deps.bzl
@@ -105,21 +105,21 @@ index bae066d739..534690b81c 100644
 +++ b/bazel/grpc_deps.bzl
 @@ -14,10 +14,10 @@
  """Load dependencies needed to compile and test the grpc library as a 3rd-party consumer."""
-
+ 
  load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 -load("@com_github_grpc_grpc//bazel:grpc_python_deps.bzl", "grpc_python_deps")
 +load("//bazel:grpc_python_deps.bzl", "grpc_python_deps")
-
+ 
  # buildifier: disable=unnamed-macro
 -def grpc_deps():
 +def grpc_bind_deps():
      """Loads dependencies need to compile and test the grpc library."""
-
+ 
      native.bind(
 @@ -195,6 +195,7 @@ def grpc_deps():
          actual = "@com_github_libuv_libuv//:libuv_test",
      )
-
+ 
 +def grpc_repo_deps():
      if "boringssl" not in native.existing_rules():
          http_archive(
@@ -127,7 +127,7 @@ index bae066d739..534690b81c 100644
 @@ -220,19 +221,6 @@ def grpc_deps():
              ],
          )
-
+ 
 -    if "com_google_protobuf" not in native.existing_rules():
 -        http_archive(
 -            name = "com_google_protobuf",
@@ -147,7 +147,7 @@ index bae066d739..534690b81c 100644
 @@ -368,16 +356,6 @@ def grpc_deps():
              ],
          )
-
+ 
 -    if "io_bazel_rules_go" not in native.existing_rules():
 -        http_archive(
 -            name = "io_bazel_rules_go",
@@ -168,12 +168,12 @@ index bae066d739..534690b81c 100644
 +            patches = ["//third_party:opencensus-proto.patch"],
 +            patch_args = ["-p2"],
          )
-
+ 
      if "com_envoyproxy_protoc_gen_validate" not in native.existing_rules():
 @@ -465,8 +445,15 @@ def grpc_deps():
              ],
          )
-
+ 
 +
 +grpc_repo_deps_ext = module_extension(implementation = lambda ctx: grpc_repo_deps())
 +
@@ -181,7 +181,7 @@ index bae066d739..534690b81c 100644
 +    grpc_bind_deps()
 +    grpc_repo_deps()
      grpc_python_deps()
-
+ 
 +
  # TODO: move some dependencies from "grpc_deps" here?
  # buildifier: disable=unnamed-macro
@@ -193,7 +193,7 @@ index 4d8afa3131..b4ab0d5f5b 100644
 @@ -13,9 +13,9 @@
  # limitations under the License.
  """Loads the dependencies necessary for the external repositories defined in grpc_deps.bzl."""
-
+ 
 -load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 -load("@build_bazel_apple_support//lib:repositories.bzl", "apple_support_dependencies")
 -load("@build_bazel_rules_apple//apple:repositories.bzl", "apple_rules_dependencies")
@@ -204,22 +204,22 @@ index 4d8afa3131..b4ab0d5f5b 100644
  load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_language")
  load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 @@ -54,16 +54,19 @@ def grpc_extra_deps(ignore_version_differences = False):
-
+ 
      go_rules_dependencies()
      go_register_toolchains(version = "1.18")
 -    gazelle_dependencies()
 +    # gazelle_dependencies()
-
+ 
      # Pull-in the go 3rd party dependencies for protoc_gen_validate, which is
      # needed for building C++ xDS protos
      go_third_party()
-
+ 
 -    apple_rules_dependencies(ignore_version_differences = ignore_version_differences)
 +    # apple_rules_dependencies(ignore_version_differences = ignore_version_differences)
-
+ 
 -    apple_support_dependencies()
 +    # apple_support_dependencies()
-
+ 
 +    googleapis_deps()
 +
 +def googleapis_deps():
@@ -462,5 +462,5 @@ index bea7b87cec..f6bfb890b8 100644
 +-    deps = ["@com_google_protobuf//:protobuf_python"],
 ++    # deps = ["@com_google_protobuf//:protobuf_python"],
 + )
-+
++ 
 + go_proto_library(
