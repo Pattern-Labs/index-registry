@@ -1,0 +1,5 @@
+{
+    "url": "https://github.com/Pattern-Labs/prometheus-cpp/archive/refs/tags/1.1.p2.tar.gz",
+    "integrity": "sha256-DK2WbtHF6baUglq9+fFoPcmt5ge3J6piPS5w9ybHs1M=",
+    "strip_prefix": "prometheus-cpp-1.1.p2"
+}
