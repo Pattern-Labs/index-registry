@@ -1,0 +1,12 @@
+module(
+    name = "sick_lidar_driver",
+    version = "1.5.0",
+    compatibility_level = 3,
+)
+
+bazel_dep(name = "rules_cc", version = "0.0.6")
+bazel_dep(name = "gflags", version = "2.2.2")
+bazel_dep(name = "googletest", version = "1.12.1")
+bazel_dep(name = "pattern_tools", version = "1.8.5")
+bazel_dep(name = "pcapplusplus", version = "22.05")
+bazel_dep(name = "crcpp", version = "1.2.0.0")
