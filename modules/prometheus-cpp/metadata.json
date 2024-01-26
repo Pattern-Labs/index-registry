@@ -2,7 +2,8 @@
     "homepage": "https://github.com/Pattern-Labs/prometheus-cpp/",
     "maintainers": [],
     "versions": [
-        "1.1.p2"
+        "1.1.p2",
+        "1.2"
     ],
     "yanked_versions": {}
 }

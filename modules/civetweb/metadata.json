@@ -3,7 +3,8 @@
     "maintainers": [],
     "versions": [
         "1.11",
-        "1.16"
+        "1.16",
+        "1.24"
     ],
     "yanked_versions": {}
 }
