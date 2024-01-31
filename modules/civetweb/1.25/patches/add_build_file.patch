@@ -1,0 +1,93 @@
+diff --git a/BUILD.bazel b/BUILD.bazel
+new file mode 100644
+index 00000000..ac613855
+--- /dev/null
++++ b/BUILD.bazel
+@@ -0,0 +1,75 @@
++licenses(["notice"])  # MIT license
++
++COPTS = [
++    "-DUSE_IPV6",
++    "-DNDEBUG",
++    "-DNO_CGI",
++    "-DNO_CACHING",
++    "-DNO_FILES",
++    "-DUSE_WEBSOCKET",
++    "-UDEBUG",
++    "-DOPENSSL_API_1_1",
++    "-DNO_SSL_DL",
++]
++
++DEFINES = [
++    "USE_IPV6",
++    "NDEBUG",
++    "NO_CGI",
++    "NO_CACHING",
++    "NO_FILES",
++    "SOCKET_TIMEOUT_QUANTUM=200",
++]
++
++cc_library(
++    name = "libcivetweb",
++    srcs = [
++        "src/civetweb.c",
++    ],
++    hdrs = [
++        "include/civetweb.h",
++    ],
++    copts = COPTS,
++    defines = DEFINES,
++    includes = [
++        "include",
++    ],
++    linkopts = [
++        "-lrt",
++        "-lpthread",
++    ],
++    textual_hdrs = [
++        "src/handle_form.inl",
++        "src/match.inl",
++        "src/md5.inl",
++        "src/response.inl",
++        "src/sort.inl",
++    ],
++    visibility = ["//visibility:public"],
++    deps = [
++        "@boringssl//:crypto",
++        "@boringssl//:ssl",
++    ],
++)
++
++cc_library(
++    name = "civetweb",
++    srcs = [
++        "src/CivetServer.cpp",
++    ],
++    hdrs = [
++        "include/CivetServer.h",
++    ],
++    copts = COPTS,
++    includes = [
++        "include",
++    ],
++    linkopts = [
++        "-lrt",
++        "-lpthread",
++    ],
++    visibility = ["//visibility:public"],
++    deps = [
++        ":libcivetweb",
++    ],
++)
+diff --git a/src/civetweb.c b/src/civetweb.c
+index 9e321edf..e1912bf1 100644
+--- a/src/civetweb.c
++++ b/src/civetweb.c
+@@ -1778 +1778 @@ typedef struct SSL_CTX SSL_CTX;
+-#define free free
++// #define free free
+@@ -14708 +14708 @@ handle_request(struct mg_connection *conn)
+-	int uri_len, ssl_index;
++	int ssl_index;
+@@ -14761 +14760,0 @@ handle_request(struct mg_connection *conn)
+-	uri_len = (int)strlen(ri->local_uri);
