@@ -4,6 +4,6 @@
     "url": "https://github.com/civetweb/civetweb/archive/v1.16.tar.gz",
     "patch_strip": 1,
     "patches": {
-        "add_build_file.patch": "sha256-b5Jl5wg9gRUFvxRxHkc+Walc8CzCfZAaL6ELM4AsRAU="
+        "add_build_file.patch": "sha256-AxOWvF/54xhb+xdwKSgUCVyAKdUH6srNqEe3TP/Oh5Q="
     }
 }

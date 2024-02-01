@@ -1,6 +1,6 @@
 module(
     name = "civetweb",
-    version = "1.27",
+    version = "1.28",
     compatibility_level = 1,
 )
 
