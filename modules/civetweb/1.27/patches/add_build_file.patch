@@ -3,12 +3,13 @@ new file mode 100644
 index 00000000..ac613855
 --- /dev/null
 +++ b/BUILD.bazel
-@@ -0,0 +1,65 @@
+@@ -0,0 +1,66 @@
 +licenses(["notice"])  # MIT license
 +
 +COPTS = [
 +    "-DUSE_IPV6",
 +    "-DUSE_WEBSOCKET",
++    "-DOPENSSL_API_1_1",
 +    "-DNO_SSL_DL",
 +]
 +
