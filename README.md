@@ -27,7 +27,7 @@ local_path_override(module_name = "guardrail", path = "/path/to/guardrail")
 ## Working with Not-Yet-Merged Code
 If you want to use a git version of a bzlmod dependency for development or testing purposes, add a `git_override` to the bottom of the `MODULE.bazel` file in the root directory. [Documentation reference](https://bazel.build/rules/lib/globals/module#git_override). If you wanted to test `prototype-controller` with some changes to `guardrail`, for example, you would add the line below to the `MODULE.bazel` file in the root `prototype-controller` directory:
 ```
-git_override(guardrail, https://github.com/Pattern-Labs/guardrail, commit='9bcf0701268c3e1186ee25e35031ba112ebfdedd')
+git_override(module_name = "guardrail", remote = "https://github.com/Pattern-Labs/guardrail", commit = "0ee3fe4909a4ff947518959523fe5bf8c1ab4a29")
 ```
 
 ## Using a Local Copy of the Index Registry
