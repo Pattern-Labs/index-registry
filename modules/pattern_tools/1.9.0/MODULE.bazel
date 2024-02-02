@@ -1,0 +1,13 @@
+module(
+    name = "pattern_tools",
+    version = "1.9.0",
+    compatibility_level = 2,
+)
+bazel_dep(name = "rules_cc", version = "0.0.2")
+bazel_dep(name = "rules_python", version = "0.12.0")
+bazel_dep(name = "googletest", version = "1.11.0")
+bazel_dep(name = "libfluent", version = "2.6.4")
+bazel_dep(name = "nlohmann_json", version = "3.8.0")
+
+python_configure_ext = use_extension("@pattern_tools//python_config:extension.bzl", "python_configure_ext")
+use_repo(python_configure_ext, "local_config_python")
