@@ -1,0 +1,21 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,18 @@
++# Released under the BSD and Boost Software Licenses
++
++cc_library(
++    name = "concurrentqueue",
++    hdrs = ["concurrentqueue.h"],
++    includes = ["."],
++    include_prefix = "concurrentqueue",
++    visibility = ["//visibility:public"],
++)
++
++cc_library(
++    name = "blockingconcurrentqueue",
++    hdrs = ["blockingconcurrentqueue.h", "lightweightsemaphore.h"],
++    includes = ["."],
++    deps = [":concurrentqueue"],
++    include_prefix = "concurrentqueue",
++    visibility = ["//visibility:public"],
++)
