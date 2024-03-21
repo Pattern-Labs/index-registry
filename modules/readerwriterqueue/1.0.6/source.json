@@ -1,0 +1,9 @@
+{
+    "integrity": "sha256-/Gj1W71JqLZGRiaV4Xd/uPLAtPNC1eZXQTUhExK6VsE=",
+    "strip_prefix": "readerwriterqueue-1.0.6",
+    "url": "https://github.com/cameron314/readerwriterqueue/archive/refs/tags/v1.0.6.tar.gz",
+    "patch_strip": 0,
+    "patches": {
+        "add_build_file.patch": "sha256-QgfcqvOUIi7Sfn3Zm/P1BGm+5HmoFCjNcEfkI6NhTw0="
+    }
+}

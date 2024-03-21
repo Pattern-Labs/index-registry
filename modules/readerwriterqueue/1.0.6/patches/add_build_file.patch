@@ -1,0 +1,27 @@
+--- /dev/null
++++ BUILD.bazel
+@@ -0,0 +1,24 @@
++# Released under the BSD and Boost Software Licenses
++
++cc_library(
++    name = "atomicops",
++    hdrs = ["atomicops.h"],
++)
++
++cc_library(
++    name = "readerwriterqueue",
++    hdrs = ["readerwriterqueue.h"],
++    includes = ["."],
++    include_prefix = "readerwriterqueue",
++    visibility = ["//visibility:public"],
++    deps = [":atomicops"],
++)
++
++cc_library(
++    name = "readerwritercircularbuffer",
++    hdrs = ["readerwritercircularbuffer.h"],
++    includes = ["."],
++    include_prefix = "readerwriterqueue",
++    visibility = ["//visibility:public"],
++    deps = [":atomicops"],
++)
