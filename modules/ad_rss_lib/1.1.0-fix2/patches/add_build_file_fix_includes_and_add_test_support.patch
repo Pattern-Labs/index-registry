@@ -3,7 +3,7 @@ new file mode 100644
 index 00000000..252a8f58
 --- /dev/null
 +++ b/BUILD
-@@ -0,0 +1,53 @@
+@@ -0,0 +1,56 @@
 +licenses(["notice"])
 +
 +cc_library(
