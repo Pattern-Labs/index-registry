@@ -1,0 +1,567 @@
+diff --git a/BUILD b/BUILD
+new file mode 100644
+index 00000000..252a8f58
+--- /dev/null
++++ b/BUILD
+@@ -0,0 +1,53 @@
++licenses(["notice"])
++
++cc_library(
++    name = "ad_rss",
++    srcs = [
++        "src/generated/physics/Acceleration.cpp",
++        "src/generated/physics/CoordinateSystemAxis.cpp",
++        "src/generated/physics/Distance.cpp",
++        "src/generated/physics/DistanceSquared.cpp",
++        "src/generated/physics/Duration.cpp",
++        "src/generated/physics/DurationSquared.cpp",
++        "src/generated/physics/ParametricValue.cpp",
++        "src/generated/physics/Speed.cpp",
++        "src/generated/physics/SpeedSquared.cpp",
++        "src/generated/situation/LateralRelativePosition.cpp",
++        "src/generated/situation/LongitudinalRelativePosition.cpp",
++        "src/generated/situation/SituationType.cpp",
++        "src/generated/state/LateralResponse.cpp",
++        "src/generated/state/LongitudinalResponse.cpp",
++        "src/generated/world/LaneDrivingDirection.cpp",
++        "src/generated/world/LaneSegmentType.cpp",
++        "src/generated/world/ObjectType.cpp",
++        "src/core/RssCheck.cpp",
++        "src/core/RssResponseResolving.cpp",
++        "src/core/RssResponseTransformation.cpp",
++        "src/core/RssSituationChecking.cpp",
++        "src/core/RssSituationExtraction.cpp",
++        "src/physics/Math.cpp",
++        "src/situation/RSSFormulas.cpp",
++        "src/situation/RssIntersectionChecker.cpp",
++        "src/situation/RSSSituation.cpp",
++        "src/world/RssSituationCoordinateSystemConversion.cpp",
++        "src/world/RssObjectPositionExtractor.cpp",
++    ] + glob(["src/**/*.hpp"]),
++    hdrs = glob([
++     "include/**/*.hpp",
++     "tests/**/*.hpp",
++    ]),
++    copts = [
++        "-fPIC",
++        "-std=c++11",
++        "-Werror",
++        "-Wall",
++        "-Wextra",
++        "-pedantic",
++        "-Wconversion",
++        "-Wsign-conversion",
++    ],
++    includes = [
++        "include",
++        "include/generated",
++        "src",
++        "tests/test_support",
++    ],
++    visibility = ["//visibility:public"]
++)
+\ No newline at end of file
+diff --git a/include/generated/ad_rss/physics/AccelerationRangeValidInputRange.hpp b/include/generated/ad_rss/physics/AccelerationRangeValidInputRange.hpp
+index 29f1a0eb..4d79fef1 100644
+--- a/include/generated/ad_rss/physics/AccelerationRangeValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/AccelerationRangeValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/AccelerationValidInputRange.hpp b/include/generated/ad_rss/physics/AccelerationValidInputRange.hpp
+index aacbd26d..805510a9 100644
+--- a/include/generated/ad_rss/physics/AccelerationValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/AccelerationValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/CoordinateSystemAxisValidInputRange.hpp b/include/generated/ad_rss/physics/CoordinateSystemAxisValidInputRange.hpp
+index ffbcb94d..aef70b9f 100644
+--- a/include/generated/ad_rss/physics/CoordinateSystemAxisValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/CoordinateSystemAxisValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/DistanceSquaredValidInputRange.hpp b/include/generated/ad_rss/physics/DistanceSquaredValidInputRange.hpp
+index 4ae3a683..fd92a5e3 100644
+--- a/include/generated/ad_rss/physics/DistanceSquaredValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/DistanceSquaredValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/DistanceValidInputRange.hpp b/include/generated/ad_rss/physics/DistanceValidInputRange.hpp
+index e737794a..fcc54abc 100644
+--- a/include/generated/ad_rss/physics/DistanceValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/DistanceValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/DurationSquaredValidInputRange.hpp b/include/generated/ad_rss/physics/DurationSquaredValidInputRange.hpp
+index edc0fa32..14b335e8 100644
+--- a/include/generated/ad_rss/physics/DurationSquaredValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/DurationSquaredValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/DurationValidInputRange.hpp b/include/generated/ad_rss/physics/DurationValidInputRange.hpp
+index 0166e621..59bad95b 100644
+--- a/include/generated/ad_rss/physics/DurationValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/DurationValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/MetricRangeValidInputRange.hpp b/include/generated/ad_rss/physics/MetricRangeValidInputRange.hpp
+index 79e61168..03c5214b 100644
+--- a/include/generated/ad_rss/physics/MetricRangeValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/MetricRangeValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/ParametricRangeValidInputRange.hpp b/include/generated/ad_rss/physics/ParametricRangeValidInputRange.hpp
+index 8145b24d..ad3c911d 100644
+--- a/include/generated/ad_rss/physics/ParametricRangeValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/ParametricRangeValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/ParametricValueValidInputRange.hpp b/include/generated/ad_rss/physics/ParametricValueValidInputRange.hpp
+index c10a606d..ac196346 100644
+--- a/include/generated/ad_rss/physics/ParametricValueValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/ParametricValueValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/SpeedSquaredValidInputRange.hpp b/include/generated/ad_rss/physics/SpeedSquaredValidInputRange.hpp
+index 3872e730..45475eb5 100644
+--- a/include/generated/ad_rss/physics/SpeedSquaredValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/SpeedSquaredValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/physics/SpeedValidInputRange.hpp b/include/generated/ad_rss/physics/SpeedValidInputRange.hpp
+index 2371b84c..f6b5a3ff 100644
+--- a/include/generated/ad_rss/physics/SpeedValidInputRange.hpp
++++ b/include/generated/ad_rss/physics/SpeedValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/situation/LateralRelativePositionValidInputRange.hpp b/include/generated/ad_rss/situation/LateralRelativePositionValidInputRange.hpp
+index 4caaaeff..4094ab37 100644
+--- a/include/generated/ad_rss/situation/LateralRelativePositionValidInputRange.hpp
++++ b/include/generated/ad_rss/situation/LateralRelativePositionValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/situation/LongitudinalRelativePositionValidInputRange.hpp b/include/generated/ad_rss/situation/LongitudinalRelativePositionValidInputRange.hpp
+index 70dc6874..96f0f5ca 100644
+--- a/include/generated/ad_rss/situation/LongitudinalRelativePositionValidInputRange.hpp
++++ b/include/generated/ad_rss/situation/LongitudinalRelativePositionValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/situation/RelativePositionValidInputRange.hpp b/include/generated/ad_rss/situation/RelativePositionValidInputRange.hpp
+index 762bc3ff..9f56d0dc 100644
+--- a/include/generated/ad_rss/situation/RelativePositionValidInputRange.hpp
++++ b/include/generated/ad_rss/situation/RelativePositionValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/situation/SituationTypeValidInputRange.hpp b/include/generated/ad_rss/situation/SituationTypeValidInputRange.hpp
+index 2de1688f..06c95f94 100644
+--- a/include/generated/ad_rss/situation/SituationTypeValidInputRange.hpp
++++ b/include/generated/ad_rss/situation/SituationTypeValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/situation/SituationValidInputRange.hpp b/include/generated/ad_rss/situation/SituationValidInputRange.hpp
+index 107b9f61..632dd370 100644
+--- a/include/generated/ad_rss/situation/SituationValidInputRange.hpp
++++ b/include/generated/ad_rss/situation/SituationValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/situation/SituationVectorValidInputRange.hpp b/include/generated/ad_rss/situation/SituationVectorValidInputRange.hpp
+index 450d24b8..8397737a 100644
+--- a/include/generated/ad_rss/situation/SituationVectorValidInputRange.hpp
++++ b/include/generated/ad_rss/situation/SituationVectorValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/situation/VehicleStateValidInputRange.hpp b/include/generated/ad_rss/situation/VehicleStateValidInputRange.hpp
+index 0e814afb..da468268 100644
+--- a/include/generated/ad_rss/situation/VehicleStateValidInputRange.hpp
++++ b/include/generated/ad_rss/situation/VehicleStateValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/state/LateralResponseValidInputRange.hpp b/include/generated/ad_rss/state/LateralResponseValidInputRange.hpp
+index 50426c80..44cc137a 100644
+--- a/include/generated/ad_rss/state/LateralResponseValidInputRange.hpp
++++ b/include/generated/ad_rss/state/LateralResponseValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/state/LateralRssStateValidInputRange.hpp b/include/generated/ad_rss/state/LateralRssStateValidInputRange.hpp
+index 89a01f56..4436d1b5 100644
+--- a/include/generated/ad_rss/state/LateralRssStateValidInputRange.hpp
++++ b/include/generated/ad_rss/state/LateralRssStateValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/state/LongitudinalResponseValidInputRange.hpp b/include/generated/ad_rss/state/LongitudinalResponseValidInputRange.hpp
+index a6aa7886..6a7081d6 100644
+--- a/include/generated/ad_rss/state/LongitudinalResponseValidInputRange.hpp
++++ b/include/generated/ad_rss/state/LongitudinalResponseValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/state/LongitudinalRssStateValidInputRange.hpp b/include/generated/ad_rss/state/LongitudinalRssStateValidInputRange.hpp
+index e036bd4f..39e5b961 100644
+--- a/include/generated/ad_rss/state/LongitudinalRssStateValidInputRange.hpp
++++ b/include/generated/ad_rss/state/LongitudinalRssStateValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/state/ResponseStateValidInputRange.hpp b/include/generated/ad_rss/state/ResponseStateValidInputRange.hpp
+index 8bd07c07..073be8a4 100644
+--- a/include/generated/ad_rss/state/ResponseStateValidInputRange.hpp
++++ b/include/generated/ad_rss/state/ResponseStateValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/state/ResponseStateVectorValidInputRange.hpp b/include/generated/ad_rss/state/ResponseStateVectorValidInputRange.hpp
+index 461c592f..a7f75890 100644
+--- a/include/generated/ad_rss/state/ResponseStateVectorValidInputRange.hpp
++++ b/include/generated/ad_rss/state/ResponseStateVectorValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/AccelerationRestrictionValidInputRange.hpp b/include/generated/ad_rss/world/AccelerationRestrictionValidInputRange.hpp
+index adf0a393..c22f2519 100644
+--- a/include/generated/ad_rss/world/AccelerationRestrictionValidInputRange.hpp
++++ b/include/generated/ad_rss/world/AccelerationRestrictionValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/DynamicsValidInputRange.hpp b/include/generated/ad_rss/world/DynamicsValidInputRange.hpp
+index 16d8409e..1feece43 100644
+--- a/include/generated/ad_rss/world/DynamicsValidInputRange.hpp
++++ b/include/generated/ad_rss/world/DynamicsValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/LaneDrivingDirectionValidInputRange.hpp b/include/generated/ad_rss/world/LaneDrivingDirectionValidInputRange.hpp
+index 20249d43..86e8f6e7 100644
+--- a/include/generated/ad_rss/world/LaneDrivingDirectionValidInputRange.hpp
++++ b/include/generated/ad_rss/world/LaneDrivingDirectionValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/LaneSegmentTypeValidInputRange.hpp b/include/generated/ad_rss/world/LaneSegmentTypeValidInputRange.hpp
+index f089c39c..65226aec 100644
+--- a/include/generated/ad_rss/world/LaneSegmentTypeValidInputRange.hpp
++++ b/include/generated/ad_rss/world/LaneSegmentTypeValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/LaneSegmentValidInputRange.hpp b/include/generated/ad_rss/world/LaneSegmentValidInputRange.hpp
+index ab4c3cbf..50ca6de7 100644
+--- a/include/generated/ad_rss/world/LaneSegmentValidInputRange.hpp
++++ b/include/generated/ad_rss/world/LaneSegmentValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/LateralRssAccelerationValuesValidInputRange.hpp b/include/generated/ad_rss/world/LateralRssAccelerationValuesValidInputRange.hpp
+index 7c96e48b..7031686d 100644
+--- a/include/generated/ad_rss/world/LateralRssAccelerationValuesValidInputRange.hpp
++++ b/include/generated/ad_rss/world/LateralRssAccelerationValuesValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp b/include/generated/ad_rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp
+index 48b568f7..835a296b 100644
+--- a/include/generated/ad_rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp
++++ b/include/generated/ad_rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/ObjectTypeValidInputRange.hpp b/include/generated/ad_rss/world/ObjectTypeValidInputRange.hpp
+index 2177dc00..8165ea53 100644
+--- a/include/generated/ad_rss/world/ObjectTypeValidInputRange.hpp
++++ b/include/generated/ad_rss/world/ObjectTypeValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/ObjectValidInputRange.hpp b/include/generated/ad_rss/world/ObjectValidInputRange.hpp
+index 6ac7d76a..4c47edd2 100644
+--- a/include/generated/ad_rss/world/ObjectValidInputRange.hpp
++++ b/include/generated/ad_rss/world/ObjectValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/OccupiedRegionValidInputRange.hpp b/include/generated/ad_rss/world/OccupiedRegionValidInputRange.hpp
+index 7c946332..41706283 100644
+--- a/include/generated/ad_rss/world/OccupiedRegionValidInputRange.hpp
++++ b/include/generated/ad_rss/world/OccupiedRegionValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/OccupiedRegionVectorValidInputRange.hpp b/include/generated/ad_rss/world/OccupiedRegionVectorValidInputRange.hpp
+index a749a7e2..3fff1805 100644
+--- a/include/generated/ad_rss/world/OccupiedRegionVectorValidInputRange.hpp
++++ b/include/generated/ad_rss/world/OccupiedRegionVectorValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/RoadAreaValidInputRange.hpp b/include/generated/ad_rss/world/RoadAreaValidInputRange.hpp
+index a4244d97..c792c44b 100644
+--- a/include/generated/ad_rss/world/RoadAreaValidInputRange.hpp
++++ b/include/generated/ad_rss/world/RoadAreaValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/RoadSegmentValidInputRange.hpp b/include/generated/ad_rss/world/RoadSegmentValidInputRange.hpp
+index 20ab2164..2ff9402d 100644
+--- a/include/generated/ad_rss/world/RoadSegmentValidInputRange.hpp
++++ b/include/generated/ad_rss/world/RoadSegmentValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/SceneValidInputRange.hpp b/include/generated/ad_rss/world/SceneValidInputRange.hpp
+index 5bc377e6..3a3c9b6b 100644
+--- a/include/generated/ad_rss/world/SceneValidInputRange.hpp
++++ b/include/generated/ad_rss/world/SceneValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/SceneVectorValidInputRange.hpp b/include/generated/ad_rss/world/SceneVectorValidInputRange.hpp
+index a1a8b370..7e81d97d 100644
+--- a/include/generated/ad_rss/world/SceneVectorValidInputRange.hpp
++++ b/include/generated/ad_rss/world/SceneVectorValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/VelocityValidInputRange.hpp b/include/generated/ad_rss/world/VelocityValidInputRange.hpp
+index 1ae7a07f..9c37925d 100644
+--- a/include/generated/ad_rss/world/VelocityValidInputRange.hpp
++++ b/include/generated/ad_rss/world/VelocityValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
+diff --git a/include/generated/ad_rss/world/WorldModelValidInputRange.hpp b/include/generated/ad_rss/world/WorldModelValidInputRange.hpp
+index 5de6a97b..081e6639 100644
+--- a/include/generated/ad_rss/world/WorldModelValidInputRange.hpp
++++ b/include/generated/ad_rss/world/WorldModelValidInputRange.hpp
+@@ -38,6 +38,7 @@
+  */
+ 
+ #pragma once
++#include <stdexcept>
+ 
+ #include <cmath>
+ #include <limits>
