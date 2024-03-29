@@ -7,7 +7,7 @@
 +        "src/*.cpp",
 +    ]),
 +    hdrs = glob([
-+        "include/yaml-cpp/*.h",
++        "include/yaml-cpp/**.h",
 +        "src/*.h",
 +    ]),
 +    includes = [
