@@ -37,8 +37,12 @@ index 00000000..252a8f58
 +        "src/situation/RSSSituation.cpp",
 +        "src/world/RssSituationCoordinateSystemConversion.cpp",
 +        "src/world/RssObjectPositionExtractor.cpp",
++        "tests/test_support/TestSupport.cpp",
 +    ] + glob(["src/**/*.hpp"]),
-+    hdrs = glob(["include/**/*.hpp"]),
++    hdrs = glob([
++     "include/**/*.hpp",
++     "tests/**/*.hpp",
++    ]),
 +    copts = [
 +        "-fPIC",
 +        "-std=c++11",
