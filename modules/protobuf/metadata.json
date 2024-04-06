@@ -10,6 +10,6 @@
     "github:protocolbuffers/protobuf"
   ],
   "versions": [
-    "23.1-patched"
+    "23.1.1"
   ]
 }
