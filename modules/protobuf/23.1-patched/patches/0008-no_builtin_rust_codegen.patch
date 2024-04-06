@@ -1,0 +1,12 @@
+--- a/src/google/protobuf/compiler/main.cc
++++ b/src/google/protobuf/compiler/main.cc
+@@ -113,10 +113,6 @@ int ProtobufMain(int argc, char* argv[]) {
+   cli.RegisterGenerator("--objc_out", "--objc_opt", &objc_generator,
+                         "Generate Objective-C header and source.");
+ 
+-  // Rust
+-  rust::RustGenerator rust_generator;
+-  cli.RegisterGenerator("--rust_out", &rust_generator,
+-                        "Generate Rust sources.");
+   return cli.Run(argc, argv);
+ }
