@@ -9,7 +9,7 @@
         "0005-Migrate-from-bind-to-alias.patch": "sha256-OHsXlAzbHYMAvGRlKGcxmolaoLXa86Rc5lhs84YAApg=",
         "0006-Make-rules_ruby-a-dev-only-dependency.patch": "sha256-+OEree/96gfqgK7Is+KA7/bi77icq8zaFq/9j+1lFuk=",
         "0007-bazel-Get-rid-of-exec_tools.-13401.patch": "sha256-Thj5ZYqMpgaUrjZv8XyWqyD+I6XQNcZjo4jI14a7QxE=",
-        "0008-no_builtin_rust_codegen.patch": "sha256-b82lj/X7ZjMKxxq6L35KBLkWK9BcIKcIkbRm7IRlT9w="
+        "0008-no_builtin_rust_codegen.patch": "sha256-TE63VixG/TORuMOlV0ng9z2w0Xhty14FQojpMG/Sijk="
     },
     "strip_prefix": "protobuf-23.1",
     "url": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v23.1.zip"

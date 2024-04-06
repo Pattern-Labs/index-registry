@@ -10,3 +10,4 @@
 -                        "Generate Rust sources.");
    return cli.Run(argc, argv);
  }
+ 
