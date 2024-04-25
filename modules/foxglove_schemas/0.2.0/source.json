@@ -1,0 +1,9 @@
+{
+    "integrity": "sha256-ODK2G5xDHasc9GawKrkMYCFZvFRW7oz43449SBS7NLM=",
+    "patch_strip": 1,
+    "patches": {
+        "add_build_file.patch": "sha256-PXYhSu8JmL34uZF7N4JD8nE/MYSQhABqf4TI8+KI9bg="
+    },
+    "strip_prefix": "schemas-releases-python-foxglove-schemas-protobuf-v0.2.0/",
+    "url": "https://github.com/foxglove/schemas/archive/refs/tags/releases/python/foxglove-schemas-protobuf/v0.2.0.tar.gz"
+}
