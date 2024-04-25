@@ -1,0 +1,11 @@
+module(
+    name = "foxglove_schemas",
+    # releases/python/foxglove-schemas-protobuf/v0.2.0
+    version = "0.2.0-1",
+    compatibility_level = 0,
+)
+
+bazel_dep(name = "protobuf", repo_name="com_google_protobuf", version = "3.19.0")
+bazel_dep(name = "rules_cc", version = "0.0.2")
+bazel_dep(name = "rules_proto", version = "4.0.0")
+
