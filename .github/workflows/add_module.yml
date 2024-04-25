@@ -60,7 +60,7 @@ jobs:
         run: tools/add_module.py --input=script_input.json
       - name: Get branch name
         id: branch-name
-        uses: tj-actions/branch-names@v6
+        uses: tj-actions/branch-names@v7
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
