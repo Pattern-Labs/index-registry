@@ -1,0 +1,5 @@
+{
+    "url": "https://github.com/Pattern-Labs/libfluent/archive/refs/tags/2.8.0.tar.gz",
+    "integrity": "sha256-6L/9/igMVaKANz8sdGPRNl+nyZrXZBel1K50vqFXPgo=",
+    "strip_prefix": "libfluent-2.8.0"
+}
