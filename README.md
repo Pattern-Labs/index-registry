@@ -54,3 +54,8 @@ Using the absolute path of your locally modified index registry instead of `/hom
 ## Adding a new Library to the Index Registry
 
 Some types of libraries are easier to add than others. If a library has its code on github, and that code can be built into a project with the addition of a `BUILD` file in that repo's root, it's pretty easy! Easier still if the library already has a `BUILD` file. See [the tutorial](docs/adding_a_library.md) for a worked example.
+
+
+## Updating a new Library with a new version
+
+If you are pulling in an update to a module already tracked in the index registry, follow the instructions in [this doc](docs/updating_a_library.md) to formulate the necessary changes.
