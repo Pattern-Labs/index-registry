@@ -23,7 +23,7 @@ curl --netrc -I https://github.com/Pattern-Labs/sick_lidar_driver/archive/refs/t
 
 ## Working with a Local Dependency Version
 
-If you want to use a local version of a bzlmod dependency for development or testing purposes, add a `local_path_override` to the bottom of the `MODULE.bazel` file in the root directory. [Documentation reference](https://bazel.build/rules/lib/globals#local_path_override). If you wanted to test `prototype-controller` with some changes to `guardrail`, for example, you would add the line below to the `MODULE.bazel` file in the root `prototype-controller` directory:
+If you want to use a local version of a bzlmod dependency for development or testing purposes, add a `local_path_override` to the bottom of the `MODULE.bazel` file in the root directory. [Documentation reference](https://bazel.build/rules/lib/globals/module#local_path_override). If you wanted to test `prototype-controller` with some changes to `guardrail`, for example, you would add the line below to the `MODULE.bazel` file in the root `prototype-controller` directory:
 
 ```
 local_path_override(module_name = "guardrail", path = "/path/to/guardrail")
