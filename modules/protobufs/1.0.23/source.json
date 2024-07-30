@@ -1,0 +1,5 @@
+{
+    "url": "https://github.com/Pattern-Labs/protobufs/archive/refs/tags/1.0.23.tar.gz",
+    "integrity": "sha256-s7yqLQqVkSYMJgAsNmsa4wCwb7nkUppeFkSnv9bGjAI=",
+    "strip_prefix": "protobufs-1.0.23"
+}
